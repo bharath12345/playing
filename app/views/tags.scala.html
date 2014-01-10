@@ -1,3 +1,15 @@
 @(message: String)
 
-<h1>@message</h1>
+@content = {
+@* Content goes here *@
+}
+
+@main{
+@meta()
+}{
+@topMostNav()
+}{
+content
+}{
+@footer()
+}

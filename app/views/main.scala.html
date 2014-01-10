@@ -1,4 +1,4 @@
-@(meta: Html)(topMostNav: Html)
+@(meta: Html)(topMostNav: Html)(content: Html)(footer: Html)
 
 <!DOCTYPE html>
 
@@ -29,5 +29,10 @@
     <body>
         @topMostNav
 
+        <div class="container">
+          @content
+        </div>
+
+        @footer
     </body>
 </html>
