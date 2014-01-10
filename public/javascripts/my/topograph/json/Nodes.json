@@ -1,0 +1,38 @@
+[
+    {
+        "layertype": "Ingress",
+        "layer":[
+            {
+                "name":"WebServers",
+                "value": ["FLXRET_IHS1","FLXRET_IHS2","FLXRET_IHS3","FLXRET_IHS4"]
+            }
+        ]
+    },
+    {
+        "layertype": "Core",
+        "layer":[
+            {
+                "name":"AppServers",
+                "value": ["FLXRETWAS1","FLXRETWAS2","FLXRETWAS3","FLXRETWAS4","FLXRETWAS5","FLXRETWAS6"]
+            }
+        ]
+    },
+    {
+        "layertype": "Egress",
+        "layer":[
+            {
+                "name":"Databases",
+                "value": ["ExternalDB1", "ExternalDB2"]
+            },
+            {
+                "name": "MessageQueues",
+                "value": ["RTGS_MSGQ", "NEFT_MSGQ"]
+            },
+            {
+                "name": "TcpEndpoints",
+                "value": ["TCP_ENDPNT1", "TCP_ENDPNT2"]
+            }
+        ]
+    }
+]
+

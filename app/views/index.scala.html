@@ -1,0 +1,102 @@
+@(message: String)
+
+@main {
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta http-equiv="Content-Encoding" content="gzip"/>
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta name="author" content="{{ site.author.name }}"/>
+<meta name="description" content="{{ site.description }}"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+} {
+
+<div class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" id="topmost" style="background-color: #483d8b">
+    <div class="container">
+        <a class="navbar-brand" href="/">{{ site.title }}</a>
+
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <div class="navbar-collapse collapse bs-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/pages/tags.html">Tags</a>
+                </li>
+                <li>
+                    <a href="/pages/categories.html">Categories</a>
+                </li>
+                <li>
+                    <a href="/pages/toc.html">Index</a>
+                </li>
+                <li>
+                    <a href="/search.html">Search</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right hidden-print">
+                <li>
+                    <a class="hidden-sm" title="About me" href="/pages/about/work.html">
+                        <i class="icon-user icon-fixed-width"></i>
+                    </a>
+                    <a class="visible-sm" title="About me" href="/pages/about/work.html">
+                        <i class="icon-user icon-fixed-width"></i>
+                        About me
+                    </a>
+                </li>
+                <li>
+                    <a class="hidden-sm" title="Follow me" href="https://twitter.com/{{ site.author.twitter }}">
+                        <i class="icon-twitter icon-fixed-width"></i>
+                    </a>
+                    <a class="visible-sm" title="Atom Feed" href="https://twitter.com/{{ site.author.twitter }}">
+                        <i class="icon-twitter icon-fixed-width"></i>
+                        Follow me
+                    </a>
+                </li>
+                <li>
+                    <a class="hidden-sm" title="Projects" href="https://github.com/{{ site.author.github }}">
+                        <i class="icon-github icon-fixed-width"></i>
+                    </a>
+                    <a class="visible-sm" title="Projects" href="https://github.com/{{ site.author.github }}">
+                        <i class="icon-github icon-fixed-width"></i>
+                        GitHub Projects
+                    </a>
+                </li>
+                <li>
+                    <a class="hidden-sm" title="CV" href="http://www.linkedin.com/in/bharadwajn">
+                        <i class="icon-linkedin icon-fixed-width"></i>
+                    </a>
+                    <a class="visible-sm" title="CV" href="http://www.linkedin.com/in/bharadwajn">
+                        <i class="icon-linkedin icon-fixed-width"></i>
+                        CV
+                    </a>
+                </li>
+                <li>
+                    <a class="hidden-sm" title="Facebook" href="https://www.facebook.com/bharadwajn">
+                        <i class="icon-facebook icon-fixed-width"></i>
+                    </a>
+                    <a class="visible-sm" title="Facebook" href="https://www.facebook.com/bharadwajn">
+                        <i class="icon-facebook icon-fixed-width"></i>
+                        Facebook
+                    </a>
+                </li>
+                <li>
+                    <a class="hidden-sm" title="Videos" href="http://www.youtube.com/user/bharadwajnarasimha">
+                        <i class="icon-youtube icon-fixed-width"></i>
+                    </a>
+                    <a class="visible-sm" title="Videos" href="http://www.youtube.com/user/bharadwajnarasimha">
+                        <i class="icon-youtube icon-fixed-width"></i>
+                        YouTube Videos
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+}

@@ -1,0 +1,17 @@
+[
+    {"nodes":["WebServers_FLXRET_IHS1", "AppServers_FLXRETWAS1"]},
+    {"nodes":["WebServers_FLXRET_IHS1", "AppServers_FLXRETWAS2"]},
+    {"nodes":["WebServers_FLXRET_IHS1", "AppServers_FLXRETWAS3"]},
+    {"nodes":["WebServers_FLXRET_IHS1", "AppServers_FLXRETWAS4"]},
+    {"nodes":["WebServers_FLXRET_IHS1", "AppServers_FLXRETWAS5"]},
+    {"nodes":["WebServers_FLXRET_IHS1", "AppServers_FLXRETWAS6"]},
+
+    {"nodes":["AppServers_FLXRETWAS1", "Databases_ExternalDB1"]},
+    {"nodes":["AppServers_FLXRETWAS1", "Databases_ExternalDB2"]},
+
+    {"nodes":["AppServers_FLXRETWAS1", "MessageQueues_RTGS_MSGQ"]},
+    {"nodes":["AppServers_FLXRETWAS1", "MessageQueues_NEFT_MSGQ"]},
+
+    {"nodes":["AppServers_FLXRETWAS2", "TcpEndpoints_TCP_ENDPNT1"]},
+    {"nodes":["AppServers_FLXRETWAS2", "TcpEndpoints_TCP_ENDPNT2"]}
+]
