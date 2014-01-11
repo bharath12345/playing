@@ -1,15 +1,18 @@
-@(message: String)
+@(fileList: List[String])
 
-@content = {
-   @* Content goes here *@
-}
 
-@main{
-  @meta()
+@common.main{
+  @common.meta()
 }{
-  @topMostNav()
+  @common.topMostNav()
 }{
-  content
+  @* Content goes here *@
+
+  @fileList.map { name =>
+    <h4>@name</h4>
+  }
 }{
-  @footer()
+  @common.footer()
+}{
+  @common.postpagescripts()
 }

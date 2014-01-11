@@ -1,0 +1,87 @@
+<script type=text/javascript>var libLocation;
+    switch (pageType) {
+        case "post":
+            libLocation = location.pathname + '../../lib/my';
+            break;
+
+        case "about":
+            libLocation = location.protocol + "//" + location.host + '/lib/my';
+            break;
+
+        case "index":
+            libLocation = location.pathname + 'lib/my';
+            break;
+    }
+    console.log("lib location = " + libLocation);
+
+    var dojoConfig = {
+        dojoBlankHtmlUrl:location.host + '/blank.html',
+        packages:[
+            {
+                name:'my',
+                location:libLocation
+            }
+        ]
+    };</script><script src=//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js></script><script type=text/javascript>require([ "my/common.min", "dojo/domReady!" ], function (common) {
+
+        switch (pageTitle) {
+            case "Effective Java":
+                common.GenerateTOC(4, 1);
+                common.AdjustDivHeight();
+                break;
+
+            case "Few days with Apache Cassandra":
+            case "Build Dojo 1.7/1.8/1.9 with Maven":
+            case "System and Application health - Is there a data collection challenge at the DC?":
+            case "Concurrency on the JVM":
+                common.GenerateTOC(4, 2);
+                break;
+
+            case "Programming Is Hard To Manage":
+                common.GenerateTOC(3, 1);
+                common.AdjustDivHeight();
+                break;
+
+            case "Real Time Dashboard with Camel, ActiveMQ & Dojo... On JBoss7 and using JMS & WebSocket":
+                common.GenerateTOC(3, 3);
+                break;
+
+            case "The Bleeding Edge Of A Web Application...":
+                common.GenerateTOC(4, 3);
+                common.AdjustDivHeight("dev");
+                break;
+
+            case "Why Learn Scala?":
+            case "Open Source DB For Enterprise Apps":
+                common.GenerateTOC(3, 2);
+                break;
+
+            case "My Scala Projects In The Making":
+                common.GenerateTOC(3, 1);
+                break;
+
+            case "Application Topology Graphs - Usecase, Different Product Offerings, Prototype Using D3 and jsPlumb":
+                common.GenerateTOC(3, 2);
+                common.AdjustDivHeight("about");
+                common.AdjustDivHeight("comparison");
+                require([ "my/topograph/initialize.min", "my/topograph/d3AppGraph.min", "my/topograph/jsPlumbAppGraph.min" ],
+                        function (Initialize, D3AppGraph, JsPlumbAppGraph) {
+                            var initialize = new Initialize();
+                            var jsPlumbPane = initialize.initialize();
+
+                            var d3AppGraph = new D3AppGraph();
+                            d3AppGraph.launch();
+
+                            var jsPlumbAppGraph = new JsPlumbAppGraph();
+                            jsPlumbAppGraph.launch(jsPlumbPane);
+
+                            initialize.createImageGallery();
+                        });
+                break;
+
+            case "Weekend well spent with JSFoo & NodeJS":
+            case "Algorithms Course-1 With Prof Sidgewick on Coursera":
+                common.GenerateTOC(4, 1);
+                break;
+        }
+    });</script>

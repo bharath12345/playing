@@ -2,11 +2,22 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+import scala.collection.mutable.ListBuffer
+import play.api.Play.current
 
 object Application extends Controller {
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    val posts = Play.getFile("posts")
+    val fileList = new ListBuffer[String]()
+    for(file <- posts.listFiles) {
+      fileList += file.getName
+    }
+    Ok(views.html.index(fileList.toList))
+  }
+
+  def blog(id: String) = Action {
+    Ok(views.html.blog(id))
   }
 
   def tags = Action {

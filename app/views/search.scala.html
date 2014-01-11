@@ -1,3 +1,17 @@
 @(message: String)
 
-<h1>@message</h1>
+@content = {
+@* Content goes here *@
+}
+
+@common.main{
+  @common.meta()
+}{
+  @common.topMostNav()
+}{
+  @content
+}{
+  @common.footer()
+}{
+  @common.postpagescripts()
+}

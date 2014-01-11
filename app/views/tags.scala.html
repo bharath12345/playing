@@ -4,12 +4,14 @@
 @* Content goes here *@
 }
 
-@main{
-@meta()
+@common.main{
+  @common.meta()
 }{
-@topMostNav()
+  @common.topMostNav()
 }{
-content
+  @content
 }{
-@footer()
+  @common.footer()
+}{
+  @common.postpagescripts()
 }

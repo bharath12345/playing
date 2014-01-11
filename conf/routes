@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                                 controllers.Application.index
+
 
 # Sub Pages
 GET     /pages/tags                       controllers.Application.tags
@@ -11,7 +12,12 @@ GET     /pages/categories                 controllers.Application.categories
 GET     /pages/toc                        controllers.Application.toc
 GET     /pages/search                     controllers.Application.search
 
+
+# Blog Route
+GET     /post/:id                         controllers.Application.blog(id: String)
+
+
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                     controllers.Assets.at(path="/public", file)
 
 
