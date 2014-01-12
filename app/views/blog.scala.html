@@ -1,16 +1,50 @@
-@(id: String)
-
-@content = {
-@* Content goes here *@
-}
+@(title: String)(content: String)(date: String)
 
 @common.main{
   @common.meta()
 }{
   @common.topMostNav()
 }{
-  @id
-  @content
+
+<section class="content">
+    <script type="text/javascript">
+        var pageTitle = @title;
+        var pageType = "post";
+    </script>
+
+    <h2>
+        <a href="{{ page.url }}">@title</a>
+    </h2>
+
+    {% if page.subheading == true %}
+    <h4>{{ page.subhead }}</h4>
+    {% endif %}
+
+
+    <section class="byline">@date</section>
+    <hr>
+    {% if page.tweetfb %}
+    <table>
+        <tr>
+            <td>{% include twitter.html %}</td>
+            <td>{% include facebook.html %}</td>
+        </tr>
+    </table>
+    <hr>
+    {% endif %}
+
+    {% if page.toc == true %}
+    <div id="entryBlock"></div>
+    {% endif %}
+
+    @Html(content)
+
+    <hr>
+    {% if page.disqus %}
+    {% include disqus.html %}
+    {% endif %}
+</section>
+
 }{
   @common.footer()
 }{

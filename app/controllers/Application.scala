@@ -13,16 +13,15 @@ object Application extends Controller {
 
   val pegdown = new PegDownProcessor
 
+  def getLine(lines: Seq[String], search: String): String = {
+    val l = lines.filter(line => line.contains(search))(0)
+    val lrhs = l.replaceAll("\"","").replaceAll(",","").trim.split(":")
+    val lhs = lrhs(0).trim;val rhs = lrhs(1).trim
+    //println(s"lhs = $lhs rhs = $rhs")
+    rhs
+  }
+
   def index = Action {
-
-    def getLine(lines: Seq[String], search: String): String = {
-      val l = lines.filter(line => line.contains(search))(0)
-      val lrhs = l.replaceAll("\"","").replaceAll(",","").trim.split(":")
-      val lhs = lrhs(0).trim;val rhs = lrhs(1).trim
-      //println(s"lhs = $lhs rhs = $rhs")
-      rhs
-    }
-
     val posts = Play.getFile("posts")
 
     var titleMap = new HashMap[Long, String]
@@ -58,7 +57,16 @@ object Application extends Controller {
   }
 
   def blog(id: String) = Action {
-    Ok(views.html.blog(id))
+    val post = Play.getFile("posts/" + id + ".md")
+    val lines = Source.fromFile(post).getLines().toSeq
+    val header = lines.takeWhile( line => !line.equals("}}}"))
+    val content = pegdown.markdownToHtml(lines.dropWhile( line => !line.equals("}}}")).drop(1).mkString(""))
+    println(content)
+
+    val title      = getLine(header, "\"title\"")
+    val date       = getLine(header, "\"date\"")
+
+    Ok(views.html.blog(title)(content)(date))
   }
 
   def tags = Action {
