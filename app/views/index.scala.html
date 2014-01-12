@@ -1,4 +1,4 @@
-@(titles: List[String])(fileList: Map[String, String])(dateMap: Map[String, String])(contentMap: Map[String, Seq[String]])
+@(titles: List[String])(fileList: Map[String, String])(dateMap: Map[String, String])(contentMap: Map[String, String])
 
 @common.main{
   @common.meta()
@@ -9,7 +9,9 @@
     <section class="content">
       <h4><a href="post/@fileList(name)">@name</a></h4>
       <section class="byline">@dateMap(name)</section>
-      <hr>@contentMap(name)<hr>
+      <hr>
+      @Html(contentMap(name))
+      <hr>
     </section>
   }
 }{

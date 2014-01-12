@@ -7,8 +7,11 @@ import play.api.Play.current
 import org.joda.time.DateTime
 import scala.collection.immutable.HashMap
 import scala.io.Source
+import org.pegdown.PegDownProcessor
 
 object Application extends Controller {
+
+  val pegdown = new PegDownProcessor
 
   def index = Action {
 
@@ -24,15 +27,15 @@ object Application extends Controller {
 
     val titleMap = new ListBuffer[String]
     var dateMap = new HashMap[String, String]
-    var contentMap = new HashMap[String, Seq[String]]
+    var contentMap = new HashMap[String, String]
     var fileList = new HashMap[String, String]
 
     for(file <- posts.listFiles) {
       val lines = Source.fromFile(file).getLines().toSeq
       val header = lines.takeWhile( line => !line.equals("}}}"))
       val content = lines.dropWhile( line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
-      val excerpt = content.takeWhile( line => line.length != 0)
-      //for(h <- excerpt) println(h + "\n\n")
+      val excerpt = pegdown.markdownToHtml(content.takeWhile( line => line.length != 0)(0))
+      println(excerpt)
 
       val title      = getLine(header, "\"title\"")
       titleMap += title
