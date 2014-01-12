@@ -1,15 +1,16 @@
-@(fileList: List[String])
-
+@(titles: List[String])(fileList: Map[String, String])(dateMap: Map[String, String])(contentMap: Map[String, Seq[String]])
 
 @common.main{
   @common.meta()
 }{
   @common.topMostNav()
 }{
-  @* Content goes here *@
-
-  @fileList.map { name =>
-    <h4>@name</h4>
+  @titles.map { name =>
+    <section class="content">
+      <h4><a href="post/@fileList(name)">@name</a></h4>
+      <section class="byline">@dateMap(name)</section>
+      <hr>@contentMap(name)<hr>
+    </section>
   }
 }{
   @common.footer()
