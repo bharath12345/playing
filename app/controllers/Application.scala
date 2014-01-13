@@ -67,7 +67,7 @@ object Application extends Controller {
 
     for (file <- posts) {
       val lines = Play.resourceAsStream(file) match {
-        case Some(is) => scala.io.Source.fromInputStream(is).getLines().toSeq
+        case Some(is) => scala.io.Source.fromInputStream(is, "iso-8859-1").getLines().toSeq
         case _ => throw new IOException("file not found: " + file)
       }
 
