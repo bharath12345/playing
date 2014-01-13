@@ -1,15 +1,21 @@
-@(message: String)
-
-@content = {
-@* Content goes here *@
-}
+@(titles: List[String])(url: Map[String, String])(dateMap: Map[String, String])
 
 @common.main{
   @common.meta()
 }{
   @common.topMostNav()
 }{
-  @content
+  <h4>Index of Posts by Date</h4>
+  <hr>
+  <ul class="listing">
+    @titles.map { name =>
+      <li>
+        <span>@dateMap(name)</span>
+        <a href="@url">@name</a>
+      </li>
+    }
+  </ul>
+
 }{
   @common.footer()
 }{

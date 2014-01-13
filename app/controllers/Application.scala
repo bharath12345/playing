@@ -83,7 +83,31 @@ object Application extends Controller {
   }
 
   def toc = Action {
-    Ok(views.html.toc("toc page!"))
+    val posts = Play.getFile("posts")
+
+    var titleMap = new HashMap[Long, String]
+    var dateMap = new HashMap[String, String]
+    var fileList = new HashMap[String, String]
+
+    for(file <- posts.listFiles) {
+      val lines = Source.fromFile(file).getLines().toSeq
+      val header = lines.takeWhile( line => !line.equals("}}}"))
+
+      val title      = getLine(header, "\"title\"")
+      val date       = getLine(header, "\"date\"")
+
+      dateMap = dateMap + (title -> date)
+      val ymd = date.split("-")
+
+      val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
+      //println("date = " + dt)
+      titleMap = titleMap + (dt.getMillis -> title)
+
+      fileList = fileList + (title -> ("post/" + file.getName.replace(".md","")))
+    }
+    val sorted = titleMap.toList.sortWith(_._1 > _._1) // sort by date
+
+    Ok(views.html.toc(sorted.map(_._2))(fileList)(dateMap))
   }
 
   def search = Action {
