@@ -1,0 +1,23 @@
+@(tag: String)(titleSet: Set[String])(fileList: Map[String, String])(dateMap: Map[String, String])
+
+@common.main{
+  @common.meta()
+}{
+  @common.topMostNav()
+}{
+  <h4>Index Of Titles With Tag: @tag</h4>
+  <hr>
+  <ul class="listing">
+    @titleSet.map { name =>
+    <li>
+        <span>@dateMap(name)</span>
+        <a href="../post/@fileList(name)">@name</a>
+    </li>
+    }
+  </ul>
+
+}{
+  @common.footer()
+}{
+  @common.postpagescripts()
+}

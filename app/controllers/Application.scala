@@ -96,9 +96,7 @@ object Application extends Controller {
    * @return
    */
   def tags = Action {
-
     val posts = Play.getFile("posts")
-    //var tagMap = new HashMap[String, ListBuffer[String]]
     var tagSet = new HashSet[String]
 
     for (file <- posts.listFiles) {
@@ -152,7 +150,46 @@ object Application extends Controller {
    * @return
    */
   def categories = Action {
-    Ok(views.html.categories("categories page!"))
+    val posts = Play.getFile("posts")
+    var categorySet = new HashSet[String]
+
+    for (file <- posts.listFiles) {
+      val lines = Source.fromFile(file).getLines().toSeq
+      val header = lines.takeWhile(line => !line.equals("}}}"))
+      val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
+      println("category = " + category)
+      categorySet += category
+    }
+
+    Ok(views.html.categories(categorySet))
+  }
+
+  /**
+   * 
+   * @param id
+   * @return
+   */
+  def category(id: String) = Action {
+    val posts = Play.getFile("posts")
+    var titleSet = new HashSet[String]
+    var fileList = new HashMap[String, String]
+    var dateMap = new HashMap[String, String]
+
+    for (file <- posts.listFiles) {
+      val lines = Source.fromFile(file).getLines().toSeq
+      val header = lines.takeWhile(line => !line.equals("}}}"))
+      val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
+      val date = getLine(header, "\"date\"")
+
+      if (category.equals(id)) {
+        val title = getLine(header, "\"title\"")
+        titleSet += title
+        fileList += (title -> file.getName.replace(".md", ""))
+        dateMap += (title -> date)
+      }
+    }
+
+    Ok(views.html.category(id)(titleSet)(fileList)(dateMap))
   }
 
   /**

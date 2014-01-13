@@ -16,6 +16,7 @@ GET     /search                           controllers.Application.search
 # Blog Route
 GET     /post/:id                         controllers.Application.blog(id: String)
 GET     /tag/:id                          controllers.Application.tag(id: String)
+GET     /category/:id                     controllers.Application.category(id: String)
 
 
 # Map static resources from the /public folder to the /assets URL path

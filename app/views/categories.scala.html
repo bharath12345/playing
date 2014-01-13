@@ -1,4 +1,4 @@
-@(message: String)
+@(categorySet: Set[String])
 
 @content = {
 @* Content goes here *@
@@ -9,7 +9,13 @@
 }{
   @common.topMostNav()
 }{
-  @content
+  <h4>Index by Categories</h4>
+  <ul>
+    @categorySet.map { name =>
+    <li><a href="category/@name">@name</a></li>
+    }
+  </ul>
+
 }{
   @common.footer()
 }{
