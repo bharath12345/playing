@@ -1,15 +1,17 @@
-@(message: String)
-
-@content = {
-@* Content goes here *@
-}
+@(tagSet: Set[String])
 
 @common.main{
   @common.meta()
 }{
   @common.topMostNav()
 }{
-  @content
+  <h4>Index by Tags</h4>
+  <ul>
+    @tagSet.map { name =>
+      <li><a href="tag/@name">@name</a></li>
+    }
+</ul>
+
 }{
   @common.footer()
 }{

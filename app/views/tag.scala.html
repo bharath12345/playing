@@ -1,0 +1,23 @@
+@(message: String)
+
+@common.main{
+  @common.meta()
+}{
+  @common.topMostNav()
+}{
+  <h4>Index by Tags</h4>
+  <ul class="listing">
+    {% for post in site.posts %}
+    {% for tag in page.tags %}
+    {% if tag == page.tag %}
+    <li><a href="{{ tag }}">{{ tag }}</a></li>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+</ul>
+
+}{
+  @common.footer()
+}{
+  @common.postpagescripts()
+}
