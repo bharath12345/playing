@@ -2,7 +2,6 @@ package controllers
 
 import play.api._
 import play.api.mvc._
-import scala.collection.mutable.ListBuffer
 import play.api.Play.current
 import org.joda.time.DateTime
 import scala.collection.immutable.{HashSet, HashMap}
