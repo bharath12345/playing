@@ -16,7 +16,9 @@
         <a href="@url">@title</a>
     </h2>
 
-    <h4>@{if(subheading.length != 0)subheading}</h4>
+    @{if(subheading.length != 0)
+      <h4>@subheading</h4>
+    }
 
     <section class="byline">@date</section>
     <hr>
