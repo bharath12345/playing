@@ -60,7 +60,7 @@ object Application extends Controller {
     val post = Play.getFile("posts/" + id + ".md")
     val lines = Source.fromFile(post).getLines().toSeq
     val header = lines.takeWhile( line => !line.equals("}}}"))
-    val content = pegdown.markdownToHtml(lines.dropWhile( line => !line.equals("}}}")).drop(1).mkString(""))
+    val content = pegdown.markdownToHtml(lines.dropWhile( line => !line.equals("}}}")).drop(1).mkString("\n"))
     println(content)
 
     val title      = getLine(header, "\"title\"")
