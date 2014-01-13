@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import scala.collection.immutable.{HashSet, HashMap}
 import scala.io.Source
 import org.pegdown.PegDownProcessor
+import java.io.IOException
 
 object Application extends Controller {
 
@@ -33,15 +34,25 @@ object Application extends Controller {
    * @return
    */
   def index = Action {
-    val posts = Play.resource("public/posts").map(_.toURI).map(new java.io.File(_)).get
+    //val posts = Play.resource("public/posts").map(_.toURI).map(new java.io.File(_)).get
+
+    val x = Play.resourceAsStream("public/posts") match {
+      case Some(is) => scala.io.Source.fromInputStream(is).getLines().toList
+      case _ => throw new IOException("file not found: public/posts")
+    }
+    println(x)
 
     var titleMap = new HashMap[Long, String]
     var dateMap = new HashMap[String, String]
     var contentMap = new HashMap[String, String]
     var fileList = new HashMap[String, String]
 
-    for (file <- posts.listFiles) {
-      val lines = Source.fromFile(file).getLines().toSeq
+    for (file <- x) {
+      val lines = Play.resourceAsStream("public/posts/"+file) match {
+        case Some(is) => scala.io.Source.fromInputStream(is).getLines().toSeq
+        case _ => throw new IOException("file not found: public/posts")
+      }
+
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
       val excerpt = pegdown.markdownToHtml(content.takeWhile(line => line.length != 0)(0))
@@ -56,7 +67,7 @@ object Application extends Controller {
 
       dateMap += (title -> date)
       titleMap += (dt.getMillis -> title)
-      fileList += (title -> file.getName.replace(".md", ""))
+      fileList += (title -> file.replace(".md", ""))
       contentMap += (title -> excerpt)
     }
 
