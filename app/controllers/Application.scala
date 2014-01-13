@@ -130,7 +130,7 @@ object Application extends Controller {
       //println("tags = " + tags.mkString(","))
 
       for {tag <- tags; if (tag.length > 0)} {
-        println("tag = " + tag)
+        //println("tag = " + tag)
         tagSet += tag.trim
       }
 
@@ -176,7 +176,7 @@ object Application extends Controller {
       val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
-      println("category = " + category)
+      //println("category = " + category)
       categorySet += category
     }
 
