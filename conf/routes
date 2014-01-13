@@ -7,10 +7,10 @@ GET     /                                 controllers.Application.index
 
 
 # Sub Pages
-GET     /pages/tags                       controllers.Application.tags
-GET     /pages/categories                 controllers.Application.categories
-GET     /pages/toc                        controllers.Application.toc
-GET     /pages/search                     controllers.Application.search
+GET     /tags                             controllers.Application.tags
+GET     /categories                       controllers.Application.categories
+GET     /toc                              controllers.Application.toc
+GET     /search                           controllers.Application.search
 
 
 # Blog Route

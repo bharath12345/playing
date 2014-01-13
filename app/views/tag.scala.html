@@ -1,20 +1,20 @@
-@(message: String)
+@(tag: String)(titleSet: Set[String])(fileList: Map[String, String])(dateMap: Map[String, String])
 
 @common.main{
   @common.meta()
 }{
   @common.topMostNav()
 }{
-  <h4>Index by Tags</h4>
+  <h4>Index Of Titles With Tag: @tag</h4>
+  <hr>
   <ul class="listing">
-    {% for post in site.posts %}
-    {% for tag in page.tags %}
-    {% if tag == page.tag %}
-    <li><a href="{{ tag }}">{{ tag }}</a></li>
-    {% endif %}
-    {% endfor %}
-    {% endfor %}
-</ul>
+    @titleSet.map { name =>
+    <li>
+        <span>@dateMap(name)</span>
+        <a href="../post/@fileList(name)">@name</a>
+    </li>
+    }
+  </ul>
 
 }{
   @common.footer()

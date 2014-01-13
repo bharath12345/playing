@@ -57,9 +57,9 @@ object Application extends Controller {
       val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
       //println("date = " + dt)
 
-      dateMap    += (title -> date)
-      titleMap   += (dt.getMillis -> title)
-      fileList   += (title -> file.getName.replace(".md", ""))
+      dateMap += (title -> date)
+      titleMap += (dt.getMillis -> title)
+      fileList += (title -> file.getName.replace(".md", ""))
       contentMap += (title -> excerpt)
     }
 
@@ -78,15 +78,15 @@ object Application extends Controller {
     val url = "posts/" + id + ".md"
     val post = Play.getFile(url)
 
-    val lines   = Source.fromFile(post).getLines().toSeq
-    val header  = lines.takeWhile(line => !line.equals("}}}"))
+    val lines = Source.fromFile(post).getLines().toSeq
+    val header = lines.takeWhile(line => !line.equals("}}}"))
     val content = pegdown.markdownToHtml(lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString("\n"))
     //println(content)
 
-    val title      = getLine(header, "\"title\"")
-    val date       = getLine(header, "\"date\"")
+    val title = getLine(header, "\"title\"")
+    val date = getLine(header, "\"date\"")
     val subheading = getLine(header, "\"subheading\"")
-    val toc        = getLine(header, "\"toc\"").toBoolean
+    val toc = getLine(header, "\"toc\"").toBoolean
 
     Ok(views.html.blog(id.replaceAll(".md", ""))(title)(content)(date)(subheading)(toc))
   }
@@ -102,14 +102,14 @@ object Application extends Controller {
     var tagSet = new HashSet[String]
 
     for (file <- posts.listFiles) {
-      val lines  = Source.fromFile(file).getLines().toSeq
+      val lines = Source.fromFile(file).getLines().toSeq
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
 
       val tags = tagLine.split(" ")
       //println("tags = " + tags.mkString(","))
 
-      for{tag <- tags; if(tag.length > 0)} {
+      for {tag <- tags; if (tag.length > 0)} {
         println("tag = " + tag)
         tagSet += tag.trim
       }
@@ -125,15 +125,26 @@ object Application extends Controller {
    * @return
    */
   def tag(id: String) = Action {
-    /*tags.map( tag => {
-        val postlist = tagMap.get(tag)
-        postlist match {
-          case Some(plist: ListBuffer[String]) => plist += title
-          case None => tagMap += (tag -> ListBuffer(title))
-        }
-      })*/
+    val posts = Play.getFile("posts")
+    var titleSet = new HashSet[String]
+    var fileList = new HashMap[String, String]
+    var dateMap = new HashMap[String, String]
 
-    Ok(views.html.tag(s"tag $id page!"))
+    for (file <- posts.listFiles) {
+      val lines = Source.fromFile(file).getLines().toSeq
+      val header = lines.takeWhile(line => !line.equals("}}}"))
+      val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
+      val date = getLine(header, "\"date\"")
+
+      if (tagLine.contains(id)) {
+        val title = getLine(header, "\"title\"")
+        titleSet += title
+        fileList += (title -> file.getName.replace(".md", ""))
+        dateMap += (title -> date)
+      }
+    }
+
+    Ok(views.html.tag(id)(titleSet)(fileList)(dateMap))
   }
 
   /**
@@ -156,17 +167,17 @@ object Application extends Controller {
     var fileList = new HashMap[String, String]
 
     for (file <- posts.listFiles) {
-      val lines  = Source.fromFile(file).getLines().toSeq
+      val lines = Source.fromFile(file).getLines().toSeq
       val header = lines.takeWhile(line => !line.equals("}}}"))
 
       val title = getLine(header, "\"title\"")
-      val date  = getLine(header, "\"date\"")
+      val date = getLine(header, "\"date\"")
 
       val ymd = date.split("-")
       val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
       //println("date = " + dt)
 
-      dateMap  += (title -> date)
+      dateMap += (title -> date)
       titleMap += (dt.getMillis -> title)
       fileList += (title -> ("post/" + file.getName.replace(".md", "")))
     }
