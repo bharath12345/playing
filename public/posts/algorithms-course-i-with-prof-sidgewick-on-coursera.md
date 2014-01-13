@@ -4,7 +4,8 @@
     "tags" : [ "java", "algorithms", "data structures", "coursera" ],
     "category" : "technology",
     "date" : "10-08-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 I did my engineering in electronics and communication systems. But my very first job was in software development. Having not studied theory of computing, databases, compilers and even algorithms/data-strutures as part of my graduation I went on to self-study these. However, deep down, have felt the need for more structured education. I don't remember when I first heard of [Coursera](https://www.coursera.org). But my early tryst with online education had been dismal (at my previous employer they would make me go through online training's mandatorily… and those used to absolutely suck). So even as I kept track of the courses offered on Coursera since early this year, I did not enroll. A couple of months ago I decided to give it a serious try… and I enrolled myself for the first course on Algorithms by Professor Robert Sidgewick. I finished my final exam on the course yesterday. And it feels great to be done with all tests and programming assignments. The course was structured in the undergraduate training way… which is exactly what I wanted. The learning has been enormous. Anyone who has spent a decade in software development like me would know MergeSort and QuickSort anyway… but the scientific treatment of the subject both in the videos and the textbook gives me a sense of closure. And by the way, I think algorithms and data-structures is a field which a practicing engineer has to seriously brush-up, once in every few years, just to keep up…

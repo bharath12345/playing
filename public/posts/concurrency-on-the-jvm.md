@@ -4,7 +4,8 @@
     "tags" : [ "book", "java" ],
     "category" : "technology",
     "date" : "11-14-2013",
-    "description" : ""
+    "description" : "",
+    "toc": false
 }}}
 Over the last few months I amused myself with an interesting pursuit. I spoke to a large number of people on the aspect of concurrency. I spoke to ex-colleagues. I spoke to engineers, architects at hackathons/meetups. And I interviewed a large number of senior engineers for a job at my company. I spoke to them about building a highly-concurrent, high-volume, real-time data-aggregation engine. Gave examples of easy, textbookish projects to drive home the requirements. Like a stock trading platform with 1000s of users, 1000s of stocks and 100s of stock-exchanges. Or a IPL ticket *bidding* site with 1000s of users, many seating categories, many venues etc. And this small article is about my perspectives at the end of it.
 

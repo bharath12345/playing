@@ -4,7 +4,8 @@
     "tags" : [ "book", "java" ],
     "category" : "technology",
     "date" : "08-22-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 I read this beautifully written article a few days ago - "[I will not do your tech interview](https://medium.com/lessons-learned/80ba19c55883)". I can't agree more with the author. Every single time I have had to give/take a technical interview, more than the sense of being inadequately prepared I feel like carrying an inexplicable psychological burden. And I have met no one who does not fear what Ellis beautifully calls as - *"bear-trap of a stupid brainteaser"* :-).

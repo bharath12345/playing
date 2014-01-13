@@ -29,7 +29,19 @@ object Application extends Controller {
     "topology-graphs-with-d3-and-jsplumb.md",
     "weekend-well-spent-with-jsfoo-nodejs.md",
     "why-learn-scala.md"
-  ).map( name => "public/posts/" + name)
+  )
+
+  /**
+   *
+   * @param file
+   * @return
+   */
+  def fileContent(file: String): Seq[String] = {
+    Play.resourceAsStream(file) match {
+      case Some(is) => scala.io.Source.fromInputStream(is, "iso-8859-1").getLines().toSeq
+      case _ => throw new IOException("file not found: " + file)
+    }
+  }
 
   /**
    *
@@ -52,25 +64,13 @@ object Application extends Controller {
    * @return
    */
   def index = Action {
-    //val posts = Play.resource("public/posts").map(_.toURI).map(new java.io.File(_)).get
-
-    /*val x = Play.resourceAsStream("public/posts") match {
-      case Some(is) => scala.io.Source.fromInputStream(is).getLines().toList
-      case _ => throw new IOException("file not found: public/posts")
-    }
-    println(x)*/
-
     var titleMap = new HashMap[Long, String]
     var dateMap = new HashMap[String, String]
     var contentMap = new HashMap[String, String]
     var fileList = new HashMap[String, String]
 
     for (file <- posts) {
-      val lines = Play.resourceAsStream(file) match {
-        case Some(is) => scala.io.Source.fromInputStream(is, "iso-8859-1").getLines().toSeq
-        case _ => throw new IOException("file not found: " + file)
-      }
-
+      val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
       val excerpt = pegdown.markdownToHtml(content.takeWhile(line => line.length != 0)(0))
@@ -101,10 +101,8 @@ object Application extends Controller {
    * @return
    */
   def blog(id: String) = Action {
-    val url = "public/posts/" + id + ".md"
-    val post = Play.getFile(url)
+    val lines = fileContent("public/posts/" + id + ".md")
 
-    val lines = Source.fromFile(post).getLines().toSeq
     val header = lines.takeWhile(line => !line.equals("}}}"))
     val content = pegdown.markdownToHtml(lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString("\n"))
     //println(content)
@@ -122,11 +120,9 @@ object Application extends Controller {
    * @return
    */
   def tags = Action {
-    val posts = Play.getFile("public/posts")
     var tagSet = new HashSet[String]
-
-    for (file <- posts.listFiles) {
-      val lines = Source.fromFile(file).getLines().toSeq
+    for (file <- posts) {
+      val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
 
@@ -149,13 +145,12 @@ object Application extends Controller {
    * @return
    */
   def tag(id: String) = Action {
-    val posts = Play.getFile("public/posts")
     var titleSet = new HashSet[String]
     var fileList = new HashMap[String, String]
     var dateMap = new HashMap[String, String]
 
-    for (file <- posts.listFiles) {
-      val lines = Source.fromFile(file).getLines().toSeq
+    for (file <- posts) {
+      val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
       val date = getLine(header, "\"date\"")
@@ -163,7 +158,7 @@ object Application extends Controller {
       if (tagLine.contains(id)) {
         val title = getLine(header, "\"title\"")
         titleSet += title
-        fileList += (title -> file.getName.replace(".md", ""))
+        fileList += (title -> file.replace(".md", ""))
         dateMap += (title -> date)
       }
     }
@@ -176,11 +171,9 @@ object Application extends Controller {
    * @return
    */
   def categories = Action {
-    val posts = Play.getFile("public/posts")
     var categorySet = new HashSet[String]
-
-    for (file <- posts.listFiles) {
-      val lines = Source.fromFile(file).getLines().toSeq
+    for (file <- posts) {
+      val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
       println("category = " + category)
@@ -196,13 +189,12 @@ object Application extends Controller {
    * @return
    */
   def category(id: String) = Action {
-    val posts = Play.getFile("public/posts")
     var titleSet = new HashSet[String]
     var fileList = new HashMap[String, String]
     var dateMap = new HashMap[String, String]
 
-    for (file <- posts.listFiles) {
-      val lines = Source.fromFile(file).getLines().toSeq
+    for (file <- posts) {
+      val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
       val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
       val date = getLine(header, "\"date\"")
@@ -210,7 +202,7 @@ object Application extends Controller {
       if (category.equals(id)) {
         val title = getLine(header, "\"title\"")
         titleSet += title
-        fileList += (title -> file.getName.replace(".md", ""))
+        fileList += (title -> file.replace(".md", ""))
         dateMap += (title -> date)
       }
     }
@@ -223,14 +215,12 @@ object Application extends Controller {
    * @return
    */
   def toc = Action {
-    val posts = Play.getFile("public/posts")
-
     var titleMap = new HashMap[Long, String]
     var dateMap = new HashMap[String, String]
     var fileList = new HashMap[String, String]
 
-    for (file <- posts.listFiles) {
-      val lines = Source.fromFile(file).getLines().toSeq
+    for (file <- posts) {
+      val lines = fileContent("public/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}"))
 
       val title = getLine(header, "\"title\"")
@@ -242,7 +232,7 @@ object Application extends Controller {
 
       dateMap += (title -> date)
       titleMap += (dt.getMillis -> title)
-      fileList += (title -> ("post/" + file.getName.replace(".md", "")))
+      fileList += (title -> ("post/" + file.replace(".md", "")))
     }
     val sorted = titleMap.toList.sortWith(_._1 > _._1) // sort by date
 

@@ -4,7 +4,8 @@
     "tags" : [ "javascript", "dojo" ],
     "category" : "technology",
     "date" : "07-18-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 I have been a Dojo user for many years now. Also use many JavaScript libraries (jQuery, backbone, bootstrap, D3, highsoft) all the while but Dojo is what I really love. I would not embark on any "professional" development work without being armed with Dojo. But I rest my opinions and comparisons of different JS libraries for a different blog. Here the context is to "build" Dojo. After all every professional project should do a build of their JS - compilers like Google Closure can find bugs, obfuscate and eventually make execution faster.

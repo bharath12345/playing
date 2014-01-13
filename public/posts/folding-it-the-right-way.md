@@ -4,7 +4,8 @@
     "tags" : [ "scala", "java" ],
     "category" : "technology",
     "date" : "10-31-2013",
-    "description" : ""
+    "description" : "",
+    "toc": false
 }}}
 
 I have been dabbling with Scala for a few months now. And one of the things that strikes me about functional programming is the beauty of the finished code. It sometimes gives me a feeling of being just the right mix of art and science! Gone are the dirty null/empty checking *if statements*. Gone are the dumb variety *for/while loops*. I haven't progressed far enough to be using actors but the very thought that variables in my program are *not getting mutated* while being thrashed across many cores and caches is enough to sometimes give me a high!
