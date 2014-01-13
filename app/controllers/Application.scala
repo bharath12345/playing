@@ -13,6 +13,24 @@ object Application extends Controller {
 
   val pegdown = new PegDownProcessor
 
+  val posts = List("algorithms-course-i-with-prof-sidgewick-on-coursera.md",
+    "build-dojo-1819-with-maven.md",
+    "concurrency-on-the-jvm.md",
+    "effective-java.md",
+    "few-days-with-apache-cassandra.md",
+    "folding-it-the-right-way.md",
+    "is-there-a-collection-challenge-at-the-data-center.md",
+    "java-and-jvm-7-slides-from-a-quick-talk.md",
+    "programming-is-hard-to-manage.md",
+    "real-time-dashboard-with-camel-activemq-dojo-on-jboss-using-jms--websocket.md",
+    "scala-projects-in-the-making.md",
+    "the-bleeding-edge-of-an-application.md",
+    "the-visual-display-of-quantitative-information.md",
+    "topology-graphs-with-d3-and-jsplumb.md",
+    "weekend-well-spent-with-jsfoo-nodejs.md",
+    "why-learn-scala.md"
+  ).map( name => "public/posts/" + name)
+
   /**
    *
    * @param lines
@@ -36,21 +54,21 @@ object Application extends Controller {
   def index = Action {
     //val posts = Play.resource("public/posts").map(_.toURI).map(new java.io.File(_)).get
 
-    val x = Play.resourceAsStream("public/posts") match {
+    /*val x = Play.resourceAsStream("public/posts") match {
       case Some(is) => scala.io.Source.fromInputStream(is).getLines().toList
       case _ => throw new IOException("file not found: public/posts")
     }
-    println(x)
+    println(x)*/
 
     var titleMap = new HashMap[Long, String]
     var dateMap = new HashMap[String, String]
     var contentMap = new HashMap[String, String]
     var fileList = new HashMap[String, String]
 
-    for (file <- x) {
-      val lines = Play.resourceAsStream("public/posts/"+file) match {
+    for (file <- posts) {
+      val lines = Play.resourceAsStream(file) match {
         case Some(is) => scala.io.Source.fromInputStream(is).getLines().toSeq
-        case _ => throw new IOException("file not found: public/posts")
+        case _ => throw new IOException("file not found: " + file)
       }
 
       val header = lines.takeWhile(line => !line.equals("}}}"))
@@ -173,7 +191,7 @@ object Application extends Controller {
   }
 
   /**
-   * 
+   *
    * @param id
    * @return
    */
