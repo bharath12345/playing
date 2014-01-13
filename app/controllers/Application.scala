@@ -34,14 +34,12 @@ object Application extends Controller {
    * @return
    */
   def index = Action {
-    val posts = Play.getFile("posts")
+    val posts = Play.resource("public/posts").map(_.toURI).map(new java.io.File(_)).get
 
     var titleMap = new HashMap[Long, String]
     var dateMap = new HashMap[String, String]
     var contentMap = new HashMap[String, String]
     var fileList = new HashMap[String, String]
-
-    //println("resource = " + Play.resource("public/images"))
 
     for (file <- posts.listFiles) {
       val lines = Source.fromFile(file).getLines().toSeq
@@ -75,7 +73,7 @@ object Application extends Controller {
    * @return
    */
   def blog(id: String) = Action {
-    val url = "posts/" + id + ".md"
+    val url = "public/posts/" + id + ".md"
     val post = Play.getFile(url)
 
     val lines = Source.fromFile(post).getLines().toSeq
@@ -96,7 +94,7 @@ object Application extends Controller {
    * @return
    */
   def tags = Action {
-    val posts = Play.getFile("posts")
+    val posts = Play.getFile("public/posts")
     var tagSet = new HashSet[String]
 
     for (file <- posts.listFiles) {
@@ -123,7 +121,7 @@ object Application extends Controller {
    * @return
    */
   def tag(id: String) = Action {
-    val posts = Play.getFile("posts")
+    val posts = Play.getFile("public/posts")
     var titleSet = new HashSet[String]
     var fileList = new HashMap[String, String]
     var dateMap = new HashMap[String, String]
@@ -150,7 +148,7 @@ object Application extends Controller {
    * @return
    */
   def categories = Action {
-    val posts = Play.getFile("posts")
+    val posts = Play.getFile("public/posts")
     var categorySet = new HashSet[String]
 
     for (file <- posts.listFiles) {
@@ -170,7 +168,7 @@ object Application extends Controller {
    * @return
    */
   def category(id: String) = Action {
-    val posts = Play.getFile("posts")
+    val posts = Play.getFile("public/posts")
     var titleSet = new HashSet[String]
     var fileList = new HashMap[String, String]
     var dateMap = new HashMap[String, String]
@@ -197,7 +195,7 @@ object Application extends Controller {
    * @return
    */
   def toc = Action {
-    val posts = Play.getFile("posts")
+    val posts = Play.getFile("public/posts")
 
     var titleMap = new HashMap[Long, String]
     var dateMap = new HashMap[String, String]
