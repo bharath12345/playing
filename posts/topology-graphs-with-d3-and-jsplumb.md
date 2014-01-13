@@ -1,9 +1,11 @@
 {{{
     "title": "Application Topology Graphs - Usecase, Different Product Offerings, Prototype Using D3 and jsPlumb",
+    "subheading": "",
     "tags" : [ "javascript", "graphs", "d3", "jsplumb" ],
     "category" : "technology",
     "date" : "09-01-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 Graph depictions are common for problems like computer networks, social networks etc. Sometime ago, I came across the use-case of graphs for software application topologies. This post covers the few things I discovered on the topic of application topologies and their graphical representation.

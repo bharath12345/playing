@@ -1,9 +1,11 @@
 {{{
     "title": "The Visual Display of Quantitative Information",
+    "subheading": "",
     "tags" : [ "visualization" ],
     "category" : "visualization",
     "date" : "07-01-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 For the last couple of years I have been in search of theories in Data Visualization. Educate myself on the fundamentals. My search has taken me to many books and blogs. But none as remarkable as Edward Tufte [book](http://www.amazon.com/The-Visual-Display-Quantitative-Information/dp/0961392142) seminal work on the subject. This is a short refresher of the core concepts. Even as I write for myself, it may be of some use to a passing busy programmer.

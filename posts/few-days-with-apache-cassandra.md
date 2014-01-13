@@ -1,5 +1,6 @@
 {{{
     "title": "Few days with Apache Cassandra",
+    "subheading": "",
     "tags" : [ "cassandra", "java", "database" ],
     "category" : "technology",
     "date" : "07-11-2013",

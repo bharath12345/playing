@@ -1,9 +1,11 @@
 {{{
     "title": "My Scala Projects In The Making",
+    "subheading": "",
     "tags" : [ "" ],
     "category" : "technology",
     "date" : "12-25-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 Over the last year I often heard my friends say the era of [MOOC](http://en.wikipedia.org/wiki/Massive_open_online_course) was truly upon us. It was only on taking up couple of Coursera courses did I realise it fully. They have been eye-opening many times over (and extremely rigorous). Would particularly recommend these two to anyone wanting to understand programming for the multicore, realtime, big-data world -

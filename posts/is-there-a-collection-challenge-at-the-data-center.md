@@ -1,9 +1,11 @@
 {{{
     "title": "System and Application health - Is there a data collection challenge at the DC?",
+    "subheading": "",
     "tags" : [ "data-center", "APM" ],
     "category" : "technology",
     "date" : "08-06-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 My champion-hacker friend Sumanth and I spent a little time few weeks ago digging to know if there was a data collection challenge for system and application health metrics at a typical small data center. Here is the little that we discovered...

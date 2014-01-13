@@ -1,5 +1,6 @@
 {{{
     "title": "Effective Java",
+    "subheading": "",
     "tags" : [ "book", "java" ],
     "category" : "technology",
     "date" : "08-22-2013",

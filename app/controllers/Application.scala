@@ -16,9 +16,11 @@ object Application extends Controller {
   def getLine(lines: Seq[String], search: String): String = {
     val l = lines.filter(line => line.contains(search))(0)
     val lrhs = l.replaceAll("\"","").replaceAll(",","").trim.split(":")
-    val lhs = lrhs(0).trim;val rhs = lrhs(1).trim
-    //println(s"lhs = $lhs rhs = $rhs")
-    rhs
+    val lhs = lrhs(0).trim
+    if(lrhs.length == 2)
+      lrhs(1).trim
+    else
+      ""
   }
 
   def index = Action {
@@ -57,7 +59,8 @@ object Application extends Controller {
   }
 
   def blog(id: String) = Action {
-    val post = Play.getFile("posts/" + id + ".md")
+    val url = "posts/" + id + ".md"
+    val post = Play.getFile(url)
     val lines = Source.fromFile(post).getLines().toSeq
     val header = lines.takeWhile( line => !line.equals("}}}"))
     val content = pegdown.markdownToHtml(lines.dropWhile( line => !line.equals("}}}")).drop(1).mkString("\n"))
@@ -65,8 +68,10 @@ object Application extends Controller {
 
     val title      = getLine(header, "\"title\"")
     val date       = getLine(header, "\"date\"")
+    val subheading = getLine(header, "\"subheading\"")
+    val toc        = getLine(header, "\"toc\"").toBoolean
 
-    Ok(views.html.blog(title)(content)(date))
+    Ok(views.html.blog(id.replaceAll(".md",""))(title)(content)(date)(subheading)(toc))
   }
 
   def tags = Action {

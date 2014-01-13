@@ -1,5 +1,6 @@
 {{{
     "title": "Folding it the right way",
+    "subheading": "",
     "tags" : [ "scala", "java" ],
     "category" : "technology",
     "date" : "10-31-2013",

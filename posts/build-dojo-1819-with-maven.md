@@ -1,5 +1,6 @@
 {{{
     "title": "Build Dojo 1.7/1.8/1.9 with Maven",
+    "subheading": "",
     "tags" : [ "javascript", "dojo" ],
     "category" : "technology",
     "date" : "07-18-2013",

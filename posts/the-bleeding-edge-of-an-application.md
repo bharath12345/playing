@@ -1,9 +1,11 @@
 {{{
     "title": "The Bleeding Edge Of A Web Application...",
+    "subheading": "",
     "tags" : [ "javascript", "java", "data-center", "APM" ],
     "category" : "technology",
     "date" : "09-11-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 Most web applications have the well-known 3-tiered structure - WebTier > ApplicationTier > DataTier. Both WebTier and ApplicationTier have the web-layer to parse the incoming HTTP requests. Its in the WebTier that one deploy's load-balancing L4-routers like Apache/Nginx or Netscaler like appliances. HTTP requests are forwarded by the WebTier to the ApplicationTier which is generally served by a much bigger farm of servers. Web-layer in the ApplicationTier is the focus of this blog. Its a challenging area of software development for the following reasons and more - 

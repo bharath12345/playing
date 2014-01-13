@@ -1,9 +1,11 @@
 {{{
     "title": "Programming Is Hard To Manage",
+    "subheading": "",
     "tags" : [ "" ],
     "category" : "technology",
     "date" : "11-27-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 Couple of recent incidents triggered me to write this one. Few weeks ago, I met an old friend. A fellow software industry man. But unlike me, a people manager. As we shared our experiences in software development, my friend picked on my recently acquired MBA. Give me something to read, my friend demanded. I promised him this blog.

@@ -1,9 +1,11 @@
 {{{
     "title": "Real Time Dashboard with Camel, ActiveMQ & Dojo... On JBoss7 and using JMS & WebSocket",
+    "subheading": "",
     "tags" : [ "java", "websocket", "jboss", "visualization" ],
     "category" : "technology",
     "date" : "08-01-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 I have built real-time 'stock-ticker' like dashboards. There are many ways to build them. Few months ago I had the opportunity to design one freshly again for an enterprise product. I did a quick sweep at the different technology stacks that can be used to build a highly scalable (design/code and performance scalability) real-time dashboard. There are many technologies for real-time in the browser (like BlazeDS) that are either outdated or on their way out. I came across this very interesting [presentation](http://fusesource.com/apache-camel-conference-2012/videos/camelone-2012-charles-moulliard-video/), [code](https://github.com/FuseByExample/websocket-activemq-camel) and [blog](http://cmoulliard.blogspot.in/2012_04_01_archive.html) by Charles Moulliard which I found to be a very exciting design. So I sat down to extend what Charles had done to suit my usecase. I would recommend [this nice book](http://www.amazon.com/The-Definitive-Guide-HTML5-WebSocket/dp/1430247401) by Apress as a good introduction to the subject of WebSockets. But before getting to the real usecase and seeing why use Camel or ActiveMQ, here is a quick primer to the different techniques one could use to build a real-time dashboard.

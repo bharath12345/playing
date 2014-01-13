@@ -1,5 +1,6 @@
 {{{
     "title": "Concurrency on the JVM",
+    "subheading": "",
     "tags" : [ "book", "java" ],
     "category" : "technology",
     "date" : "11-14-2013",

@@ -1,9 +1,11 @@
 {{{
     "title": "Weekend well spent with JSFoo and NodeJS",
+    "subheading": "",
     "tags" : [ "javascript", "NodeJS", "JSFoo", "blog" ],
     "category" : "technology",
     "date" : "09-24-2013",
-    "description" : ""
+    "description" : "",
+    "toc": true
 }}}
 
 Had been to the wonderful JavaScript conference [JSFoo](https://funnel.hasgeek.com/jsfoo2013/) last week. The tremendous enthusiasm in the web development community for server side JavaScript was all at display. Personally, I have spent a lot of time coding visualizations with JavaScript. However only recently did I write some tidbits of code with NodeJS. And I hadn't spent any time properly studying it. The conference has spurred me to do better. I started reading NodeJS and working on a small project to create my first non-trivial NodeJS application (which I shall share in this blog). But those details are for a little later… let me start with JSFoo…
