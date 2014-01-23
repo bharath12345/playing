@@ -243,8 +243,10 @@ object Application extends Controller {
    *
    * @return
    */
-  def search = Action {
-    Ok(views.html.search("search page!"))
+  def search = TODO
+
+  def test = Action { request =>
+    Ok("Got request [" + request + "]")
   }
 
 }
