@@ -5,9 +5,11 @@ import play.api.mvc._
 import play.api.Play.current
 import org.joda.time.DateTime
 import scala.collection.immutable.{HashSet, HashMap}
-import scala.io.Source
 import org.pegdown.PegDownProcessor
 import java.io.IOException
+import javax.persistence.EntityManager
+import play.db.jpa.JPA
+import models.Test
 
 object Application extends Controller {
 
@@ -245,7 +247,24 @@ object Application extends Controller {
    */
   def search = TODO
 
+  /*def TransactionalAction(f: Request[AnyContent] => Result): Action[AnyContent] = {
+    Action { request =>
+      startTransaction
+      try {
+        f(request)
+        commit
+      } catch {
+        case e: Exception => rollback
+      }
+
+    }
+  }*/
+
   def test = Action { request =>
+    val test = new Test
+    val em: EntityManager = JPA.em()
+    em.persist(test)
+
     Ok("Got request [" + request + "]")
   }
 
