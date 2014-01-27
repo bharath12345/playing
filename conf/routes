@@ -13,6 +13,16 @@ GET     /toc                              controllers.Application.toc
 GET     /search                           controllers.Application.search
 GET     /test                             controllers.Application.test
 
+GET     /about/about                      controllers.About.about
+GET     /about/books                      controllers.About.books
+GET     /about/current                    controllers.About.current
+GET     /about/education                  controllers.About.education
+GET     /about/movies                     controllers.About.movies
+GET     /about/philosophy                 controllers.About.philosophy
+GET     /about/travel                     controllers.About.travel
+GET     /about/work                       controllers.About.work
+
+
 
 # Blog Route
 GET     /post/:id                         controllers.Application.blog(id: String)

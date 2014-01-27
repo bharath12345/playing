@@ -1,0 +1,53 @@
+@(meta: Html)(topMostNav: Html)(content: Html)(footer: Html)
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @meta
+
+    <title>Bharath's Blog</title>
+
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+    @* CSS *@
+    <link rel='stylesheet' media="screen" type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300'>
+    <link rel="stylesheet" media="screen" type='text/css' href="@routes.Assets.at("javascripts/my/common.min.css")">
+    <link rel='stylesheet' media="screen" type='text/css' href="@routes.Assets.at("javascripts/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" type='text/css' href="@routes.Assets.at("javascripts/bootstrap/css/docs.css")">
+    <link rel='stylesheet' media="screen" type='text/css' href="@routes.Assets.at("javascripts/fontawesome/css/font-awesome.min.css")">
+    <link rel="stylesheet" media="screen" type='text/css' href="//ajax.googleapis.com/ajax/libs/dojo/1.9.1/dijit/themes/claro/claro.css">
+
+    @* JavaScripts *@
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap/js/bootstrap.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jQuery/jquery-1.10.2.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.toc/js/jquery.tableofcontents.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/d3/d3-3.3.2.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jsPlumb/jquery.jsPlumb-1.5.2-min.js")"></script>
+
+    </head>
+    <body>
+        @topMostNav
+
+        <div class="navbar navbar-static-top">
+          <ul class="nav navbar-nav">
+            <li><a class="navbar-link" href="/pages/about/work.html">Work</a></li>
+            <li><a class="navbar-link" href="/pages/about/education.html">Education</a></li>
+            <li><a class="navbar-link" href="/pages/about/philosophy.html">Philosophy</a></li>
+            <li><a class="navbar-link" href="/pages/about/twitter-timeline.html">Twitter Timeline</a></li>
+            <li><a class="navbar-link" href="/pages/about/movies.html">Movies</a></li>
+            <li><a class="navbar-link" href="/pages/about/books.html">Books</a></li>
+            <li><a class="navbar-link" href="/pages/about/travel.html">Travel</a></li>
+            <li><a class="navbar-link" href="/pages/about/quotes.html">Favorite Quotes</a></li>
+            <li><a class="navbar-link" href="/pages/about/current.html">Current Affairs</a></li>
+            <li><a class="navbar-link" href="/pages/about/slideshare.html">Slideshare</a></li>
+          </ul>
+        </div>
+
+        <div class="container">
+          @content
+        </div>
+
+        @footer
+    </body>
+</html>
