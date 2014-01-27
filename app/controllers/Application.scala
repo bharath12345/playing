@@ -245,20 +245,11 @@ object Application extends Controller {
    *
    * @return
    */
-  def search = TODO
+  //def search = TODO
 
-  /*def TransactionalAction(f: Request[AnyContent] => Result): Action[AnyContent] = {
-    Action { request =>
-      startTransaction
-      try {
-        f(request)
-        commit
-      } catch {
-        case e: Exception => rollback
-      }
-
-    }
-  }*/
+  def search = Action { request =>
+    Ok(TwitterOAuth.authenticate)
+  }
 
   def test = Action { request =>
     val test = new Test
