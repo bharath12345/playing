@@ -7,36 +7,32 @@ import play.api.mvc.{Action, Controller}
  */
 object About extends Controller {
 
-  def about = Action {
-    Ok("")
-  }
-
   def books = Action {
-    Ok("")
+    Ok(views.html.self.books())
   }
 
   def current = Action {
-    Ok("")
+    Ok(views.html.self.current())
   }
 
   def education = Action {
-    Ok("")
+    Ok(views.html.self.education())
   }
 
   def movies = Action {
-    Ok("")
+    Ok(views.html.self.movies())
   }
 
   def philosophy = Action {
-    Ok("")
+    Ok(views.html.self.philosophy())
   }
 
   def travel = Action {
-    Ok("")
+    Ok(views.html.self.travel())
   }
 
   def work = Action {
-    Ok("")
+    Ok(views.html.self.work())
   }
 
 }
