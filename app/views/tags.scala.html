@@ -1,18 +1,12 @@
 @(tagSet: Set[String])
 
-@common.main{
-  @common.meta()
-}{
-  @common.topMostNav()
-}{
+@wrapper{
+
   <h4>Index by Tags</h4>
   <ul>
     @tagSet.map { name =>
       <li><a href="tag/@name">@name</a></li>
     }
   </ul>
-}{
-  @common.footer()
-}{
-  @common.postpagescripts()
+
 }

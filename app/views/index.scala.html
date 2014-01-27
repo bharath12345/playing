@@ -1,10 +1,7 @@
 @(titles: List[String])(fileList: Map[String, String])(dateMap: Map[String, String])(contentMap: Map[String, String])
 
-@common.main{
-  @common.meta()
-}{
-  @common.topMostNav()
-}{
+@wrapper{
+
   @titles.map { name =>
     <section class="content">
       <h4><a href="post/@fileList(name)">@name</a></h4>
@@ -14,8 +11,5 @@
       <hr>
     </section>
   }
-}{
-  @common.footer()
-}{
-  @common.postpagescripts()
+
 }

@@ -1,10 +1,7 @@
 @(tag: String)(titleSet: Set[String])(fileList: Map[String, String])(dateMap: Map[String, String])
 
-@common.main{
-  @common.meta()
-}{
-  @common.topMostNav()
-}{
+@wrapper{
+
   <h4>Index Of Titles With Tag: @tag</h4>
   <hr>
   <ul class="listing">
@@ -16,8 +13,4 @@
     }
   </ul>
 
-}{
-  @common.footer()
-}{
-  @common.postpagescripts()
 }

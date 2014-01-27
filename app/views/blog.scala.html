@@ -1,10 +1,6 @@
 @(url: String)(title: String)(content: String)(date: String)(subheading: String)(toc: Boolean)
 
-@common.main{
-  @common.meta()
-}{
-  @common.topMostNav()
-}{
+@wrapper{
 
 <section class="content">
     <script type="text/javascript">
@@ -42,8 +38,4 @@
     {% endif %}
 </section>
 
-}{
-  @common.footer()
-}{
-  @common.postpagescripts()
 }

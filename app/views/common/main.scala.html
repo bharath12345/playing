@@ -1,4 +1,4 @@
-@(meta: Html)(topMostNav: Html)(content: Html)(footer: Html)(postpagescripts: Html)
+@(meta: Html)(topMostNav: Html)(content: Html)(footer: Html)(postpagescripts: Html)(social: Html)
 
 <!DOCTYPE html>
 
@@ -30,7 +30,20 @@
         @topMostNav
 
         <div class="container">
-          @content
+          <div class="row">
+
+            <div class="col-md-10">
+              @content
+            </div>
+
+            @* the sidebar *@
+            <div class="col-md-2">
+              <div class="bs-sidebar hidden-print affix" role="complementary" style="">
+                @social
+              </div>
+            </div>
+
+          </div>
         </div>
 
         @footer
