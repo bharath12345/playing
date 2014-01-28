@@ -5,6 +5,13 @@
 # Home page
 GET     /                                 controllers.Application.index
 
+# Blog Route
+GET     /post/:id                         controllers.Application.blog(id: String)
+GET     /tag/:id                          controllers.Application.tag(id: String)
+GET     /category/:id                     controllers.Application.category(id: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                     controllers.Assets.at(path="/public", file)
 
 # Sub Pages
 GET     /tags                             controllers.Application.tags
@@ -13,6 +20,7 @@ GET     /toc                              controllers.Application.toc
 GET     /search                           controllers.Application.search
 GET     /test                             controllers.Application.test
 
+# About Myself
 GET     /about/books                      controllers.About.books
 GET     /about/current                    controllers.About.current
 GET     /about/education                  controllers.About.education
@@ -21,15 +29,9 @@ GET     /about/philosophy                 controllers.About.philosophy
 GET     /about/travel                     controllers.About.travel
 GET     /about/work                       controllers.About.work
 
+# Twitter Project
+GET     /twitter/followers                controllers.Twitter.followers
+GET     /twitter/mentions                 controllers.Twitter.mentions
 
-
-# Blog Route
-GET     /post/:id                         controllers.Application.blog(id: String)
-GET     /tag/:id                          controllers.Application.tag(id: String)
-GET     /category/:id                     controllers.Application.category(id: String)
-
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                     controllers.Assets.at(path="/public", file)
 
 

@@ -245,18 +245,15 @@ object Application extends Controller {
    *
    * @return
    */
-  //def search = TODO
+  def search = TODO
 
-  def search = Action { request =>
-    Ok(TwitterOAuth.authenticate)
-  }
+  def test = Action {
+    request =>
+      val test = new Test
+      val em: EntityManager = JPA.em()
+      em.persist(test)
 
-  def test = Action { request =>
-    val test = new Test
-    val em: EntityManager = JPA.em()
-    em.persist(test)
-
-    Ok("Got request [" + request + "]")
+      Ok("Got request [" + request + "]")
   }
 
 }
