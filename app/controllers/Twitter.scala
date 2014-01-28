@@ -1,21 +1,16 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
-import play.api.Play.current
-
-import org.apache.http.client.HttpClient
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.client.methods.{HttpPost, HttpGet}
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer
 import org.apache.commons.io.IOUtils
 import play.Logger
 import org.apache.http.HttpResponse
-import java.util
-import org.apache.http.NameValuePair
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import scala.collection.JavaConversions
+import akka.actor.{Props, ActorSystem}
 
 /**
  * Created by bharadwaj on 27/01/14.
@@ -71,5 +66,13 @@ object Twitter extends Controller {
 
       val response = twPostRequestor("https://stream.twitter.com/1.1/statuses/sample.json", uefe)
       rawResponse(response)
+  }
+
+  def go = Action {
+    val system = ActorSystem()
+    val processor = system.actorOf(Props(new TweetProcessor))
+    val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
+    stream ! "scala"
+    Ok("check the logs")
   }
 }
