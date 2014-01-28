@@ -16,8 +16,9 @@ libraryDependencies ++= Seq(
   "javax.persistence"         % "persistence-api"         % "1.0",
   "oauth.signpost"            % "signpost-core"           % "1.2",
   "oauth.signpost"            % "signpost-commonshttp4"   % "1.2",
-  "org.apache.httpcomponents" % "httpclient"              % "4.2",
-  "org.apache.commons"        % "commons-io"              % "1.3.2"
+  "org.apache.httpcomponents" % "httpclient"              % "4.3.2",
+  "org.apache.commons"        % "commons-io"              % "1.3.2",
+  "org.apache.httpcomponents" % "fluent-hc"               % "4.3.2"
 )
 
 play.Project.playScalaSettings

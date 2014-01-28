@@ -32,6 +32,7 @@ GET     /about/work                       controllers.About.work
 # Twitter Project
 GET     /twitter/followers                controllers.Twitter.followers
 GET     /twitter/mentions                 controllers.Twitter.mentions
+GET     /twitter/sample                   controllers.Twitter.sample
 
 
 
