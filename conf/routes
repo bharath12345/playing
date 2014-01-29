@@ -33,7 +33,7 @@ GET     /about/work                       controllers.About.work
 GET     /twitter/followers                controllers.Twitter.followers
 GET     /twitter/mentions                 controllers.Twitter.mentions
 GET     /twitter/sample                   controllers.Twitter.sample
-GET     /twitter/go                       controllers.Twitter.go
+GET     /twitter/go/:query                controllers.Twitter.go(query: String)
 
 
 

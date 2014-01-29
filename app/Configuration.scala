@@ -1,5 +1,3 @@
-package controllers
-
 import com.typesafe.config.ConfigFactory
 import util.Try
 import scala.util.Properties

@@ -5,27 +5,21 @@ import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.client.methods.{HttpPost, HttpGet}
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer
 import org.apache.commons.io.IOUtils
-import play.Logger
+import play.api._
 import org.apache.http.HttpResponse
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import scala.collection.JavaConversions
-import akka.actor.{Props, ActorSystem}
+import twitter.Credentials
 
 /**
  * Created by bharadwaj on 27/01/14.
  */
 object Twitter extends Controller {
 
-  val at = "262534519-OarcKBDjQMmZYGS9rU5CJSwdHAdiXs4eXJOoOCiA"
-  val as = "9MBU2hcAKHQWBtEPE1ihFlM3IlLjVwN8uhUFhuGMsiws3"
-
-  val ck = "Adqs6idtfSjWUp1LOLB2g"
-  val cs = "OPQJ9RvKu3fwL8cirFJwMAHs5iof3aEaIy7hosCyI"
-
   val client = new DefaultHttpClient()
-  val consumer = new CommonsHttpOAuthConsumer(ck, cs)
-  consumer.setTokenWithSecret(at, as)
+  val consumer = new CommonsHttpOAuthConsumer(Credentials.ck, Credentials.cs)
+  consumer.setTokenWithSecret(Credentials.at, Credentials.as)
 
   def twGetRequestor(url: String): HttpResponse = {
     val request = new HttpGet(url)
@@ -68,11 +62,7 @@ object Twitter extends Controller {
       rawResponse(response)
   }
 
-  def go = Action {
-    val system = ActorSystem()
-    val processor = system.actorOf(Props(new TweetProcessor))
-    val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
-    stream ! "scala"
+  def go(query: String) = Action {
     Ok("check the logs")
   }
 }

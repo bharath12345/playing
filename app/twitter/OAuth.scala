@@ -1,4 +1,4 @@
-package controllers
+package twitter
 
 import javax.crypto
 import java.nio.charset.Charset

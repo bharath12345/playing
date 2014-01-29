@@ -1,4 +1,4 @@
-package controllers
+package twitter
 
 import spray.httpx.unmarshalling.{MalformedContent, Unmarshaller, Deserialized}
 import spray.http._
@@ -8,7 +8,7 @@ import akka.actor.{ActorRef, Actor}
 import spray.http.HttpRequest
 import scala.Some
 import models._
-import scala.io.Source
+import play.api._
 import scala.util.Try
 import spray.can.Http
 import akka.io.IO
@@ -20,8 +20,8 @@ trait TwitterAuthorization {
 trait OAuthTwitterAuthorization extends TwitterAuthorization {
   import OAuth._
 
-  val consumer = Consumer(Twitter.ck, Twitter.cs)
-  val token = Token(Twitter.at, Twitter.as)
+  val consumer = Consumer(Credentials.ck, Credentials.cs)
+  val token = Token(Credentials.at, Credentials.as)
 
   val authorize: (HttpRequest) => HttpRequest = oAuthAuthorizer(consumer, token)
 }
@@ -75,14 +75,21 @@ class TweetStreamerActor(uri: Uri, processor: ActorRef) extends Actor with Tweet
   val io: ActorRef = IO(Http)(context.system)
 
   def receive: Receive = {
-    case query: String =>
+    case query: String => {
+      Logger.info("querying string = " + query)
       val body: HttpEntity = HttpEntity(ContentType(MediaTypes.`application/x-www-form-urlencoded`), s"track=$query")
       val rq: HttpRequest = HttpRequest(HttpMethods.POST, uri = uri, entity = body) ~> authorize
       sendTo(io).withResponsesReceivedBy(self)(rq)
+    }
 
-    case ChunkedResponseStart(_) =>
+    case ChunkedResponseStart(_) => {
 
-    case MessageChunk(entity, _) => TweetUnmarshaller(entity).fold(_ => (), processor !)
+    }
+
+    case MessageChunk(entity, _) => {
+      TweetUnmarshaller(entity).fold(_ => (), processor !)
+    }
+
     case _ =>
   }
 }
