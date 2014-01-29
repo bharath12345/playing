@@ -10,8 +10,11 @@ import play.api._
 class TweetProcessor extends Actor {
   def receive: Receive = {
     case tweet: Tweet => {
-      println("tweet = " + tweet)
       Logger.info("tweet = " + tweet)
+      Cache.tweets = tweet :: Cache.tweets
+
+      val htmltweet = "<p>" + tweet.text + "</p>"
+      Cache.tstream.write(htmltweet.getBytes())
     }
   }
 }

@@ -10,7 +10,13 @@ import org.apache.http.HttpResponse
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import scala.collection.JavaConversions
-import twitter.Credentials
+import twitter._
+import akka.actor.{Props, ActorSystem}
+import play.api.libs.iteratee.Enumerator
+import java.io.ByteArrayInputStream
+
+import scala.concurrent._
+import ExecutionContext.Implicits.global
 
 /**
  * Created by bharadwaj on 27/01/14.
@@ -63,6 +69,16 @@ object Twitter extends Controller {
   }
 
   def go(query: String) = Action {
-    Ok("check the logs")
+
+
+    val system = ActorSystem()
+    val processor = system.actorOf(Props(new TweetProcessor))
+    val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
+    stream ! query
+
+    Ok.chunked(
+      Enumerator.fromStream(new ByteArrayInputStream(Cache.tstream.toByteArray)).andThen(Enumerator.eof)
+      //Enumerator("kiki", "foo", "bar").andThen(Enumerator.eof)
+    ).as("text/html")
   }
 }
