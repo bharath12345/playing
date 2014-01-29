@@ -1,5 +1,5 @@
 {{{
-    "title": "Java and JVM 7: Slides from a quick talk",
+    "title": "Java and JVM 7 - Slides from a quick talk",
     "subheading": "",
     "tags" : [ "java", "jvm" ],
     "category" : "technology",

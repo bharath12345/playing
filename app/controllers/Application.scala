@@ -15,7 +15,9 @@ object Application extends Controller {
 
   val pegdown = new PegDownProcessor
 
-  val posts = List("algorithms-course-i-with-prof-sidgewick-on-coursera.md",
+  val posts = List(
+    "application-developers-view-postgresql-vs-mysql.md",
+    "algorithms-course-i-with-prof-sidgewick-on-coursera.md",
     "build-dojo-1819-with-maven.md",
     "concurrency-on-the-jvm.md",
     "effective-java.md",
@@ -53,8 +55,11 @@ object Application extends Controller {
    */
   def getLine(lines: Seq[String], search: String): String = {
     val l = lines.filter(line => line.contains(search))(0)
+    println("l = " + l)
     val lrhs = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
+    println("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
     val lhs = lrhs(0).trim
+    println("lhs = " + lhs)
     if (lrhs.length == 2)
       lrhs(1).trim
     else
@@ -79,6 +84,7 @@ object Application extends Controller {
       //println(excerpt)
 
       val title = getLine(header, "\"title\"")
+      println("title = " + title + " for file = " + file)
       val date = getLine(header, "\"date\"")
 
       val ymd = date.split("-")

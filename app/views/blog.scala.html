@@ -20,8 +20,7 @@
     <hr>
     <table>
         <tr>
-            <td>{% include twitter.html %}</td>
-            <td>{% include facebook.html %}</td>
+            <td>@common.twittershare()</td>
         </tr>
     </table>
     <hr>
@@ -33,9 +32,7 @@
     @Html(content)
 
     <hr>
-    {% if page.disqus %}
     {% include disqus.html %}
-    {% endif %}
 </section>
 
 }

@@ -7,6 +7,7 @@
     "description" : "",
     "toc": true
 }}}
+
 It was a long time ago that I read this masterpiece by the software engineering guru, Peter Norvig - [Teach Yourself Programming In Ten Years](http://norvig.com/21-days.html#answers). Peter advises wannabe programmers to learn at least half a dozen programming languages. Taking stock of myself earlier this year I realised having terribly missed out. In my decade long career, I have worked deeply in only 4 languages - C++, Java, JavaScript and Perl. And *none* of them strongly functional per Peter's advise (functional JavaScript hasn't come to me yet). This led me to pose two questions to myself -
 
 * Why do I need another language? 
