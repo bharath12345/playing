@@ -848,8 +848,10 @@ input.focused {
     width: 213px;
   }
   .bs-sidebar.affix {
-    position: fixed; /* Undo the static from mobile-first approach */
-    top: 80px;
+    display: block;
+    position: inherit; /* Undo the static from mobile-first approach */
+    top: 40px;
+    margin-bottom: 20px;
   }
   .bs-sidebar.affix-bottom {
     position: absolute; /* Undo the static from mobile-first approach */
