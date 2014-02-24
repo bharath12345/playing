@@ -35,5 +35,6 @@ GET     /twitter/mentions                 controllers.Twitter.mentions
 GET     /twitter/sample                   controllers.Twitter.sample
 GET     /twitter/go/:query                controllers.Twitter.go(query: String)
 
-
+GET     /twitter/dashboard/:query         controllers.Twitter.dashboard(query: String)
+GET     /twitter/live/:query              controllers.Twitter.live(query: String)
 

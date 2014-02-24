@@ -1,0 +1,62 @@
+@(query: String)( implicit request: RequestHeader )
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>my twitter dashboard</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts/highcharts.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jQuery/jquery-1.10.2.min.js")"></script>
+    </head>
+    
+    <body onload="show()">
+        <div id="content">
+            <div id="chart"></div>
+        </div>
+	</body>
+</html>
+
+<script type="text/javascript">
+function show( ) {
+
+    var charts = []
+    charts[ '@query' ] = new Highcharts.Chart({
+        chart: {
+            renderTo: 'chart',
+            defaultSeriesType: 'spline'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        series: [{
+            name: "CPU",
+            data: []
+        }
+        ]
+    });
+
+	$("#content").load( "/live/" + @query,
+		function( response, status, xhr ) {
+			if (status == "error") {
+   		    	$("#content").html( "Sorry but there was an error:" + xhr.status + " " + xhr.statusText);
+			}
+    	}
+	)
+}
+</script>
+
+<script type="text/javascript">
+    var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
+    socket.onmessage = function( event ) {
+        console.log("event data = " + event.data)
+        var datapoint = jQuery.parseJSON( event.data );
+        var chart = charts[ '@query' ]
+
+        chart.series[ 0 ].addPoint({
+            x: datapoint.cpu.timestamp,
+            y: datapoint.cpu.load
+        }, true, chart.series[ 0 ].data.length >= 50 );
+    }
+</script>

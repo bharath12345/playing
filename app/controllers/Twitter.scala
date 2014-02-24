@@ -14,9 +14,12 @@ import twitter._
 import akka.actor.{Props, ActorSystem}
 import play.api.libs.iteratee.Enumerator
 import java.io.ByteArrayInputStream
+import models.Statistics
+import models.Statistics._
 
 import scala.concurrent._
 import ExecutionContext.Implicits.global
+import play.api.libs.json.JsValue
 
 /**
  * Created by bharadwaj on 27/01/14.
@@ -69,8 +72,6 @@ object Twitter extends Controller {
   }
 
   def go(query: String) = Action {
-
-
     val system = ActorSystem()
     val processor = system.actorOf(Props(new TweetProcessor))
     val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
@@ -80,5 +81,15 @@ object Twitter extends Controller {
       Enumerator.fromStream(new ByteArrayInputStream(Cache.tstream.toByteArray)).andThen(Enumerator.eof)
       //Enumerator("kiki", "foo", "bar").andThen(Enumerator.eof)
     ).as("text/html")
+  }
+
+  def dashboard(query: String) = Action {
+    implicit request =>
+    Ok(views.html.dashboard(query))
+  }
+
+  def live(query: String) = WebSocket.async[JsValue] {
+    request =>
+      Statistics.attach(query)
   }
 }

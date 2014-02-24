@@ -1,0 +1,11 @@
+#chart {
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+
+#content {
+	float: left;
+	width: 700px;
+	height: 300px;	
+}

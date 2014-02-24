@@ -1,3 +1,7 @@
+import play.Project._
+
+import com.github.play2war.plugin._
+
 name := "playing"
 
 version := "1.0-SNAPSHOT"
@@ -33,4 +37,8 @@ libraryDependencies ++= Seq(
   "io.spray"                  %% "spray-json"             % "1.2.5"
 )
 
-play.Project.playScalaSettings
+playScalaSettings
+
+Play2WarPlugin.play2WarSettings
+
+Play2WarKeys.servletVersion := "3.1"
