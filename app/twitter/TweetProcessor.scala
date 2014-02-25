@@ -15,6 +15,8 @@ class TweetProcessor extends Actor {
 
       val htmltweet = "<p>" + tweet.text + "</p>"
       Cache.tstream.write(htmltweet.getBytes())
+
+      Cache.tweetCounter = Cache.tweetCounter + 1
     }
   }
 }

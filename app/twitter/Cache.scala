@@ -8,6 +8,12 @@ import java.io.ByteArrayOutputStream
  */
 object Cache {
   var tweets = List[Tweet]()
-
   var tstream = new ByteArrayOutputStream
+  var tweetCounter = 0
+
+  def flush = {
+    tweetCounter = 0
+    tstream.reset()
+    tweets = List[Tweet]()
+  }
 }

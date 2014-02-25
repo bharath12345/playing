@@ -85,6 +85,12 @@ object Twitter extends Controller {
 
   def dashboard(query: String) = Action {
     implicit request =>
+
+      val system = ActorSystem()
+      val processor = system.actorOf(Props(new TweetProcessor))
+      val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
+      stream ! query
+
       Ok(views.html.dashboard(query))
   }
 

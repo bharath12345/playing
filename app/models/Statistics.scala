@@ -26,14 +26,14 @@ object Statistics {
 
   var actors: Map[String, ActorRef] = Map()
 
-  def actor(id: String) = actors.synchronized {
-    actors.find(_._1 == id).map(_._2) match {
+  def actor(query: String) = actors.synchronized {
+    actors.find(_._1 == query).map(_._2) match {
       case Some(actor) => actor
 
       case None => {
-        val actor = Akka.system.actorOf(Props(new StatisticsActor(id)), name = s"host-$id")
+        val actor = Akka.system.actorOf(Props(new StatisticsActor(query)), name = s"host-$query")
         Akka.system.scheduler.schedule(0.seconds, 3.second, actor, Refresh)
-        actors += (id -> actor)
+        actors += (query -> actor)
         actor
       }
     }

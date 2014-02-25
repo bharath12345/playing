@@ -41,8 +41,8 @@
         var chart = charts[ '@query' ]
 
         chart.series[ 0 ].addPoint({
-            x: datapoint.cpu.timestamp,
-            y: datapoint.cpu.load
+            x: datapoint.counter.timestamp,
+            y: datapoint.counter.tweets
         }, true, chart.series[ 0 ].data.length >= 50 );
     }
 </script>

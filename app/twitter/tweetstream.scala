@@ -77,14 +77,13 @@ class TweetStreamerActor(uri: Uri, processor: ActorRef) extends Actor with Tweet
   def receive: Receive = {
     case query: String => {
       Logger.info("querying string = " + query)
-      Cache.tstream.reset()
+      Cache.flush
       val body: HttpEntity = HttpEntity(ContentType(MediaTypes.`application/x-www-form-urlencoded`), s"track=$query")
       val rq: HttpRequest = HttpRequest(HttpMethods.POST, uri = uri, entity = body) ~> authorize
       sendTo(io).withResponsesReceivedBy(self)(rq)
     }
 
     case ChunkedResponseStart(_) => {
-
     }
 
     case MessageChunk(entity, _) => {
