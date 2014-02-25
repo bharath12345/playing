@@ -85,7 +85,7 @@ object Twitter extends Controller {
 
   def dashboard(query: String) = Action {
     implicit request =>
-    Ok(views.html.dashboard(query))
+      Ok(views.html.dashboard(query))
   }
 
   def live(query: String) = WebSocket.async[JsValue] {

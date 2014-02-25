@@ -5,13 +5,13 @@
     <head>
         <title>my twitter dashboard</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.ico")">
 
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts/highcharts.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at("javascripts/jQuery/jquery-1.10.2.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts/highcharts.js")"></script>
     </head>
     
-    <body onload="show()">
+    <body>
         <div id="content">
             <div id="chart"></div>
         </div>
@@ -19,8 +19,6 @@
 </html>
 
 <script type="text/javascript">
-function show( ) {
-
     var charts = []
     charts[ '@query' ] = new Highcharts.Chart({
         chart: {
@@ -33,21 +31,9 @@ function show( ) {
         series: [{
             name: "CPU",
             data: []
-        }
-        ]
+        }]
     });
 
-	$("#content").load( "/live/" + @query,
-		function( response, status, xhr ) {
-			if (status == "error") {
-   		    	$("#content").html( "Sorry but there was an error:" + xhr.status + " " + xhr.statusText);
-			}
-    	}
-	)
-}
-</script>
-
-<script type="text/javascript">
     var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
     socket.onmessage = function( event ) {
         console.log("event data = " + event.data)
