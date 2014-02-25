@@ -11,24 +11,33 @@ import play.api.libs.json.JsObject
 import play.api.libs.json.JsString
 import play.api.libs.json.JsValue
 import twitter.Cache
+import play.api._
 
 class StatisticsActor(query: String) extends Actor {
 
   val (enumerator, channel) = Concurrent.broadcast[JsValue]
 
   def receive = {
-    case Connect() => sender ! Connected(enumerator)
+    case Connect() => {
+      Logger.info(s"received connect message. actor = $query")
+      sender ! Connected(enumerator)
+    }
+
     case Refresh => {
-      //broadcast(new Date().getTime(), hostid)
-      broadcastTweetCount(new Date().getTime(), query)
-      Cache.flush
+      Logger.info(s"received refresh message. actor = $query")
+
+      val time = new Date().getTime()
+      //broadcast(time)
+      broadcastTweetCount(time)
+
+      Cache.flush(query)
     }
   }
 
-  def broadcast(timestamp: Long, id: String) {
+  def broadcast(timestamp: Long) {
     val msg = JsObject(
       Seq(
-        "id" -> JsString(id),
+        "query" -> JsString(query),
         "counter" -> JsObject(
           Seq(
             ("timestamp" -> JsNumber(timestamp)),
@@ -40,18 +49,24 @@ class StatisticsActor(query: String) extends Actor {
     channel.push(msg)
   }
 
-  def broadcastTweetCount(timestamp: Long, id: String) {
+  def broadcastTweetCount(timestamp: Long) {
+    val counter = Cache.getTweetCount(query) match {
+      case Some(count) => count
+      case None => 0
+    }
+
     val msg = JsObject(
       Seq(
-        "id" -> JsString(id),
+        "query" -> JsString(query),
         "counter" -> JsObject(
           Seq(
             ("timestamp" -> JsNumber(timestamp)),
-            ("tweets" -> JsNumber(Cache.tweetCounter))
+            ("tweets" -> JsNumber(counter))
           )
         )
       )
     )
+    Logger.info("sending json message = " + msg.toString())
     channel.push(msg)
   }
 }

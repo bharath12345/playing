@@ -13,6 +13,7 @@ import play.api.libs.iteratee.Enumerator
 import play.api.libs.iteratee.Iteratee
 import play.api.libs.json.JsValue
 import models.{StatisticsActor}
+import play.api._
 
 case class Refresh()
 
@@ -28,9 +29,13 @@ object Statistics {
 
   def actor(query: String) = actors.synchronized {
     actors.find(_._1 == query).map(_._2) match {
-      case Some(actor) => actor
+      case Some(actor) => {
+        Logger.info(s"reusing existing actor for $query")
+        actor
+      }
 
       case None => {
+        Logger.info(s"creating new actor for $query")
         val actor = Akka.system.actorOf(Props(new StatisticsActor(query)), name = s"host-$query")
         Akka.system.scheduler.schedule(0.seconds, 3.second, actor, Refresh)
         actors += (query -> actor)
@@ -41,7 +46,10 @@ object Statistics {
 
   def attach(query: String): Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
     (actor(query) ? Connect()).map {
-      case Connected(enumerator) => (Iteratee.ignore[JsValue], enumerator)
+      case Connected(enumerator) => {
+        Logger.info(s"received connected response for actor $query")
+        (Iteratee.ignore[JsValue], enumerator)
+      }
     }
   }
 }

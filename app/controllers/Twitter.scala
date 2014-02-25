@@ -11,7 +11,7 @@ import org.apache.http.message.BasicNameValuePair
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import scala.collection.JavaConversions
 import twitter._
-import akka.actor.{Props, ActorSystem}
+import akka.actor.{ActorRef, Props, ActorSystem}
 import play.api.libs.iteratee.Enumerator
 import java.io.ByteArrayInputStream
 import models.Statistics
@@ -29,6 +29,9 @@ object Twitter extends Controller {
   val client = new DefaultHttpClient()
   val consumer = new CommonsHttpOAuthConsumer(Credentials.ck, Credentials.cs)
   consumer.setTokenWithSecret(Credentials.at, Credentials.as)
+
+  var processors: Map[String, ActorRef] = Map()
+  var streamers: Map[String, ActorRef] = Map()
 
   def twGetRequestor(url: String): HttpResponse = {
     val request = new HttpGet(url)
@@ -73,24 +76,52 @@ object Twitter extends Controller {
 
   def go(query: String) = Action {
     val system = ActorSystem()
-    val processor = system.actorOf(Props(new TweetProcessor))
+    val processor = system.actorOf(Props(new TweetProcessor(query)))
     val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
     stream ! query
 
-    Ok.chunked(
-      Enumerator.fromStream(new ByteArrayInputStream(Cache.tstream.toByteArray)).andThen(Enumerator.eof)
-      //Enumerator("kiki", "foo", "bar").andThen(Enumerator.eof)
-    ).as("text/html")
+    Cache.getByteStream(query) match {
+      case Some(byteStream) => {
+        Ok.chunked(Enumerator.fromStream(new ByteArrayInputStream(byteStream.toByteArray)).andThen(Enumerator.eof)).as("text/html")
+      }
+      case None => {
+        Ok.chunked(Enumerator("something went wrong").andThen(Enumerator.eof)).as("text/html")
+      }
+    }
   }
 
   def dashboard(query: String) = Action {
     implicit request =>
+      val processor: ActorRef = processors.find(_._1 == query).map(_._2) match {
+        case Some(actor) => {
+          Logger.info(s"using existing processor. actor = $query")
+          actor
+        }
+        case None => {
+          Logger.info(s"creating NEW processor. actor = $query")
+          val system = ActorSystem()
+          val newprocessor = system.actorOf(Props(new TweetProcessor(query)), name = s"processor-$query")
+          processors += (query -> newprocessor)
+          newprocessor
+        }
+      }
 
-      val system = ActorSystem()
-      val processor = system.actorOf(Props(new TweetProcessor))
-      val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
-      stream ! query
+      val streamer: ActorRef = streamers.find(_._1 == query).map(_._2) match {
+        case Some(actor) => {
+          Logger.info(s"using existing streamer. actor = $query")
+          actor
+        }
+        case None => {
+          Logger.info(s"creating NEW streamer. actor = $query")
+          val system = ActorSystem()
+          val streamer = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization),
+            name = s"streamer-$query")
+          streamers += (query -> streamer)
+          streamer
+        }
+      }
 
+      streamer ! query
       Ok(views.html.dashboard(query))
   }
 

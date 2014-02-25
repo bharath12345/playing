@@ -7,16 +7,12 @@ import play.api._
 /**
  * Created by bharadwaj on 28/01/14.
  */
-class TweetProcessor extends Actor {
+class TweetProcessor(query: String) extends Actor {
   def receive: Receive = {
     case tweet: Tweet => {
       Logger.info("tweet = " + tweet)
-      Cache.tweets = tweet :: Cache.tweets
-
-      val htmltweet = "<p>" + tweet.text + "</p>"
-      Cache.tstream.write(htmltweet.getBytes())
-
-      Cache.tweetCounter = Cache.tweetCounter + 1
+      val htmlTweet = "<p>" + tweet.text + "</p>"
+      Cache.add(query, htmlTweet)
     }
   }
 }
