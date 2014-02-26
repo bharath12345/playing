@@ -27,19 +27,39 @@ class StatisticsActor(query: String) extends Actor {
       sender ! Connected(enumerator)
     }
 
-    case Refresh => {
+    case Refresh3 => {
       Logger.info(s"received refresh message. actor = $query")
+      broadcastTweetCount(new Date().getTime())
+      Cache.flush3(query)
+    }
 
-      val time = new Date().getTime()
-      //broadcast(time)
-      broadcastTweetCount(time)
+    case Refresh30 => {
+      Logger.info(s"received refresh message. actor = $query")
+      broadcastTweetCount(new Date().getTime())
+      Cache.flush30(query)
+    }
 
-      Cache.flush(query)
+    case Refresh300 => {
+      Logger.info(s"received refresh message. actor = $query")
+      broadcastTweetCount(new Date().getTime())
+      Cache.flush300(query)
+    }
+
+    case Refresh1800 => {
+      Logger.info(s"received refresh message. actor = $query")
+      broadcastTweetCount(new Date().getTime())
+      Cache.flush1800(query)
+    }
+
+    case Refresh10800 => {
+      Logger.info(s"received refresh message. actor = $query")
+      broadcastTweetCount(new Date().getTime())
+      Cache.flush10800(query)
     }
   }
 
   def broadcastTweetCount(timestamp: Long) {
-    val counter = Cache.getTweetCount(query) match {
+    val counter = Cache.getP3TweetCount(query) match {
       case Some(count) => count
       case None => 0
     }

@@ -16,10 +16,12 @@ import play.api.libs.iteratee.Enumerator
 import java.io.ByteArrayInputStream
 import models.Statistics
 import models.Statistics._
+import models.Query
 
 import scala.concurrent._
 import ExecutionContext.Implicits.global
 import play.api.libs.json.JsValue
+import scala.concurrent.duration.{FiniteDuration, DurationInt}
 
 /**
  * Created by bharadwaj on 27/01/14.
@@ -74,7 +76,7 @@ object Twitter extends Controller {
       rawResponse(response)
   }
 
-  def go(query: String) = Action {
+  /*def go(query: String) = Action {
     val system = ActorSystem()
     val processor = system.actorOf(Props(new TweetProcessor(query)))
     val stream = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization))
@@ -88,45 +90,87 @@ object Twitter extends Controller {
         Ok.chunked(Enumerator("something went wrong").andThen(Enumerator.eof)).as("text/html")
       }
     }
+  }*/
+
+  def startStreamerProcessor(query: String): ActorRef = {
+    val processor: ActorRef = processors.find(_._1 == query).map(_._2) match {
+      case Some(actor) => {
+        Logger.info(s"using existing processor. actor = $query")
+        actor
+      }
+      case None => {
+        Logger.info(s"creating NEW processor. actor = $query")
+        val system = ActorSystem()
+        val newprocessor = system.actorOf(Props(new TweetProcessor(query)), name = s"processor-$query")
+        processors += (query -> newprocessor)
+        newprocessor
+      }
+    }
+
+    val streamer: ActorRef = streamers.find(_._1 == query).map(_._2) match {
+      case Some(actor) => {
+        Logger.info(s"using existing streamer. actor = $query")
+        actor
+      }
+      case None => {
+        Logger.info(s"creating NEW streamer. actor = $query")
+        val system = ActorSystem()
+        val streamer = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization),
+          name = s"streamer-$query")
+        streamers += (query -> streamer)
+        streamer
+      }
+    }
+    streamer
   }
 
   def dashboard(query: String) = Action {
     implicit request =>
-      val processor: ActorRef = processors.find(_._1 == query).map(_._2) match {
-        case Some(actor) => {
-          Logger.info(s"using existing processor. actor = $query")
-          actor
-        }
-        case None => {
-          Logger.info(s"creating NEW processor. actor = $query")
-          val system = ActorSystem()
-          val newprocessor = system.actorOf(Props(new TweetProcessor(query)), name = s"processor-$query")
-          processors += (query -> newprocessor)
-          newprocessor
-        }
-      }
-
-      val streamer: ActorRef = streamers.find(_._1 == query).map(_._2) match {
-        case Some(actor) => {
-          Logger.info(s"using existing streamer. actor = $query")
-          actor
-        }
-        case None => {
-          Logger.info(s"creating NEW streamer. actor = $query")
-          val system = ActorSystem()
-          val streamer = system.actorOf(Props(new TweetStreamerActor(TweetStreamerActor.twitterUri, processor) with OAuthTwitterAuthorization),
-            name = s"streamer-$query")
-          streamers += (query -> streamer)
-          streamer
-        }
-      }
-
+      val streamer = startStreamerProcessor(query)
       streamer ! query
-      Ok(views.html.dashboard(query))
+      val wsURL: String = routes.Twitter.live3(query).webSocketURL()
+      Ok(views.html.dashboard(query)(wsURL))
   }
 
-  def live(query: String) = WebSocket.async[JsValue] {
-    request =>
-      Statistics.attach(query)
+  def elections(period: Int) = Action {
+    implicit request =>
+      val query: String = Query.query
+      val streamer = startStreamerProcessor(query)
+      streamer ! query
+      val wsUrl = period match {
+        case 0 => routes.Twitter.live3(query).webSocketURL()
+        case 1 => routes.Twitter.live30(query).webSocketURL()
+        case 2 => routes.Twitter.live300(query).webSocketURL()
+        case 3 => routes.Twitter.live1800(query).webSocketURL()
+        case 4 => routes.Twitter.live10800(query).webSocketURL()
+        case _ => routes.Twitter.live3(query).webSocketURL()
+      }
+      Ok(views.html.dashboard(query)(wsUrl))
   }
+
+  def live3(query: String) = WebSocket.async[JsValue] {
+    request =>
+      Statistics.attach(query, 3.seconds)
+  }
+
+  def live30(query: String) = WebSocket.async[JsValue] {
+    request =>
+      Statistics.attach(query, 30.seconds)
+  }
+
+  def live300(query: String) = WebSocket.async[JsValue] {
+    request =>
+      Statistics.attach(query, 3.minutes)
+  }
+
+  def live1800(query: String) = WebSocket.async[JsValue] {
+    request =>
+      Statistics.attach(query, 30.minutes)
+  }
+
+  def live10800(query: String) = WebSocket.async[JsValue] {
+    request =>
+      Statistics.attach(query, 3.hours)
+  }
+
 }

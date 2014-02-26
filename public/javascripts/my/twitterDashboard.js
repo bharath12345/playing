@@ -30,5 +30,6 @@ require(["dijit/registry", "dojox/layout/GridContainer", "dijit/TitlePane", "doj
         gridContainer.disableDnd(); // Disables DND
         gridContainer.resize()
 
-        abc()
+        createChart()
+        createWebsocket()
     });

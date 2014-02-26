@@ -1,80 +1,14 @@
-@(query: String)( implicit request: RequestHeader )
+@(query: String)(wsUrl: String)( implicit request: RequestHeader )
 
 <!DOCTYPE html>
 <html>
   <head>
     <title>my twitter dashboard</title>
-
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/jQuery/jquery-1.10.2.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts/highcharts.js")"></script>
-
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojox/widget/Portlet/Portlet.css">
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojox/layout/resources/GridContainer.css">
-    <script>dojoConfig = {parseOnLoad: true}</script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojo/dojo.js"></script>
-
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.ico")">
-
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/my/twitterDashboard.js")"></script>
+    @twitter.head()
   </head>
 
-  <body class="claro">
-    <div id='placeHere'></div>
-  </body>
+  @twitter.body()
 </html>
 
-<script type="text/javascript">
-  function abc(){
-    console.log("going jquery")
-    var charts = []
-    var first = charts[ '@query' ] = new Highcharts.Chart({
-        chart: {
-            renderTo: 'chart_0',
-            defaultSeriesType: 'spline'
-        },
-        title:{
-            text:''
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        yAxis: {
-            min: 0,
-            labels: {},
-            title:{
-                text:''
-            }
-        },
-        series: [
-            {
-                data: []
-            }
-        ]
-    });
-
-      var legend = first.legend;
-      if(true) {
-          legend.group.hide();
-          legend.box.hide();
-          legend.display = false;
-      } else {
-          legend.group.show();
-          legend.box.show();
-          legend.display = true;
-      }
-
-      var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
-    socket.onmessage = function (event) {
-        console.log("event data = " + event.data)
-        var datapoint = jQuery.parseJSON(event.data);
-        var chart = charts[ '@query' ]
-
-        chart.series[ 0 ].addPoint({
-            x: datapoint.counter.timestamp,
-            y: datapoint.counter.tweets
-        }, true, chart.series[ 0 ].data.length >= 50);
-    }
-  }
-</script>
+@twitter.chart(query)
+@twitter.websocket(query)(wsUrl)

@@ -1,0 +1,43 @@
+@(query: String)( implicit request: RequestHeader )
+
+<script type="text/javascript">
+    function createChart(){
+        console.log("going jquery")
+        var charts = []
+        var first = charts[ '@query' ] = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chart_0',
+                defaultSeriesType: 'spline'
+            },
+            title:{
+                text:''
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                min: 0,
+                labels: {},
+                title:{
+                    text:''
+                }
+            },
+            series: [
+                {
+                    data: []
+                }
+            ]
+        });
+
+        var legend = first.legend;
+        if(true) {
+            legend.group.hide();
+            legend.box.hide();
+            legend.display = false;
+        } else {
+            legend.group.show();
+            legend.box.show();
+            legend.display = true;
+        }
+    }
+</script>

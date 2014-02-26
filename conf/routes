@@ -33,8 +33,18 @@ GET     /about/work                       controllers.About.work
 GET     /twitter/followers                controllers.Twitter.followers
 GET     /twitter/mentions                 controllers.Twitter.mentions
 GET     /twitter/sample                   controllers.Twitter.sample
-GET     /twitter/go/:query                controllers.Twitter.go(query: String)
+# GET     /twitter/go/:query                controllers.Twitter.go(query: String)
 
 GET     /twitter/dashboard/:query         controllers.Twitter.dashboard(query: String)
-GET     /twitter/live/:query              controllers.Twitter.live(query: String)
+GET     /twitter/elections/:period        controllers.Twitter.elections(period: Int)
 
+# 3 seconds
+GET     /twitter/live3/:query              controllers.Twitter.live3(query: String)
+# 30 seconds
+GET     /twitter/live30/:query             controllers.Twitter.live30(query: String)
+# 5 minutes
+GET     /twitter/live300/:query            controllers.Twitter.live300(query: String)
+# 30 minutes
+GET     /twitter/live1800/:query           controllers.Twitter.live1800(query: String)
+# 3 hours
+GET     /twitter/live10800/:query          controllers.Twitter.live10800(query: String)
