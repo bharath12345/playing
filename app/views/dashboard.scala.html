@@ -29,13 +29,23 @@
   function abc(){
     console.log("going jquery")
     var charts = []
-    charts[ '@query' ] = new Highcharts.Chart({
+    var first = charts[ '@query' ] = new Highcharts.Chart({
         chart: {
             renderTo: 'chart_0',
             defaultSeriesType: 'spline'
         },
+        title:{
+            text:''
+        },
         xAxis: {
             type: 'datetime'
+        },
+        yAxis: {
+            min: 0,
+            labels: {},
+            title:{
+                text:''
+            }
         },
         series: [
             {
@@ -44,7 +54,18 @@
         ]
     });
 
-    var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
+      var legend = first.legend;
+      if(true) {
+          legend.group.hide();
+          legend.box.hide();
+          legend.display = false;
+      } else {
+          legend.group.show();
+          legend.box.show();
+          legend.display = true;
+      }
+
+      var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
     socket.onmessage = function (event) {
         console.log("event data = " + event.data)
         var datapoint = jQuery.parseJSON(event.data);
