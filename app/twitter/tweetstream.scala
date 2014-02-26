@@ -1,17 +1,21 @@
 package twitter
 
+import scala.Some
+import scala.util.Try
+
+import akka.actor.{ActorRef, Actor}
+import akka.io.IO
+
 import spray.httpx.unmarshalling.{MalformedContent, Unmarshaller, Deserialized}
 import spray.http._
 import spray.json._
 import spray.client.pipelining._
-import akka.actor.{ActorRef, Actor}
 import spray.http.HttpRequest
-import scala.Some
-import models._
-import play.api._
-import scala.util.Try
 import spray.can.Http
-import akka.io.IO
+
+import play.api._
+
+import models._
 
 trait TwitterAuthorization {
   def authorize: HttpRequest => HttpRequest

@@ -2,47 +2,90 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>my twitter dashboard</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.ico")">
+<head>
+    <title>my twitter dashboard</title>
 
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/jQuery/jquery-1.10.2.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts/highcharts.js")"></script>
-    </head>
-    
-    <body>
-        <div id="content">
-            <div id="chart"></div>
-        </div>
-	</body>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jQuery/jquery-1.10.2.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts/highcharts.js")"></script>
+
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojox/widget/Portlet/Portlet.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojox/layout/resources/GridContainer.css">
+    <script>dojoConfig = {parseOnLoad: true}</script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/dojo/1.9.2/dojo/dojo.js"></script>
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.ico")">
+
+    <script>
+        require(["dijit/registry", "dojox/layout/GridContainer", "dijit/TitlePane", "dojo/domReady!"],
+                function (registry, GridContainer, TitlePane) {
+                    // create a new GridContainer:
+                    var gridContainer = new GridContainer({
+                        nbZones: 2,
+                        style: {width: '100%', height: '100%'},
+                        isAutoOrganized: true
+                    }, 'placeHere');
+
+                    //var width = gridContainer.domNode.parentNode.offsetWidth;
+                    //var height = gridContainer.domNode.offsetHeight;
+                    //var styleString = "width: " + (width / 2) + "; height: " + (height / 2) + ";"
+                    //console.log("style string = " + styleString)
+
+                    for (var i = 0; i < 4; i++) {
+                        // prepare some Content for the Portlet:
+                        var chartId = "chart_" + i
+                        var innerContent = '<div class="chart" id='+chartId+'></div>'
+
+                        // create a new Portlet:
+                        var titlepane = new TitlePane({
+                            title: 'Twitter Trends Graph',
+                            content: innerContent,
+                            splitter:false
+                            //style:styleString
+                        });
+
+                        // add the first Portlet to the GridContainer:
+                        gridContainer.addChild(titlepane, i%2, i/2);
+                    }
+
+                    // startup GridContainer:
+                    gridContainer.startup();
+                    gridContainer.disableDnd(); // Disables DND
+                    gridContainer.resize()
+
+                    var charts = []
+                    charts[ '@query' ] = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'chart_0',
+                            defaultSeriesType: 'spline'
+                        },
+                        xAxis: {
+                            type: 'datetime'
+                        },
+                        series: [
+                            {
+                                data: []
+                            }
+                        ]
+                    });
+
+                    var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
+                    socket.onmessage = function (event) {
+                        console.log("event data = " + event.data)
+                        var datapoint = jQuery.parseJSON(event.data);
+                        var chart = charts[ '@query' ]
+
+                        chart.series[ 0 ].addPoint({
+                            x: datapoint.counter.timestamp,
+                            y: datapoint.counter.tweets
+                        }, true, chart.series[ 0 ].data.length >= 50);
+                    }
+                });
+    </script>
+</head>
+
+<body class="claro">
+<div id='placeHere' style='width: 100%; height: 100%;'></div>
+</body>
 </html>
-
-<script type="text/javascript">
-    var charts = []
-    charts[ '@query' ] = new Highcharts.Chart({
-        chart: {
-            renderTo: 'chart',
-            defaultSeriesType: 'spline'
-        },
-        xAxis: {
-            type: 'datetime'
-        },
-        series: [{
-            name: "CPU",
-            data: []
-        }]
-    });
-
-    var socket = new WebSocket("@routes.Twitter.live( query ).webSocketURL()")
-    socket.onmessage = function( event ) {
-        console.log("event data = " + event.data)
-        var datapoint = jQuery.parseJSON( event.data );
-        var chart = charts[ '@query' ]
-
-        chart.series[ 0 ].addPoint({
-            x: datapoint.counter.timestamp,
-            y: datapoint.counter.tweets
-        }, true, chart.series[ 0 ].data.length >= 50 );
-    }
-</script>

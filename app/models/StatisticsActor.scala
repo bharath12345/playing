@@ -5,21 +5,25 @@ import java.util.Date
 import scala.util.Random
 
 import akka.actor.Actor
-import play.api.libs.iteratee.Concurrent
+import play.api.libs.iteratee.{Enumerator, Concurrent}
 import play.api.libs.json.JsNumber
 import play.api.libs.json.JsObject
 import play.api.libs.json.JsString
 import play.api.libs.json.JsValue
 import twitter.Cache
 import play.api._
+import play.api.libs.concurrent.Execution.Implicits._
 
 class StatisticsActor(query: String) extends Actor {
 
-  val (enumerator, channel) = Concurrent.broadcast[JsValue]
+  var channel: Concurrent.Channel[JsValue] = _
 
   def receive = {
     case Connect() => {
       Logger.info(s"received connect message. actor = $query")
+      val enumerator = Concurrent.unicast[JsValue] {
+        c => channel = c
+      }
       sender ! Connected(enumerator)
     }
 
@@ -32,21 +36,6 @@ class StatisticsActor(query: String) extends Actor {
 
       Cache.flush(query)
     }
-  }
-
-  def broadcast(timestamp: Long) {
-    val msg = JsObject(
-      Seq(
-        "query" -> JsString(query),
-        "counter" -> JsObject(
-          Seq(
-            ("timestamp" -> JsNumber(timestamp)),
-            ("random" -> JsNumber(Random.nextInt(100)))
-          )
-        )
-      )
-    )
-    channel.push(msg)
   }
 
   def broadcastTweetCount(timestamp: Long) {

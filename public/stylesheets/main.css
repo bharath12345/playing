@@ -1,11 +1,12 @@
-#chart {
-	float: left;
+.chart {
 	width: 100%;
-	height: 100%;
+	height: 295px;
 }
 
-#content {
-	float: left;
-	width: 700px;
-	height: 300px;	
+.gridContainerTable {
+    border: none;
+}
+
+.gridContainerZone > .dijitTitlePane {
+    margin: 1px !important;
 }
