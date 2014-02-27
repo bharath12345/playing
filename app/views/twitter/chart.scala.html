@@ -1,12 +1,12 @@
 @(stubs: Array[String])( implicit request: RequestHeader )
 
 <script type="text/javascript">
+    var charts = []
     function createChart(){
       @for(stub <- stubs) {
         var chartName = '@stub'
 
         console.log("creating chart = " + chartName)
-        var charts = []
         var first = charts[ chartName ] = new Highcharts.Chart({
             chart: {
                 renderTo: chartName,

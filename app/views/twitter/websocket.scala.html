@@ -7,6 +7,14 @@
             console.log("event data = " + event.data)
             var datapoint = jQuery.parseJSON(event.data);
 
+            for(var i = 0; i < datapoint.values.length; i++) {
+              var chart = charts[datapoint.values[i].stub]
+
+              chart.series[ 0 ].addPoint({
+                    x: datapoint.timestamp,
+                    y: datapoint.values[i].tweets
+              }, true, chart.series[ 0 ].data.length >= 50);
+            }
         }
     }
 </script>

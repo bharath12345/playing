@@ -13,14 +13,11 @@ import twitter.Cache
 
 class StatisticsActor() extends Actor {
 
-  var channel: Concurrent.Channel[JsValue] = _
+  val (enumerator, channel) = Concurrent.broadcast[JsValue]
 
   def receive = {
     case Connect() => {
       Logger.info(s"received connect message.")
-      val enumerator = Concurrent.unicast[JsValue] {
-        c => channel = c
-      }
       sender ! Connected(enumerator)
     }
 
@@ -58,14 +55,17 @@ class StatisticsActor() extends Actor {
   def broadcastCount(counter: Map[String, Long], period: Int) = {
     val date = new Date().getTime()
 
-    val ja = Json.arr()
+    var ja = Json.arr()
     counter foreach {
       case (key, value) => {
+        Logger.info(s"stub = $key tweets = $value")
         val jo = Json.obj(
-          "query"     -> JsString(key),
+          "stub"     -> JsString(key),
           "tweets"    -> JsNumber(value)
         )
-        ja.append(jo)
+        ja = ja :+ jo
+        Logger.info("ja = " + ja.toString())
+        Logger.info("jo = " + jo.toString())
       }
     }
 
