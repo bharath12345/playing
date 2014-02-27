@@ -2,6 +2,12 @@
 
 <script type="text/javascript">
     var charts = []
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+
     function createChart(){
       @for(stub <- stubs) {
         var chartName = '@stub'
