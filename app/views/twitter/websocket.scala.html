@@ -1,4 +1,4 @@
-@(query: String)(wsUrl: String)(implicit request: RequestHeader )
+@(stubs: Array[String])(wsUrl: String)(implicit request: RequestHeader )
 
 <script type="text/javascript">
     function createWebsocket(){
@@ -6,12 +6,7 @@
         socket.onmessage = function (event) {
             console.log("event data = " + event.data)
             var datapoint = jQuery.parseJSON(event.data);
-            var chart = charts[ '@query' ]
 
-            chart.series[ 0 ].addPoint({
-                x: datapoint.counter.timestamp,
-                y: datapoint.counter.tweets
-            }, true, chart.series[ 0 ].data.length >= 50);
         }
     }
 </script>

@@ -1,6 +1,7 @@
 package twitter
 
 import models.Tweet
+import models.Query
 import java.io.ByteArrayOutputStream
 
 /**
@@ -15,93 +16,47 @@ object Cache {
   case class Period1800()  extends Period
   case class Period10800() extends Period
 
-  var p3TweetCounter: Map[String, Long] = Map()
-  var p30TweetCounter: Map[String, Long] = Map()
-  var p300TweetCounter: Map[String, Long] = Map()
-  var p1800TweetCounter: Map[String, Long] = Map()
-  var p10800TweetCounter: Map[String, Long] = Map()
+  // map of counters for each period, having a map for each query-stub and its counter
+  var tweetCounter: Map[Int, Map[String, Long]] = Map()
+  for(i <- 0 until 5) {
+    tweetCounter += (i -> Map())
+  }
 
+  def add(stub: String, tweet: String) = {
+    for(i <- 0 until 5) {
 
-  /**
-   *
-   * @param phrase
-   * @param tweet
-   */
-  def add(phrase: String, tweet: String) = {
-    getP3TweetCount(phrase) match {
-      case Some(counter) => {
-        p3TweetCounter     += (phrase -> (p30TweetCounter(phrase)    + 1))
-        p30TweetCounter    += (phrase -> (p30TweetCounter(phrase)    + 1))
-        p300TweetCounter   += (phrase -> (p300TweetCounter(phrase)   + 1))
-        p1800TweetCounter  += (phrase -> (p1800TweetCounter(phrase)  + 1))
-        p10800TweetCounter += (phrase -> (p10800TweetCounter(phrase) + 1))
+      var tCounter: Map[String, Long] = tweetCounter.get(i) match {
+        case Some(tCounter) => tCounter
+        case None => {
+          var nCounter: Map[String, Long] = Map()
+          for(stub <- Query.getStubs) {
+            nCounter += (stub -> 0)
+          }
+          tweetCounter += (i -> nCounter)
+          nCounter
+        }
       }
-      case None => {
-        p3TweetCounter     += (phrase -> 0)
-        p30TweetCounter    += (phrase -> 0)
-        p300TweetCounter   += (phrase -> 0)
-        p1800TweetCounter  += (phrase -> 0)
-        p10800TweetCounter += (phrase -> 0)
+
+      tCounter.get(stub) match {
+        case Some(counter) => {
+          tCounter += (stub -> (counter + 1))
+        }
+        case None =>  {
+          tCounter += (stub -> (0))
+        }
       }
     }
   }
 
-  /**
-   *
-   * @param phrase
-   */
-  def flush3(phrase: String) = {
-    getP3TweetCount(phrase) match {
-      case Some(count) => {
-        p3TweetCounter += (phrase -> 0)
+  def flush(period: Int) = {
+    var tCounter: Map[String, Long] = tweetCounter(period)
+    tCounter foreach {
+      case (stub, counter) => {
+        tCounter += (stub -> (0))
       }
     }
   }
 
-  def flush30(phrase: String) = {
-    getP30TweetCount(phrase) match {
-      case Some(count) => {
-        p3TweetCounter += (phrase -> 0)
-      }
-    }
-  }
+  def getTweetCount(period: Int): Map[String, Long] = tweetCounter.get(period).get
 
-  def flush300(phrase: String) = {
-    getP300TweetCount(phrase) match {
-      case Some(count) => {
-        p3TweetCounter += (phrase -> 0)
-      }
-    }
-  }
-
-  def flush1800(phrase: String) = {
-    getP1800TweetCount(phrase) match {
-      case Some(count) => {
-        p3TweetCounter += (phrase -> 0)
-      }
-    }
-  }
-
-  def flush10800(phrase: String) = {
-    getP10800TweetCount(phrase) match {
-      case Some(count) => {
-        p3TweetCounter += (phrase -> 0)
-      }
-    }
-  }
-
-  /**
-   *
-   * @param phrase
-   * @return
-   */
-  def getP3TweetCount(phrase: String): Option[Long] = p3TweetCounter.get(phrase)
-
-  def getP30TweetCount(phrase: String): Option[Long] = p3TweetCounter.get(phrase)
-
-  def getP300TweetCount(phrase: String): Option[Long] = p3TweetCounter.get(phrase)
-
-  def getP1800TweetCount(phrase: String): Option[Long] = p3TweetCounter.get(phrase)
-
-  def getP10800TweetCount(phrase: String): Option[Long] = p3TweetCounter.get(phrase)
 }

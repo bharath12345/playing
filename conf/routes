@@ -39,12 +39,12 @@ GET     /twitter/dashboard/:query         controllers.Twitter.dashboard(query: S
 GET     /twitter/elections/:period        controllers.Twitter.elections(period: Int)
 
 # 3 seconds
-GET     /twitter/live3/:query              controllers.Twitter.live3(query: String)
+GET     /twitter/live3                     controllers.Twitter.live3()
 # 30 seconds
-GET     /twitter/live30/:query             controllers.Twitter.live30(query: String)
+GET     /twitter/live30                    controllers.Twitter.live30()
 # 5 minutes
-GET     /twitter/live300/:query            controllers.Twitter.live300(query: String)
+GET     /twitter/live300                   controllers.Twitter.live300()
 # 30 minutes
-GET     /twitter/live1800/:query           controllers.Twitter.live1800(query: String)
+GET     /twitter/live1800                  controllers.Twitter.live1800()
 # 3 hours
-GET     /twitter/live10800/:query          controllers.Twitter.live10800(query: String)
+GET     /twitter/live10800                 controllers.Twitter.live10800()

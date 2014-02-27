@@ -126,51 +126,59 @@ object Twitter extends Controller {
 
   def dashboard(query: String) = Action {
     implicit request =>
+      Query.addToQuery(query)
       val streamer = startStreamerProcessor(query)
       streamer ! query
-      val wsURL: String = routes.Twitter.live3(query).webSocketURL()
-      Ok(views.html.dashboard(query)(wsURL))
+      val wsURL: String = routes.Twitter.live3().webSocketURL()
+      Ok(views.html.dashboard(Query.getStubs)(wsURL))
   }
 
   def elections(period: Int) = Action {
     implicit request =>
-      val query: String = Query.query
+
+      Query.addToQuery("india")
+      Query.addToQuery("modi")
+      Query.addToQuery("rahul")
+      Query.addToQuery("kejri")
+      val query: String = Query.getQuery
+
       val streamer = startStreamerProcessor(query)
       streamer ! query
+
       val wsUrl = period match {
-        case 0 => routes.Twitter.live3(query).webSocketURL()
-        case 1 => routes.Twitter.live30(query).webSocketURL()
-        case 2 => routes.Twitter.live300(query).webSocketURL()
-        case 3 => routes.Twitter.live1800(query).webSocketURL()
-        case 4 => routes.Twitter.live10800(query).webSocketURL()
-        case _ => routes.Twitter.live3(query).webSocketURL()
+        case 0 => routes.Twitter.live3().webSocketURL()
+        case 1 => routes.Twitter.live30().webSocketURL()
+        case 2 => routes.Twitter.live300().webSocketURL()
+        case 3 => routes.Twitter.live1800().webSocketURL()
+        case 4 => routes.Twitter.live10800().webSocketURL()
+        case _ => routes.Twitter.live3().webSocketURL()
       }
-      Ok(views.html.dashboard(query)(wsUrl))
+      Ok(views.html.dashboard(Query.getStubs)(wsUrl))
   }
 
-  def live3(query: String) = WebSocket.async[JsValue] {
+  def live3() = WebSocket.async[JsValue] {
     request =>
-      Statistics.attach(query, 3.seconds)
+      Statistics.attach(0)
   }
 
-  def live30(query: String) = WebSocket.async[JsValue] {
+  def live30() = WebSocket.async[JsValue] {
     request =>
-      Statistics.attach(query, 30.seconds)
+      Statistics.attach(1)
   }
 
-  def live300(query: String) = WebSocket.async[JsValue] {
+  def live300() = WebSocket.async[JsValue] {
     request =>
-      Statistics.attach(query, 3.minutes)
+      Statistics.attach(2)
   }
 
-  def live1800(query: String) = WebSocket.async[JsValue] {
+  def live1800() = WebSocket.async[JsValue] {
     request =>
-      Statistics.attach(query, 30.minutes)
+      Statistics.attach(3)
   }
 
-  def live10800(query: String) = WebSocket.async[JsValue] {
+  def live10800() = WebSocket.async[JsValue] {
     request =>
-      Statistics.attach(query, 3.hours)
+      Statistics.attach(4)
   }
 
 }

@@ -1,12 +1,15 @@
-@(query: String)( implicit request: RequestHeader )
+@(stubs: Array[String])( implicit request: RequestHeader )
 
 <script type="text/javascript">
     function createChart(){
-        console.log("going jquery")
+      @for(stub <- stubs) {
+        var chartName = '@stub'
+
+        console.log("creating chart = " + chartName)
         var charts = []
-        var first = charts[ '@query' ] = new Highcharts.Chart({
+        var first = charts[ chartName ] = new Highcharts.Chart({
             chart: {
-                renderTo: 'chart_0',
+                renderTo: chartName,
                 defaultSeriesType: 'spline'
             },
             title:{
@@ -39,5 +42,6 @@
             legend.box.show();
             legend.display = true;
         }
+      }
     }
 </script>

@@ -1,14 +1,15 @@
-@(query: String)(wsUrl: String)( implicit request: RequestHeader )
+@(stubs: Array[String])(wsUrl: String)( implicit request: RequestHeader )
 
 <!DOCTYPE html>
 <html>
   <head>
     <title>my twitter dashboard</title>
     @twitter.head()
+    @twitter.grid(stubs)
   </head>
 
   @twitter.body()
 </html>
 
-@twitter.chart(query)
-@twitter.websocket(query)(wsUrl)
+@twitter.chart(stubs)
+@twitter.websocket(stubs)(wsUrl)
