@@ -9,8 +9,10 @@ object Query {
   var stubs: Array[String] = Array()
 
   def addToQuery(stub: String) {
-    stubs +:= stub
-    query += stub + ","
+    if(stubs.contains(stub) == false) {
+      stubs +:= stub
+      query += stub + ","
+    }
   }
 
   def getQuery: String = query
