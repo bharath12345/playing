@@ -129,7 +129,7 @@ object Twitter extends Controller {
       Query.addToQuery(query)
       val streamer = startStreamerProcessor(query)
       streamer ! query
-      val wsURL: String = routes.Twitter.live3().webSocketURL()
+      val wsURL: String = routes.Twitter.live(0).webSocketURL()
       Ok(views.html.dashboard(Query.getStubs)(wsURL))
   }
 
@@ -145,40 +145,13 @@ object Twitter extends Controller {
       val streamer = startStreamerProcessor(query)
       streamer ! query
 
-      val wsUrl = period match {
-        case 0 => routes.Twitter.live3().webSocketURL()
-        case 1 => routes.Twitter.live30().webSocketURL()
-        case 2 => routes.Twitter.live300().webSocketURL()
-        case 3 => routes.Twitter.live1800().webSocketURL()
-        case 4 => routes.Twitter.live10800().webSocketURL()
-        case _ => routes.Twitter.live3().webSocketURL()
-      }
+      val wsUrl = routes.Twitter.live(period).webSocketURL()
       Ok(views.html.dashboard(Query.getStubs)(wsUrl))
   }
 
-  def live3() = WebSocket.async[JsValue] {
+  def live(period: Int) = WebSocket.async[JsValue] {
     request =>
-      Statistics.attach(0)
-  }
-
-  def live30() = WebSocket.async[JsValue] {
-    request =>
-      Statistics.attach(1)
-  }
-
-  def live300() = WebSocket.async[JsValue] {
-    request =>
-      Statistics.attach(2)
-  }
-
-  def live1800() = WebSocket.async[JsValue] {
-    request =>
-      Statistics.attach(3)
-  }
-
-  def live10800() = WebSocket.async[JsValue] {
-    request =>
-      Statistics.attach(4)
+      Statistics.attach(period)
   }
 
 }

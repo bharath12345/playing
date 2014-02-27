@@ -1,1 +1,1 @@
-A quick demo Play! 2.0 App
+My Play Framework based blog and twitter analyzer and much more...!

@@ -20,6 +20,8 @@ object Cache {
   // map of counters for each period, having a map for each query-stub and its counter
   var tweetCounter: Map[Int, Map[String, Long]] = Map()
 
+
+
   def init() = {
     for(i <- 0 until 5) {
       var tCounter: Map[String, Long] = Map()

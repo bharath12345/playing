@@ -39,12 +39,4 @@ GET     /twitter/dashboard/:query         controllers.Twitter.dashboard(query: S
 GET     /twitter/elections/:period        controllers.Twitter.elections(period: Int)
 
 # 3 seconds
-GET     /twitter/live3                     controllers.Twitter.live3()
-# 30 seconds
-GET     /twitter/live30                    controllers.Twitter.live30()
-# 5 minutes
-GET     /twitter/live300                   controllers.Twitter.live300()
-# 30 minutes
-GET     /twitter/live1800                  controllers.Twitter.live1800()
-# 3 hours
-GET     /twitter/live10800                 controllers.Twitter.live10800()
+GET     /twitter/live/:period              controllers.Twitter.live(period: Int)
