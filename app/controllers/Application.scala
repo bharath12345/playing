@@ -7,9 +7,6 @@ import org.joda.time.DateTime
 import scala.collection.immutable.{HashSet, HashMap}
 import org.pegdown.PegDownProcessor
 import java.io.IOException
-import javax.persistence.EntityManager
-import play.db.jpa.JPA
-import models.Test
 
 object Application extends Controller {
 
@@ -253,14 +250,5 @@ object Application extends Controller {
    * @return
    */
   def search = TODO
-
-  def test = Action {
-    request =>
-      val test = new Test
-      val em: EntityManager = JPA.em()
-      em.persist(test)
-
-      Ok("Got request [" + request + "]")
-  }
 
 }

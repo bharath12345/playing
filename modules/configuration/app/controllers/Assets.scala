@@ -1,0 +1,3 @@
+package controllers.configuration
+
+object Assets extends controllers.AssetsBuilder

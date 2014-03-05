@@ -1,0 +1,7 @@
+# Routes
+# This file defines all application configuration routes (Higher priority routes first)
+# ~~~~
+
+GET     /test                             controllers.configuration.Application.test()
+
+GET     /assets/*file                     controllers.configuration.Assets.at(path="/public", file)

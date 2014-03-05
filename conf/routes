@@ -18,7 +18,6 @@ GET     /tags                             controllers.Application.tags
 GET     /categories                       controllers.Application.categories
 GET     /toc                              controllers.Application.toc
 GET     /search                           controllers.Application.search
-GET     /test                             controllers.Application.test
 
 # About Myself
 GET     /about/books                      controllers.About.books
