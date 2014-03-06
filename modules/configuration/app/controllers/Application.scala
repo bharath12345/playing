@@ -9,6 +9,7 @@ import models.Test
  * Created by bharadwaj on 05/03/14.
  */
 object Application extends Controller {
+
   def test = Action {
     request =>
       val test = new Test

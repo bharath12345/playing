@@ -1,0 +1,19 @@
+# Routes
+# This file defines all twitter-app routes (Higher priority routes first)
+# ~~~~
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file                     controllers.twitter.Assets.at(path="/public", file)
+
+# Twitter Project
+GET     /followers                controllers.twitter.Application.followers
+GET     /mentions                 controllers.twitter.Application.mentions
+GET     /sample                   controllers.twitter.Application.sample
+# GET     /go/:query                controllers.twitter.Application.go(query: String)
+
+GET     /dashboard/:query         controllers.twitter.Application.dashboard(query: String)
+GET     /elections/:period        controllers.twitter.Application.elections(period: Int)
+
+# 3 seconds
+GET     /live/:period              controllers.twitter.Application.live(period: Int)
+

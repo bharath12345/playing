@@ -2,40 +2,11 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                                 controllers.Application.index
+->      /configuration                     configuration.Routes
+->      /blog                              blog.Routes
+->      /twitter                           twitter.Routes
 
-# Blog Route
-GET     /post/:id                         controllers.Application.blog(id: String)
-GET     /tag/:id                          controllers.Application.tag(id: String)
-GET     /category/:id                     controllers.Application.category(id: String)
+GET     /                                  controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                     controllers.Assets.at(path="/public", file)
-
-# Sub Pages
-GET     /tags                             controllers.Application.tags
-GET     /categories                       controllers.Application.categories
-GET     /toc                              controllers.Application.toc
-GET     /search                           controllers.Application.search
-
-# About Myself
-GET     /about/books                      controllers.About.books
-GET     /about/current                    controllers.About.current
-GET     /about/education                  controllers.About.education
-GET     /about/movies                     controllers.About.movies
-GET     /about/philosophy                 controllers.About.philosophy
-GET     /about/travel                     controllers.About.travel
-GET     /about/work                       controllers.About.work
-
-# Twitter Project
-GET     /twitter/followers                controllers.Twitter.followers
-GET     /twitter/mentions                 controllers.Twitter.mentions
-GET     /twitter/sample                   controllers.Twitter.sample
-# GET     /twitter/go/:query                controllers.Twitter.go(query: String)
-
-GET     /twitter/dashboard/:query         controllers.Twitter.dashboard(query: String)
-GET     /twitter/elections/:period        controllers.Twitter.elections(period: Int)
-
-# 3 seconds
-GET     /twitter/live/:period              controllers.Twitter.live(period: Int)

@@ -10,15 +10,15 @@
       <module name="org.apache.commons.codec"/>
       <module name="org.apache.commons.io"/>
       <!--module name="io.netty"/-->
-      <!--module name="org.hibernate.commons-annotations"/>
-      <module name="org.hibernate"/-->
+      <module name="org.hibernate.commons-annotations"/>
+      <module name="org.hibernate"/>
       <module name="org.javassist"/>
       <module name="org.jboss.logging"/>
       <module name="javax.transaction.api"/>
       <module name="org.yaml.snakeyaml"/>
       <module name="org.antlr"/>
       <module name="org.dom4j"/>
-      <!--module name="org.postgres"/-->
+      <module name="org.postgres"/>
       <module name="javax.validation.api"/>
     </dependencies>
   </deployment>
