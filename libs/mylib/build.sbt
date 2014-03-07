@@ -6,9 +6,11 @@ version := "1.0-SNAPSHOT"
 
 scalaVersion := "2.10.3"
 
-resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
+resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 
 libraryDependencies ++= Seq(
+  "javax" % "javaee-api" % "7.0",
+  "org.glassfish.javaeetutorial" % "helloservice" % "7.0.4-SNAPSHOT"
 )
 
 exportJars := true

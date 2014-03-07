@@ -24,25 +24,36 @@ Play2WarKeys.servletVersion := "3.1"
 
 Play2WarKeys.filteredArtifacts ++= Seq(
   ("com.google.guava", "guava"),
+  ("com.google.code.findbugs", "findbugs"),
   ("com.fasterxml.jackson.core","jackson-annotations"),
   ("com.fasterxml.jackson.core","jackson-core"),
   ("com.fasterxml.jackson.core","jackson-databind"),
-  ("com.h2database","h2"),
+  ("com.fasterxml","classmate"),
   ("commons-codec","commons-codec"),
   ("commons-io","commons-io"),
-  //("io.netty","netty"),
   ("org.hibernate","hibernate-commons-annotations"),
   ("org.hibernate","hibernate-core"),
   ("org.hibernate","hibernate-entitymanager"),
   ("org.hibernate","hibernate-validator"),
-  ("org.javassist","javassist"),
-  ("org.jboss.logging","jboss-logging"),
+  ("org.hibernate.common","hibernate-commons-annotations"),
+  ("org.hibernate.javax.persistence","hibernate-jpa-2.0-api"),
+  ("javax.validation","validation-api"),
+  ("javax.persistence","persistence-api"),
   ("javax.transaction","transaction-api"),
+  ("org.jboss.spec.javax.transaction","jboss-transaction-api_1.1_spec"),
+  ("org.jboss.logging","jboss-logging"),
+  ("org.springframework","spring-beans"),
+  ("org.springframework","spring-context"),
+  ("org.springframework","spring-core"),
+  ("postgresql","postgresql"),
+  ("org.javassist","javassist"),
   ("org.yaml","snakeyaml"),
   ("antlr","antlr"),
+  ("com.h2database","h2"),
   ("dom4j","dom4j"),
-  ("postgresql","postgresql"),
-  ("javax.validation","validation-api")
+  ("tyrex","tyrex")
+  //("com.jolbox", "bonecp"),
+  //("io.netty","netty"),
 )
 
 lazy val playing = project.in( file(".") )
