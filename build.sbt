@@ -42,6 +42,7 @@ Play2WarKeys.filteredArtifacts ++= Seq(
   ("javax.transaction","transaction-api"),
   ("org.jboss.spec.javax.transaction","jboss-transaction-api_1.1_spec"),
   ("org.jboss.logging","jboss-logging"),
+  ("org.jboss.logmanager", "log4j-jboss-logmanager"),
   ("org.springframework","spring-beans"),
   ("org.springframework","spring-context"),
   ("org.springframework","spring-core"),

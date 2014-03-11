@@ -21,6 +21,8 @@
       <module name="javax.validation.api"/>
       <module name="javax.persistence.api"/>
       <module name="javax.transaction.api"/>
+      <module name="org.glassfish.javaeetutorial.helloservice-api"/>
+      <module name="org.jboss.log4j.logmanager"/>
     </dependencies>
   </deployment>
 </jboss-deployment-structure>
