@@ -1,6 +1,5 @@
 package in.bharathwrites;
 
-import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,49 +16,9 @@ public class MyJavaEjbClient {
         HelloService hs = null;
         try {
             Context ctx = new InitialContext();
-
-            try {
-                hs = (HelloService) ctx.lookup("java:global/helloservice/HelloServiceBean");
-            } catch (NamingException ne) {
-                logger.info(ne.getExplanation());
-            }
-
-            try {
-                if (hs == null) {
-                    logger.info("first lookup attempt failed");
-                    hs = (HelloService) ctx.lookup("java:global/helloservice/HelloServiceBean!javaeetutorial.helloservice.ejb.HelloService");
-                }
-            } catch (NamingException ne) {
-                logger.info(ne.getExplanation());
-            }
-
-            try {
-                if (hs == null) {
-                    logger.info("second lookup attempt failed");
-                    hs = (HelloService) ctx.lookup("java:app/helloservice/HelloServiceBean");
-                }
-            } catch (NamingException ne) {
-                logger.info(ne.getExplanation());
-            }
-
-            try {
-                if (hs == null) {
-                    logger.info("third lookup attempt failed");
-                    hs = (HelloService) ctx.lookup("java:app/helloservice/HelloServiceBean!javaeetutorial.helloservice.ejb.HelloService");
-                }
-            } catch (NamingException ne) {
-                logger.info(ne.getExplanation());
-            }
-
-            if (hs == null) {
-                if (ctx.lookup("java:global/ejbremote-core-ear/ejbremote-core-ejb/HelloServiceBean") != null) {
-                    logger.info("SOMETHING HAPPENED");
-                }
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            hs = (HelloService) ctx.lookup("java:global/helloservice/HelloServiceBean!javaeetutorial.helloservice.ejb.HelloService");
+        } catch (NamingException e) {
+            logger.info(e.getExplanation());
         }
 
         if (hs == null) {
