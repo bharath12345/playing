@@ -19,7 +19,8 @@ libraryDependencies ++= Seq(
   "org.webjars"               %  "d3js"                    % "3.4.1",
   "org.webjars"               %  "jsplumb"                 % "1.5.5",
   "org.webjars"               %  "dojo"                    % "1.9.2",
-  "org.webjars"               % "font-awesome"             % "4.0.3"
+  "org.webjars"               %  "font-awesome"            % "4.0.3",
+  "org.webjars"               %  "highcharts"              % "3.0.9"
 )
 
 playScalaSettings
