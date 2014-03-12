@@ -4,7 +4,7 @@
 
   @titles.map { name =>
     <section class="content">
-      <h4><a href="post/@fileList(name)">@name</a></h4>
+      <h4><a href="blog/post/@fileList(name)">@name</a></h4>
       <section class="byline">@dateMap(name)</section>
       <hr>
       @Html(contentMap(name))

@@ -1,35 +1,47 @@
 @(meta: Html)(topMostNav: Html)(content: Html)(footer: Html)(postpagescripts: Html)(social: Html)
 
-<!DOCTYPE html>
-
 <html>
     <head>
         @meta
 
         <title>Bharath's Blog</title>
 
-        <link rel="shortcut icon" type="image/png" href="@controllers.blog.routes.Assets.at("images/favicon.ico")">
+        <link rel="shortcut icon" type="image/png" href='@controllers.blog.routes.Assets.at("images/favicon.ico")'>
 
         @* CSS *@
-        <link rel='stylesheet' media="screen" type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300'>
-        <link rel="stylesheet" media="screen" type='text/css' href="@controllers.blog.routes.Assets.at("javascripts/my/common.min.css")">
-        <link rel="stylesheet" media="screen" type='text/css' href="@controllers.blog.routes.Assets.at("javascripts/bootstrap/css/docs.css")">
+        <link rel="stylesheet" media="screen" type='text/css' href='@controllers.blog.routes.Assets.at("javascripts/my/common.min.css")'>
+        <link rel="stylesheet" media="screen" type='text/css' href='@controllers.blog.routes.Assets.at("javascripts/my/docs.css")'>
 
         <link rel='stylesheet' media="screen" type='text/css' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
         <link rel='stylesheet' media="screen" type='text/css' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/font-awesome.min.css"))'>
         <link rel="stylesheet" media="screen" type='text/css' href='@routes.WebJarAssets.at(WebJarAssets.locate("dojo/1.9.2/dijit/themes/claro/claro.css"))'>
 
-        @* JavaScripts *@
-        <script type="text/javascript" src="@controllers.blog.routes.Assets.at("javascripts/jquery.toc/js/jquery.tableofcontents.min.js")"></script>
+        <!-- START COPYING HERE -->
+        <link rel="stylesheet" type='text/css' href='@controllers.blog.routes.Assets.at("javascripts/forkribbon/gh-fork-ribbon.min.css")'>
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" type='text/css' href='@controllers.blog.routes.Assets.at("javascripts/forkribbon/gh-fork-ribbon-ie.min.css")'>
+        <![endif]-->
+        <!-- END COPYING HERE -->
 
-        <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
+        @* JavaScripts *@
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+        <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.js"))'></script>
+        <script type="text/javascript" src='@controllers.blog.routes.Assets.at("javascripts/jquery.toc/js/jquery.tableofcontents.min.js")'></script>
 
         <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("d3.min.js"))'></script>
         <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("jsplumb/1.5.5/jquery.jsPlumb-1.5.5-min.js"))'></script>
 
+        <script>dojoConfig = {parseOnLoad: true}</script>
+        <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("dojo/1.9.2/dojo/dojo.js"))'></script>
+
+        <script type="text/javascript">
+            var pageType = "index";
+        </script>
     </head>
     <body>
+
+        @common.forkongithub()
+        @common.fbsdk()
         @topMostNav
 
         <div class="container">
@@ -45,7 +57,7 @@
                 @social
               </div>
               <div class="bs-sidebar hidden-print affix" role="complementary">
-                <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=30&amp;appId=557536207641096" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:30px;" allowTransparency="true"></iframe>
+                  <div class=fb-like data-send=false data-layout=standard data-width=450 data-show-faces=false data-colorscheme=light data-action=like></div>
               </div>
               <div class="bs-sidebar hidden-print affix" role="complementary">
                 <a href="http://stackoverflow.com/users/915710/bharadwaj">
