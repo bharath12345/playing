@@ -4,7 +4,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import javaeetutorial.helloservice.ejb.HelloService;
+//import javaeetutorial.helloservice.ejb.HelloService;
 
 import org.apache.log4j.Logger;
 
@@ -12,7 +12,7 @@ public class MyJavaEjbClient {
 
     private static final Logger logger = Logger.getLogger(MyJavaEjbClient.class.getName());
 
-    public String getHelloMsg() {
+    /*public String getHelloMsg() {
         HelloService hs = null;
         try {
             Context ctx = new InitialContext();
@@ -26,5 +26,5 @@ public class MyJavaEjbClient {
         } else {
             return "One of the lookups SUCCEEDEED";
         }
-    }
+    }*/
 }

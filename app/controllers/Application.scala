@@ -19,11 +19,11 @@ object Application extends Controller {
     Redirect("/blog")
   }
 
-  def scalahello = Action {
+  /*def scalahello = Action {
     Ok(myscalaclient.getGoodMorning)
   }
 
   def javahello = Action {
     Ok(myjavaclient.getHelloMsg)
-  }
+  }*/
 }
