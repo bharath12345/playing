@@ -8,9 +8,25 @@
 }
 
 .navbar {
-    min-height: 35px;
+    min-height: 2em;
+}
+#topmost {
+    height: 2.2em;
 }
 
-#topmost {
-    height: 35px;
+.navbar-brand {
+    padding-top: 0.3em;
 }
+
+.nav > li > a {
+    padding-top: 0.3em;
+}
+
+.container > .navbar-collapse {
+    margin-right: 60px;
+}
+
+.hidden-sm {
+    padding-top: 0.6em !important;
+}
+
