@@ -254,6 +254,57 @@ body {
     background-image: url(../../images/light_wool.png);
 }
 
+.bs-sidebar.affix {
+    display: block;
+    top: 40px;
+    margin-bottom: 20px;
+    position: inherit !important;
+    width: inherit !important;
+}
+
+.navbar {
+    min-height: 2.7em;
+}
+
+#topmost {
+    height: 2.7em;
+}
+
+.navbar-brand {
+    padding-top: 0.4em;
+}
+
+.nav > li > a {
+    padding-top: 0.6em;
+}
+
+.container > .navbar-collapse {
+    margin-right: 60px;
+}
+
+.hidden-sm {
+    padding-top: 0.8em !important;
+}
+
+.navbar.navbar-default {
+    min-height: 2em;
+    height: 2em;
+}
+
+.navbar-link {
+    padding-top: 0.2em !important;
+}
+
+img.movieimg {
+    width: 160px;
+    height: 240px;
+}
+
+div.movierow {
+    margin: 4px;
+}
+
+
 
 
 
