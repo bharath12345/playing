@@ -9,7 +9,10 @@ import play.api._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 
-import twitter.Cache
+import _root_.twitter.Cache
+import models.Refresh
+import play.api.libs.json.JsNumber
+import play.api.libs.json.JsString
 
 class StatisticsActor() extends Actor {
 
@@ -21,38 +24,14 @@ class StatisticsActor() extends Actor {
       sender ! Connected(enumerator)
     }
 
-    case Refresh3 => {
-      Logger.info(s"received 3sec refresh message.")
-      broadcastCount(Cache.getTweetCount(0), 0)
-      Cache.flush(0)
-    }
-
-    case Refresh30 => {
-      Logger.info(s"received 30sec refresh message.")
-      broadcastCount(Cache.getTweetCount(1), 1)
-      Cache.flush(1)
-    }
-
-    case Refresh300 => {
-      Logger.info(s"received 300sec refresh message.")
-      broadcastCount(Cache.getTweetCount(2), 2)
-      Cache.flush(2)
-    }
-
-    case Refresh1800 => {
-      Logger.info(s"received 1800sec refresh message.")
-      broadcastCount(Cache.getTweetCount(3), 3)
-      Cache.flush(3)
-    }
-
-    case Refresh10800 => {
-      Logger.info(s"received 10800sec refresh message.")
-      broadcastCount(Cache.getTweetCount(4), 4)
-      Cache.flush(4)
+    case r: Refresh => {
+      Logger.info(s"received refresh message of duration = $r.duration")
+      broadcastCount(Cache.getTweetCount(r), r)
+      Cache.flush(r)
     }
   }
 
-  def broadcastCount(counter: Map[String, Long], period: Int) = {
+  def broadcastCount(counter: Map[String, Long], r: Refresh) = {
     val date = new Date().getTime()
 
     var ja = Json.arr()
@@ -71,7 +50,7 @@ class StatisticsActor() extends Actor {
 
     val msg = Json.obj(
       "timestamp" -> JsNumber(date),
-      "period"    -> JsNumber(period),
+      "period"    -> JsNumber(r.period),
       "values"    -> ja
       )
 

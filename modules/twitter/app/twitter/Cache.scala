@@ -4,23 +4,15 @@ import models.twitter.Tweet
 import models.twitter.Query
 import java.io.ByteArrayOutputStream
 import play.api.Logger
+import models._
 
 /**
  * Created by bharadwaj on 29/01/14.
  */
 object Cache {
 
-  sealed trait Period
-  case class Period3()     extends Period
-  case class Period30()    extends Period
-  case class Period300()   extends Period
-  case class Period1800()  extends Period
-  case class Period10800() extends Period
-
   // map of counters for each period, having a map for each query-stub and its counter
-  var tweetCounter: Map[Int, Map[String, Long]] = Map()
-
-
+  val tweetCounter = scala.collection.mutable.Map[Refresh,Map[String, Long]]()
 
   def init() = {
     for(i <- 0 until 5) {
@@ -30,13 +22,15 @@ object Cache {
         Logger.info(s"adding stub to cache = $stub for period = $i")
         tCounter += (stub -> (0))
       }
-      tweetCounter += (i -> tCounter)
+      tweetCounter += (Refresh(i) -> tCounter)
     }
   }
 
   def add(stub: String, tweet: String) = {
     for(i <- 0 until 5) {
-      var tCounter: Map[String, Long] = tweetCounter.get(i) match {
+      val refresh = Refresh(i)
+
+      var tCounter: Map[String, Long] = tweetCounter.get(refresh) match {
         case Some(tCounter) => tCounter
         case None => {
           Logger.error(s"ERROR!! period not initialized for period = $i")
@@ -47,7 +41,7 @@ object Cache {
       tCounter.get(stub) match {
         case Some(counter) => {
           tCounter += (stub -> (counter + 1))
-          tweetCounter += (i -> tCounter)
+          tweetCounter += (refresh -> tCounter)
         }
         case None =>  {
           Logger.error(s"ERROR!! stub not initialized for stub = $stub and period = $i")
@@ -57,16 +51,16 @@ object Cache {
     }
   }
 
-  def flush(period: Int) = {
-    var tCounter: Map[String, Long] = tweetCounter(period)
+  def flush(refresh: Refresh) = {
+    var tCounter: Map[String, Long] = tweetCounter(refresh)
     tCounter foreach {
       case (stub, counter) => {
         tCounter += (stub -> (0))
       }
     }
-    tweetCounter += (period -> tCounter)
+    tweetCounter += (refresh -> tCounter)
   }
 
-  def getTweetCount(period: Int): Map[String, Long] = tweetCounter.get(period).get
+  def getTweetCount(refresh: Refresh): Map[String, Long] = tweetCounter.get(refresh).get
 
 }

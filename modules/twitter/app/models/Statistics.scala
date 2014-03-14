@@ -13,12 +13,7 @@ import play.api.libs.iteratee.Enumerator
 import play.api.libs.iteratee.Iteratee
 import play.api.libs.json.JsValue
 import play.api._
-
-case class Refresh3()
-case class Refresh30()
-case class Refresh300()
-case class Refresh1800()
-case class Refresh10800()
+import models.Refresh
 
 case class Connect()
 
@@ -29,36 +24,30 @@ object Statistics {
   implicit val timeout = Timeout(5 second)
 
   // There is one statistics actor for each period which broadcasts tweet-counts for all stubs (for that period) on the websocket
-  var actors: Map[Int, ActorRef] = Map()
+  val actors = scala.collection.mutable.Map[Refresh,ActorRef]()
 
-  def actor(period: Int) = actors.synchronized {
-    actors.find(_._1 == period).map(_._2) match {
+  def actor(refresh: Refresh) = actors.synchronized {
+    actors.find(_._1 == refresh).map(_._2) match {
       case Some(actor) => {
-        Logger.info(s"reusing existing actor for $period")
+        Logger.info(s"reusing existing actor for $refresh")
         actor
       }
 
       case None => {
-        Logger.info(s"creating new actor for $period")
-        val actor = Akka.system.actorOf(Props(new StatisticsActor()), name = s"period-$period")
+        Logger.info(s"creating new actor for $refresh")
+        val actorName = "statisticsActorPeriod" + refresh.period
+        val actor = Akka.system.actorOf(Props(new StatisticsActor()), name = actorName)
 
         // setup a scheduler according to the actor's period
-        period match {
-          case 0 => Akka.system.scheduler.schedule(0.seconds, 3.seconds,  actor, Refresh3)
-          case 1 => Akka.system.scheduler.schedule(0.seconds, 30.seconds, actor, Refresh30)
-          case 2 => Akka.system.scheduler.schedule(0.seconds, 5.minutes,  actor, Refresh300)
-          case 3 => Akka.system.scheduler.schedule(0.seconds, 30.minutes, actor, Refresh1800)
-          case 4 => Akka.system.scheduler.schedule(0.seconds, 3.hours,    actor, Refresh10800)
-        }
-
-        actors += (period -> actor)
+        Akka.system.scheduler.schedule(0.seconds, refresh.duration, actor, refresh)
+        actors += (refresh -> actor)
         actor
       }
     }
   }
 
-  def attach(period: Int): Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
-    (actor(period) ? Connect()).map {
+  def attach(refresh: Refresh): Future[(Iteratee[JsValue, _], Enumerator[JsValue])] = {
+    (actor(refresh) ? Connect()).map {
       case Connected(enumerator) => {
         (Iteratee.ignore[JsValue], enumerator)
       }
