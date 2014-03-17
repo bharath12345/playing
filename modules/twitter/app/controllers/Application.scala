@@ -17,7 +17,7 @@ import java.io.ByteArrayInputStream
 import models.twitter._
 import twitter.TweetProcessor
 import twitter.TweetStreamerActor
-import twitter.Credentials
+import twitter.TwitterCredentials
 
 import scala.concurrent._
 import ExecutionContext.Implicits.global
@@ -32,8 +32,8 @@ import notifiers.EmailNotifier
 object Application extends Controller {
 
   val client = new DefaultHttpClient()
-  val consumer = new CommonsHttpOAuthConsumer(Credentials.ck, Credentials.cs)
-  consumer.setTokenWithSecret(Credentials.at, Credentials.as)
+  val consumer = new CommonsHttpOAuthConsumer(TwitterCredentials.ck, TwitterCredentials.cs)
+  consumer.setTokenWithSecret(TwitterCredentials.at, TwitterCredentials.as)
 
   var processors: Map[String, ActorRef] = Map()
   var streamers: Map[String, ActorRef] = Map()

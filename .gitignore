@@ -1,6 +1,5 @@
 *.env
 *.sh
-exportvars.sh
 
 logs
 project/project

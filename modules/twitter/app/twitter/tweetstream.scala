@@ -25,8 +25,8 @@ trait TwitterAuthorization {
 trait OAuthTwitterAuthorization extends TwitterAuthorization {
   import OAuth._
 
-  val consumer = Consumer(Credentials.ck, Credentials.cs)
-  val token = Token(Credentials.at, Credentials.as)
+  val consumer = Consumer(TwitterCredentials.ck, TwitterCredentials.cs)
+  val token = Token(TwitterCredentials.at, TwitterCredentials.as)
 
   val authorize: (HttpRequest) => HttpRequest = oAuthAuthorizer(consumer, token)
 }

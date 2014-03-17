@@ -3,7 +3,7 @@ package twitter
 /**
  * Created by bharadwaj on 29/01/14.
  */
-object Credentials {
+object TwitterCredentials {
   val at = System.getenv("TWITTER_APP_TOKEN")
   val as = System.getenv("TWITTER_APP_SECRET")
 

@@ -24,6 +24,9 @@ libraryDependencies ++= Seq(
   "org.webjars"               %  "highcharts"              % "3.0.9"
 )
 
+// When deploying on Wildfly, for logging, add this library dependency -
+//   "com.github.play2war.ext"   %% "redirect-playlogger"     % "1.0.1",
+
 playScalaSettings
 
 Play2WarPlugin.play2WarSettings
