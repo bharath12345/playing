@@ -24,6 +24,7 @@ import ExecutionContext.Implicits.global
 import play.api.libs.json.JsValue
 import scala.concurrent.duration.{FiniteDuration, DurationInt}
 import models.Refresh
+import notifiers.EmailNotifier
 
 /**
  * Created by bharadwaj on 27/01/14.
@@ -154,6 +155,11 @@ object Application extends Controller {
   def live(period: Int) = WebSocket.async[JsValue] {
     request =>
       Statistics.attach(Refresh(period))
+  }
+
+  def sendmail = Action {
+    EmailNotifier.sendMail
+    Ok("sent something!")
   }
 
 }

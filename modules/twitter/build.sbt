@@ -10,6 +10,8 @@ scalaVersion := "2.10.3"
 
 resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 
+resolvers += "Scribe" at "https://raw.github.com/fernandezpablo85/scribe-java/mvn-repo"
+
 libraryDependencies ++= Seq(
   "oauth.signpost"            % "signpost-core"           % "1.2",
   "oauth.signpost"            % "signpost-commonshttp4"   % "1.2",
@@ -29,7 +31,9 @@ libraryDependencies ++= Seq(
   "org.webjars"               %  "jsplumb"                % "1.5.5",
   "org.webjars"               %  "dojo"                   % "1.9.2",
   "org.webjars"               %  "font-awesome"           % "4.0.3",
-  "org.webjars"               %  "highcharts"             % "3.0.9"
+  "org.webjars"               %  "highcharts"             % "3.0.9",
+  "com.typesafe"              %% "play-plugins-mailer"    % "2.1-RC2",
+  "org.scribe"                %  "scribe"                 % "1.3.5"
 )
 
 playScalaSettings

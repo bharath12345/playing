@@ -4,9 +4,9 @@ package twitter
  * Created by bharadwaj on 29/01/14.
  */
 object Credentials {
-  val at = "262534519-OarcKBDjQMmZYGS9rU5CJSwdHAdiXs4eXJOoOCiA"
-  val as = "9MBU2hcAKHQWBtEPE1ihFlM3IlLjVwN8uhUFhuGMsiws3"
+  val at = System.getenv("TWITTER_APP_TOKEN")
+  val as = System.getenv("TWITTER_APP_SECRET")
 
-  val ck = "Adqs6idtfSjWUp1LOLB2g"
-  val cs = "OPQJ9RvKu3fwL8cirFJwMAHs5iof3aEaIy7hosCyI"
+  val ck = System.getenv("TWITTER_CONSUMER_KEY")
+  val cs = System.getenv("TWITTER_CONSUMER_SECRET")
 }

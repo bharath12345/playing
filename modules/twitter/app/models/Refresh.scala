@@ -5,7 +5,7 @@ import scala.concurrent.duration.{FiniteDuration, DurationInt}
 /**
  * Created by bharadwaj on 14/03/14.
  */
-trait Refresh {
+sealed trait Refresh {
   def duration: FiniteDuration
   def period: Int
 }
