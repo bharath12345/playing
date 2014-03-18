@@ -3,9 +3,9 @@
 # ~~~~
 
 GET     /assets/*file               controllers.configuration.Assets.at(path="/public", file)
-GET     /webjars/*file                    controllers.WebJarAssets.at(file)
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
-GET     /create                    controllers.configuration.ConfigurationApplication.create
+GET     /create                     controllers.configuration.ConfigurationApplication.create
 
 # Login page
 GET     /login                      securesocial.controllers.LoginPage.login
