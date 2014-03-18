@@ -1,25 +1,25 @@
+package configuration
+
 import com.typesafe.config.ConfigFactory
-import util.Try
-import scala.util.Properties
 import java.net.URI
 
 /**
  * Holds service configuration settings.
  */
 trait Configuration {
-  
+
   /**
    * Application config object from src/main/resources/application.conf
    */
   val config = ConfigFactory.load()
-  
+
   /**
    * Database settings
    */
   var x = config.getString("db.default.url")
 
   lazy val dbUri = new URI(x)
-  
+
   /** Database host name/address. */
   lazy val dbHost = dbUri.getHost()
 

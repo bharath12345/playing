@@ -12,6 +12,7 @@ resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositori
 
 libraryDependencies ++= Seq(
   "com.typesafe.slick"        %% "slick"                   % "2.0.0",
+  "com.typesafe.play"         %% "play-slick"              % "0.6.0.1",
   "org.postgresql"            %  "postgresql"              % "9.3-1100-jdbc4",
   "joda-time"                 %  "joda-time"               % "2.3",
   "org.joda"                  %  "joda-convert"            % "1.5",

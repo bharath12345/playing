@@ -1,4 +1,4 @@
-package models
+package models.configuration
 
 import _root_.java.sql.Date
 import securesocial.core._
@@ -203,6 +203,8 @@ object Tables extends WithDefaultSession {
 
   val Tokens = new TableQuery[Tokens](new Tokens(_)) {
 
+    def create(implicit session: Session) = TableQuery[Tokens].ddl.create
+
     def findById(tokenId: String): Option[Token] = withSession {
       implicit session =>
         val q = for {
@@ -257,6 +259,8 @@ object Tables extends WithDefaultSession {
 
   val Users = new TableQuery[Users](new Users(_)) {
     def autoInc = this returning this.map(_.uid)
+
+    def create(implicit session: Session) = TableQuery[Users].ddl.create
 
     def findById(id: Long) = withSession {
       implicit session =>

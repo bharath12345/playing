@@ -3,7 +3,7 @@ package plugins
 import play.api.Application
 import securesocial.core.{Identity, IdentityId, UserServicePlugin}
 import securesocial.core.providers.Token
-import models.Tables._
+import models.configuration.Tables._
 import org.joda.time.DateTime
 
 /**
