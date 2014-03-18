@@ -1,7 +1,6 @@
 *.env
 *.sh
-securesocial.conf
-conf/securesocial.conf
+secret.conf
 
 logs
 project/project
