@@ -8,7 +8,7 @@ import scala.collection.immutable.{HashSet, HashMap}
 import org.pegdown.PegDownProcessor
 import java.io.IOException
 
-object Application extends Controller {
+object BlogApplication extends Controller {
 
   val pegdown = new PegDownProcessor
 

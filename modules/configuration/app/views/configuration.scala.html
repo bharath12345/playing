@@ -1,0 +1,24 @@
+@(users: List[User])
+
+@main("User list") {
+
+    <div class="starter-template">
+        <h1>Users</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(user <- users) {
+                @{row(user)}
+            }
+            </tbody>
+        </table>
+    </div>
+}

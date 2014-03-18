@@ -15,5 +15,10 @@ object EmailNotifier {
 
     //mail.setBcc(List("Dummy <example@example.org>", "Dummy2 <example@example.org>"):_*)
     mail.sendHtml("<html>html</html>")
+
+    val user = "bharath"
+    val stringBody = views.html.mailBody.render(user).body
+    mail.sendHtml(stringBody)
+
   }
 }

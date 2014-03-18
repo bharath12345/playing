@@ -6,18 +6,18 @@ GET     /assets/*file                     controllers.blog.Assets.at(path="/publ
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 
 # Home page
-GET     /                                 controllers.blog.Application.index
+GET     /                                 controllers.blog.BlogApplication.index
 
 # Blog Route
-GET     /post/:id                         controllers.blog.Application.blog(id: String)
-GET     /tag/:id                          controllers.blog.Application.tag(id: String)
-GET     /category/:id                     controllers.blog.Application.category(id: String)
+GET     /post/:id                         controllers.blog.BlogApplication.blog(id: String)
+GET     /tag/:id                          controllers.blog.BlogApplication.tag(id: String)
+GET     /category/:id                     controllers.blog.BlogApplication.category(id: String)
 
 # Sub Pages
-GET     /tags                             controllers.blog.Application.tags
-GET     /categories                       controllers.blog.Application.categories
-GET     /toc                              controllers.blog.Application.toc
-GET     /search                           controllers.blog.Application.search
+GET     /tags                             controllers.blog.BlogApplication.tags
+GET     /categories                       controllers.blog.BlogApplication.categories
+GET     /toc                              controllers.blog.BlogApplication.toc
+GET     /search                           controllers.blog.BlogApplication.search
 
 # About Myself
 GET     /about/books                      controllers.blog.About.books

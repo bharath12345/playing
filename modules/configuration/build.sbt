@@ -11,10 +11,15 @@ scalaVersion := "2.10.3"
 resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 
 libraryDependencies ++= Seq(
-  "postgresql"                % "postgresql"              % "9.1-901-1.jdbc4",
-  "org.hibernate"             % "hibernate-core"          % "4.2.3.Final",
-  "org.hibernate"             % "hibernate-entitymanager" % "4.2.3.Final",
-  "javax.persistence"         % "persistence-api"         % "1.0"
+  "com.typesafe.slick"        %% "slick"                   % "2.0.0",
+  "org.postgresql"            %  "postgresql"              % "9.3-1100-jdbc4",
+  "joda-time"                 %  "joda-time"               % "2.3",
+  "org.joda"                  %  "joda-convert"            % "1.5",
+  "com.github.tototoshi"      %% "slick-joda-mapper"       % "1.0.1",
+  "ws.securesocial"           %% "securesocial"            % "2.1.3",
+  "org.webjars"               %% "webjars-play"            % "2.2.1-2",
+  "org.webjars"               %  "bootstrap"               % "3.1.1",
+  "org.webjars"               %  "jquery"                  % "2.1.0-2"
 )
 
 playScalaSettings

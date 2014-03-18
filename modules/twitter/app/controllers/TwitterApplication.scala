@@ -29,7 +29,7 @@ import notifiers.EmailNotifier
 /**
  * Created by bharadwaj on 27/01/14.
  */
-object Application extends Controller {
+object TwitterApplication extends Controller {
 
   val client = new DefaultHttpClient()
   val consumer = new CommonsHttpOAuthConsumer(TwitterCredentials.ck, TwitterCredentials.cs)
@@ -132,7 +132,7 @@ object Application extends Controller {
       Query.addToQuery(query)
       val streamer = startStreamerProcessor(query)
       streamer ! query
-      val wsURL: String = controllers.twitter.routes.Application.live(0).webSocketURL()
+      val wsURL: String = controllers.twitter.routes.TwitterApplication.live(0).webSocketURL()
       Ok(views.html.dashboard(Query.getStubs)(wsURL))
   }
 
@@ -148,7 +148,7 @@ object Application extends Controller {
       val streamer = startStreamerProcessor(query)
       streamer ! query
 
-      val wsUrl = controllers.twitter.routes.Application.live(period).webSocketURL()
+      val wsUrl = controllers.twitter.routes.TwitterApplication.live(period).webSocketURL()
       Ok(views.html.dashboard(Query.getStubs)(wsUrl))
   }
 
