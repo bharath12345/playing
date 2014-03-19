@@ -2,7 +2,11 @@
 
 9994:securesocial.core.DefaultAuthenticatorStore
 9995:securesocial.core.DefaultIdGenerator
-9997:controllers.configuration.CustomViews
+
+9997:securesocial.controllers.DefaultTemplatesPlugin
+# <- Required for default login (etc) pages
+# 9997:controllers.configuration.CustomViews
+
 9998:plugins.UserService
 
 10000:securesocial.core.providers.TwitterProvider
@@ -12,5 +16,3 @@
 10005:securesocial.core.providers.GitHubProvider
 
 10006:events.MyEventListener
-
-# 9997: controllers.DefaultTemplatesPlugin <- Required for default login (etc) pages
