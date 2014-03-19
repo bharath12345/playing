@@ -1,5 +1,4 @@
-/*
-package views
+package controllers.configuration
 
 import play.api.mvc.{RequestHeader, Request}
 import play.api.templates.{Html, Txt}
@@ -21,9 +20,8 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return
    */
   override def getLoginPage[A](implicit request: Request[A], form: Form[(String, String)],
-                               msg: Option[String] = None): Html =
-  {
-    views.html.custom.login(form, msg)
+                               msg: Option[String] = None): Html = {
+    views.html.custom.login(form)
   }
 
   /**
@@ -34,7 +32,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return
    */
   override def getSignUpPage[A](implicit request: Request[A], form: Form[RegistrationInfo], token: String): Html = {
-    views.html.custom.Registration.signUp(form, token)
+    views.html.custom.signUp(form, token)
   }
 
   /**
@@ -45,7 +43,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return
    */
   override def getStartSignUpPage[A](implicit request: Request[A], form: Form[String]): Html = {
-    views.html.custom.Registration.startSignUp(form)
+    views.html.custom.startSignUp(form)
   }
 
   /**
@@ -56,7 +54,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return
    */
   override def getStartResetPasswordPage[A](implicit request: Request[A], form: Form[String]): Html = {
-    views.html.custom.Registration.startResetPassword(form)
+    views.html.custom.startResetPassword(form)
   }
 
   /**
@@ -67,7 +65,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return
    */
   def getResetPasswordPage[A](implicit request: Request[A], form: Form[(String, String)], token: String): Html = {
-    views.html.custom.Registration.resetPasswordPage(form, token)
+    views.html.custom.resetPasswordPage(form, token)
   }
 
   /**
@@ -91,7 +89,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getSignUpEmail(token: String)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.custom.mails.signUpEmail(token)))
+    (None, Some(views.html.custom.signUpEmail(token)))
   }
 
   /**
@@ -102,7 +100,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getAlreadyRegisteredEmail(user: Identity)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.custom.mails.alreadyRegisteredEmail(user)))
+    (None, Some(views.html.custom.alreadyRegisteredEmail(user)))
   }
 
   /**
@@ -113,7 +111,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getWelcomeEmail(user: Identity)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.custom.mails.welcomeEmail(user)))
+    (None, Some(views.html.custom.welcomeEmail(user)))
   }
 
   /**
@@ -124,7 +122,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getUnknownEmailNotice()(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.custom.mails.unknownEmailNotice(request)))
+    (None, Some(views.html.custom.unknownEmailNotice(request)))
   }
 
   /**
@@ -136,7 +134,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getSendPasswordResetEmail(user: Identity, token: String)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.custom.mails.passwordResetEmail(user, token)))
+    (None, Some(views.html.custom.passwordResetEmail(user, token)))
   }
 
   /**
@@ -147,7 +145,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getPasswordChangedNoticeEmail(user: Identity)(implicit request: RequestHeader): (Option[Txt], Option[Html]) = {
-    (None, Some(views.html.custom.mails.passwordChangedNotice(user)))
+    (None, Some(views.html.custom.passwordChangedNotice(user)))
   }
 
 
@@ -158,9 +156,7 @@ class CustomViews(application: play.Application) extends TemplatesPlugin
    * @return a String with the text and/or html body for the email
    */
   def getNotAuthorizedPage[A](implicit request: Request[A]): Html = {
-    views.html.custom.mails.notAuthorizedPage()
+    views.html.custom.notAuthorizedPage()
   }
 
 }
-
-*/

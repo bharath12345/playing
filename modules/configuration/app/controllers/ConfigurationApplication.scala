@@ -13,7 +13,7 @@ import configuration.Configuration
  */
 object ConfigurationApplication extends Controller with SecureSocial with Configuration {
 
-  def index = SecuredAction { implicit request =>
+  def users = SecuredAction { implicit request =>
     Ok(views.html.configuration(Users.all))
   }
 

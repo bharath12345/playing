@@ -2,14 +2,16 @@
 # This file defines all application configuration routes (Higher priority routes first)
 # ~~~~
 
-GET     /assets/*file               controllers.configuration.Assets.at(path="/public", file)
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
+GET         /assets/*file                  controllers.configuration.Assets.at(path="/public", file)
+GET         /webjars/*file                 controllers.WebJarAssets.at(file)
 
-GET     /create                     controllers.configuration.ConfigurationApplication.create
+GET         /create                        controllers.configuration.ConfigurationApplication.create
+
+GET         /users                         controllers.configuration.ConfigurationApplication.users
 
 # Login page
-GET     /login                      securesocial.controllers.LoginPage.login
-GET     /logout                     securesocial.controllers.LoginPage.logout
+GET         /login                         securesocial.controllers.LoginPage.login
+GET         /logout                        securesocial.controllers.LoginPage.logout
 
 # User Registration and password handling
 # GET     /signup                     securesocial.controllers.Registration.startSignUp
@@ -24,6 +26,6 @@ GET     /logout                     securesocial.controllers.LoginPage.logout
 # POST    /password                   securesocial.controllers.PasswordChange.handlePasswordChange
 
 # Providers entry points
-GET     /authenticate/:provider     securesocial.controllers.ProviderController.authenticate(provider)
-POST    /authenticate/:provider     securesocial.controllers.ProviderController.authenticateByPost(provider)
-GET     /not-authorized             securesocial.controllers.ProviderController.notAuthorized
+GET         /authenticate/:provider        securesocial.controllers.ProviderController.authenticate(provider)
+POST        /authenticate/:provider        securesocial.controllers.ProviderController.authenticateByPost(provider)
+GET         /not-authorized                securesocial.controllers.ProviderController.notAuthorized
