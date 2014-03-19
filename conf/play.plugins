@@ -12,3 +12,5 @@
 10005:securesocial.core.providers.GitHubProvider
 
 10006:events.MyEventListener
+
+# 9997: controllers.DefaultTemplatesPlugin <- Required for default login (etc) pages
