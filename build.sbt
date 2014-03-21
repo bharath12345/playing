@@ -1,6 +1,6 @@
 import play.Project._
 
-import com.github.play2war.plugin._
+//import com.github.play2war.plugin._
 
 name := "playing"
 
@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
 
 playScalaSettings
 
-Play2WarPlugin.play2WarSettings
+/*Play2WarPlugin.play2WarSettings
 
 Play2WarKeys.servletVersion := "3.1"
 
@@ -57,7 +57,7 @@ Play2WarKeys.filteredArtifacts ++= Seq(
   ("tyrex","tyrex")
   //("com.jolbox", "bonecp"),
   //("io.netty","netty"),
-)
+)*/
 
 lazy val playing = project.in( file(".") )
                        .aggregate(mylib)
