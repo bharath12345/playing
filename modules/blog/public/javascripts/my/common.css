@@ -289,10 +289,20 @@ body {
 .navbar.navbar-default {
     min-height: 2em;
     height: 2em;
+    line-height: 2em;
+    margin-bottom: 0;
 }
 
 .navbar-link {
-    padding-top: 0.2em !important;
+    padding-top: 0.1em !important;
+    line-height: 2em;
+    min-height: 2em;
+    height: 2em;
+}
+
+.nav.navbar-nav {
+    padding-top: 0.1em !important;
+    line-height: 2em;
 }
 
 img.movieimg {
@@ -303,8 +313,3 @@ img.movieimg {
 div.movierow {
     margin: 4px;
 }
-
-
-
-
-
