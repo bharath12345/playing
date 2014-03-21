@@ -13,7 +13,6 @@ scalaVersion := "2.10.3"
 resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 
 libraryDependencies ++= Seq(
-  "com.github.play2war.ext"   %% "redirect-playlogger"     % "1.0.1"
 )
 
 // When deploying on Wildfly, for logging, add this library dependency -
