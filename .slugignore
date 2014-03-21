@@ -18,6 +18,10 @@ dist
 /RUNNING_PID
 /.settings
 
+.git/
+test/
+war/
+
 # Project Specific
 
 ################
