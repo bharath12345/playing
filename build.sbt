@@ -13,15 +13,7 @@ scalaVersion := "2.10.3"
 resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 
 libraryDependencies ++= Seq(
-  "com.github.play2war.ext"   %% "redirect-playlogger"     % "1.0.1",
-  "org.webjars"               %% "webjars-play"            % "2.2.1-2",
-  "org.webjars"               %  "bootstrap"               % "3.1.1",
-  "org.webjars"               %  "jquery"                  % "2.1.0-2",
-  "org.webjars"               %  "d3js"                    % "3.4.1",
-  "org.webjars"               %  "jsplumb"                 % "1.5.5",
-  "org.webjars"               %  "dojo"                    % "1.9.2",
-  "org.webjars"               %  "font-awesome"            % "4.0.3",
-  "org.webjars"               %  "highcharts"              % "3.0.9"
+  "com.github.play2war.ext"   %% "redirect-playlogger"     % "1.0.1"
 )
 
 // When deploying on Wildfly, for logging, add this library dependency -

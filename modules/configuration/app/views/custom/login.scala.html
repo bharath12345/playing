@@ -1,3 +1,22 @@
 @(startForm:play.api.data.Form[(String, String)])(implicit request: play.api.mvc.RequestHeader)
 
-ToDo: Fill this up - Bharath.
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        @common.cssjs()
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Login</h1>
+            </div>
+            <div class="clearfix">
+                <p>Use your existing account on one of the following networks to log in.</p>
+                <p>
+                    <a href="/configuration/authenticate/twitter"> <img src='@controllers.configuration.routes.Assets.at("images/sign-in-with-twitter-gray.png")'/></a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

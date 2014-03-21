@@ -3,9 +3,9 @@
 9994:securesocial.core.DefaultAuthenticatorStore
 9995:securesocial.core.DefaultIdGenerator
 
-9997:securesocial.controllers.DefaultTemplatesPlugin
+# 9997:securesocial.controllers.DefaultTemplatesPlugin
 # <- Required for default login (etc) pages
-# 9997:controllers.configuration.CustomViews
+9997:controllers.configuration.CustomViews
 
 9998:plugins.UserService
 
