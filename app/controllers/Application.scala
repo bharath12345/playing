@@ -26,4 +26,8 @@ object Application extends Controller {
   def javahello = Action {
     Ok(myjavaclient.getHelloMsg)
   }*/
+
+  def login = Action {
+    Redirect("/configuration/login")
+  }
 }

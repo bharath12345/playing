@@ -25,11 +25,13 @@ import play.api.libs.json.JsValue
 import scala.concurrent.duration.{FiniteDuration, DurationInt}
 import models.Refresh
 import notifiers.EmailNotifier
+import securesocial.core.SecureSocial
+
 
 /**
  * Created by bharadwaj on 27/01/14.
  */
-object TwitterApplication extends Controller {
+object TwitterApplication extends Controller with SecureSocial {
 
   val client = new DefaultHttpClient()
   val consumer = new CommonsHttpOAuthConsumer(TwitterCredentials.ck, TwitterCredentials.cs)
@@ -136,7 +138,7 @@ object TwitterApplication extends Controller {
       Ok(views.html.dashboard(Query.getStubs)(wsURL))
   }
 
-  def elections(period: Int) = Action {
+  def elections(period: Int) = SecuredAction {
     implicit request =>
 
       Query.addToQuery("india")

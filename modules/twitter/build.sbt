@@ -25,7 +25,8 @@ libraryDependencies ++= Seq(
   "io.spray"                  % "spray-routing"           % "1.2.0",
   "io.spray"                  %% "spray-json"             % "1.2.5",
   "com.typesafe"              %% "play-plugins-mailer"    % "2.1-RC2",
-  "org.scribe"                %  "scribe"                 % "1.3.5"
+  "org.scribe"                %  "scribe"                 % "1.3.5",
+  "ws.securesocial"           %% "securesocial"            % "2.1.3"
 )
 
 playScalaSettings

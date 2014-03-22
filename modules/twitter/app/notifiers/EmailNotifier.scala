@@ -10,8 +10,9 @@ object EmailNotifier {
   def sendMail {
     val mail = use[MailerPlugin].email
     mail.setSubject("Mail test")
-    mail.addRecipient("Bharath <bharath12345@gmail.com>","bharath12345@yahoo.com")
-    mail.addFrom("Bharath <bharath12345@gmail.com>")
+
+    //mail.addRecipient("Bharath <bharath12345@gmail.com>","bharath12345@yahoo.com")
+    //mail.addFrom("Bharath <bharath12345@gmail.com>")
 
     //mail.setBcc(List("Dummy <example@example.org>", "Dummy2 <example@example.org>"):_*)
     mail.sendHtml("<html>html</html>")
