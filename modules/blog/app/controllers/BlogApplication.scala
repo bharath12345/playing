@@ -13,6 +13,7 @@ object BlogApplication extends Controller {
   val pegdown = new PegDownProcessor
 
   val posts = List(
+    "play2-on-jboss-wildfly.md",
     "my-scala-application---twitter-volume-grapher-for-indian-election-personalities.md",
     "computing-laws-theorems-and-aphorisms.md",
     "streaming-twitter-on-play--spray-scala-app.md",
