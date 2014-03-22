@@ -3,7 +3,6 @@
 # ~~~~
 
 GET     /assets/*file                     controllers.blog.Assets.at(path="/public", file)
-GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 
 # Home page
 GET     /                                 controllers.blog.BlogApplication.index

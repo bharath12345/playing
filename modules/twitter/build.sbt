@@ -24,14 +24,6 @@ libraryDependencies ++= Seq(
   "io.spray"                  % "spray-client"            % "1.2.0",
   "io.spray"                  % "spray-routing"           % "1.2.0",
   "io.spray"                  %% "spray-json"             % "1.2.5",
-  "org.webjars"               %% "webjars-play"           % "2.2.1-2",
-  "org.webjars"               %  "bootstrap"              % "3.1.1",
-  "org.webjars"               %  "jquery"                 % "2.1.0-2",
-  "org.webjars"               %  "d3js"                   % "3.4.1",
-  "org.webjars"               %  "jsplumb"                % "1.5.5",
-  "org.webjars"               %  "dojo"                   % "1.9.2",
-  "org.webjars"               %  "font-awesome"           % "4.0.3",
-  "org.webjars"               %  "highcharts"             % "3.0.9",
   "com.typesafe"              %% "play-plugins-mailer"    % "2.1-RC2",
   "org.scribe"                %  "scribe"                 % "1.3.5"
 )

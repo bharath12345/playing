@@ -13,6 +13,7 @@
         var chartName = '@stub'
 
         console.log("creating chart = " + chartName)
+        try {
         var first = charts[ chartName ] = new Highcharts.Chart({
             chart: {
                 renderTo: chartName,
@@ -37,6 +38,9 @@
                 }
             ]
         });
+        } catch(e) {
+            console.log("hit exception = " + e)
+        }
 
         var legend = first.legend;
         if(true) {

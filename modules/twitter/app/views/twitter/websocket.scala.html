@@ -2,6 +2,7 @@
 
 <script type="text/javascript">
     function createWebsocket(){
+        console.log("starting to listen on websocket url = @wsUrl")
         var socket = new WebSocket("@wsUrl")
         socket.onmessage = function (event) {
             console.log("event data = " + event.data)
