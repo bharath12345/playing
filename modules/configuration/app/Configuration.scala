@@ -27,7 +27,7 @@ trait Configuration {
   lazy val dbPort = dbUri.getPort()
 
   /** Service database name. */
-  lazy val dbName = "dfadohirbu33sv"
+  lazy val dbName = dbUri.getPath().substring(1)
 
   /** User name used to access database. */
   lazy val dbUser = dbUri.getUserInfo().split(":")(0)
