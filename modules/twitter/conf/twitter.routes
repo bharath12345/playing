@@ -6,9 +6,9 @@
 GET        /assets/*file             controllers.twitter.Assets.at(path="/public", file)
 
 # Twitter Project
-GET        /followers                controllers.twitter.TwitterApplication.followers
-GET        /mentions                 controllers.twitter.TwitterApplication.mentions
-GET        /sample                   controllers.twitter.TwitterApplication.sample
+GET        /followers                controllers.twitter.TwitterQueryApiController.followers
+GET        /mentions                 controllers.twitter.TwitterQueryApiController.mentions
+GET        /sample                   controllers.twitter.TwitterQueryApiController.sample
 # GET     /go/:query                controllers.twitter.TwitterApplication.go(query: String)
 
 GET        /dashboard/:query         controllers.twitter.TwitterApplication.dashboard(query: String)

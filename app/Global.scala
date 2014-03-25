@@ -7,10 +7,17 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     Logger.info("Application has started")
+    BlogGlobal.onStart()
+    ConfigurationGlobal.onStart()
+    TwitterGlobal.onStart()
+
   }
 
   override def onStop(app: Application) {
     Logger.info("Application shutdown...")
+    BlogGlobal.onStop()
+    ConfigurationGlobal.onStop()
+    TwitterGlobal.onStop()
   }
 
   /*

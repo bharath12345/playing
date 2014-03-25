@@ -14,6 +14,8 @@ import models.Refresh
 import play.api.libs.json.JsNumber
 import play.api.libs.json.JsString
 
+sealed case class PersistenceMsg(r: Refresh, j: JsValue)
+
 class StatisticsActor() extends Actor {
 
   val (enumerator, channel) = Concurrent.broadcast[JsValue]
@@ -26,12 +28,21 @@ class StatisticsActor() extends Actor {
 
     case r: Refresh => {
       Logger.info(s"received refresh message of duration = $r.duration")
-      broadcastCount(Cache.getTweetCount(r), r)
-      Cache.flush(r)
+      val counter = Cache.getTweetCount(r)
+      counter match {
+        case Some(twCounter) => {
+          val j = broadcastCount(twCounter, r)
+          Cache.flush(r)
+          sender ! PersistenceMsg(r, j)
+        }
+        case None => {
+          Logger.info("Not sending the null json... not connected to twitter feed yet")
+        }
+      }
     }
   }
 
-  def broadcastCount(counter: Map[String, Long], r: Refresh) = {
+  def broadcastCount(counter: Map[String, Long], r: Refresh): JsValue = {
     val date = new Date().getTime()
 
     var ja = Json.arr()
@@ -56,6 +67,7 @@ class StatisticsActor() extends Actor {
 
     Logger.info("sending json message = " + msg.toString())
     channel.push(msg)
+    msg
   }
 
 }

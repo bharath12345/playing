@@ -61,6 +61,8 @@ object Cache {
     tweetCounter += (refresh -> tCounter)
   }
 
-  def getTweetCount(refresh: Refresh): Map[String, Long] = tweetCounter.get(refresh).get
+  def getTweetCount(refresh: Refresh): Option[Map[String, Long]] = {
+    tweetCounter.get(refresh)
+  }
 
 }
