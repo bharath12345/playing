@@ -3,19 +3,21 @@
 # ~~~~
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                     controllers.twitter.Assets.at(path="/public", file)
+GET        /assets/*file             controllers.twitter.Assets.at(path="/public", file)
 
 # Twitter Project
-GET     /followers                controllers.twitter.TwitterApplication.followers
-GET     /mentions                 controllers.twitter.TwitterApplication.mentions
-GET     /sample                   controllers.twitter.TwitterApplication.sample
+GET        /followers                controllers.twitter.TwitterApplication.followers
+GET        /mentions                 controllers.twitter.TwitterApplication.mentions
+GET        /sample                   controllers.twitter.TwitterApplication.sample
 # GET     /go/:query                controllers.twitter.TwitterApplication.go(query: String)
 
-GET     /dashboard/:query         controllers.twitter.TwitterApplication.dashboard(query: String)
-GET     /elections/:period        controllers.twitter.TwitterApplication.elections(period: Int)
+GET        /dashboard/:query         controllers.twitter.TwitterApplication.dashboard(query: String)
+GET        /elections/:period        controllers.twitter.TwitterApplication.elections(period: Int)
 
 # 3 seconds
-GET     /live/:period              controllers.twitter.TwitterApplication.live(period: Int)
+GET        /live/:period             controllers.twitter.TwitterApplication.live(period: Int)
 
-GET     /sendmail                  controllers.twitter.TwitterApplication.sendmail
+GET        /sendmail                 controllers.twitter.TwitterApplication.sendmail
+
+GET        /create                   controllers.twitter.TwitterDataController.create
 

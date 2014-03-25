@@ -26,7 +26,13 @@ libraryDependencies ++= Seq(
   "io.spray"                  %% "spray-json"             % "1.2.5",
   "com.typesafe"              %% "play-plugins-mailer"    % "2.1-RC2",
   "org.scribe"                %  "scribe"                 % "1.3.5",
-  "ws.securesocial"           %% "securesocial"            % "2.1.3"
+  "ws.securesocial"           %% "securesocial"           % "2.1.3",
+  "com.typesafe.slick"        %% "slick"                  % "2.0.0",
+  "com.typesafe.play"         %% "play-slick"             % "0.6.0.1",
+  "org.postgresql"            %  "postgresql"             % "9.3-1100-jdbc4",
+  "joda-time"                 %  "joda-time"              % "2.3",
+  "org.joda"                  %  "joda-convert"           % "1.5",
+  "com.github.tototoshi"      %% "slick-joda-mapper"      % "1.0.1"
 )
 
 playScalaSettings
