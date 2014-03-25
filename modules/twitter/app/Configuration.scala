@@ -2,6 +2,7 @@ package twitter
 
 import com.typesafe.config.ConfigFactory
 import java.net.URI
+import scala.slick.jdbc.JdbcBackend._
 
 /**
  * Holds service configuration settings.
@@ -34,5 +35,10 @@ trait Configuration {
 
   /** Password for specified user and database. */
   lazy val dbPassword = dbUri.getUserInfo().split(":")(1)
+
+  // init Database instance
+  val db = Database.forURL(url = "jdbc:postgresql://%s:%d/%s".format(dbHost, dbPort, dbName),
+    user = dbUser, password = dbPassword, driver = "org.postgresql.Driver")
+
 
 }

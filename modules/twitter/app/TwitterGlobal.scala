@@ -1,21 +1,22 @@
+package twitter
+
 import _root_.twitter._
-import models._
 import models.Refresh10800
 import models.Refresh1800
 import models.Refresh3
 import models.Refresh30
 import models.Refresh300
-import models.twitter.{Query, Statistics}
+import models.twitter.{ThreeSecDAO, QueryStringDAO, Query, Statistics}
 import play.api.{Logger}
+import scala.slick.jdbc.JdbcBackend._
+import scala.slick.jdbc.meta.MTable
 
 /**
  * Created by bharadwaj on 25/03/14.
  */
-object TwitterGlobal {
+object TwitterGlobal extends Configuration {
 
-  def onStart() = {
-    Logger.info("Twitter module has started")
-
+  def startTwitterStreaming = {
     Query.addToQuery("india")
     Query.addToQuery("modi")
     Query.addToQuery("rahul")
@@ -25,7 +26,6 @@ object TwitterGlobal {
     val streamer = StartStreamer.startStreamerProcessor(query)
     streamer ! query
 
-
     Statistics.attach(Refresh3())
     Statistics.attach(Refresh30())
     Statistics.attach(Refresh300())
@@ -33,7 +33,24 @@ object TwitterGlobal {
     Statistics.attach(Refresh10800())
   }
 
-  def onStop() {
+  def createTables = {
+
+    // create tables if not exist
+    db.withSession { implicit session: Session =>
+      if (!MTable.getTables.list.exists(_.name.name == "QueryStrings"))
+        QueryStringDAO.create
+      if (!MTable.getTables.list.exists(_.name.name == "ThreeSec"))
+        ThreeSecDAO.create
+    }
+  }
+
+  def onStart = {
+    Logger.info("Twitter module has started")
+    startTwitterStreaming
+    createTables
+  }
+
+  def onStop = {
     Logger.info("Twitter module shutdown...")
   }
 }

@@ -2,23 +2,26 @@ package models.twitter
 
 import java.util.Date
 
-import akka.actor.Actor
+import akka.actor.{Props, Actor}
 
 import play.api.libs.iteratee.{Enumerator, Concurrent}
 import play.api._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
-
-import _root_.twitter.Cache
-import models.Refresh
+import play.api.Play.current
 import play.api.libs.json.JsNumber
 import play.api.libs.json.JsString
+import play.api.libs.concurrent.Akka
+
+import _root_.twitter.Cache
+import models.{PersistorActor, Refresh}
 
 sealed case class PersistenceMsg(r: Refresh, j: JsValue)
 
 class StatisticsActor() extends Actor {
 
   val (enumerator, channel) = Concurrent.broadcast[JsValue]
+  val persistor = Akka.system.actorOf(Props(new PersistorActor()))
 
   def receive = {
     case Connect() => {
@@ -33,7 +36,7 @@ class StatisticsActor() extends Actor {
         case Some(twCounter) => {
           val j = broadcastCount(twCounter, r)
           Cache.flush(r)
-          sender ! PersistenceMsg(r, j)
+          persistor ! PersistenceMsg(r, j)
         }
         case None => {
           Logger.info("Not sending the null json... not connected to twitter feed yet")
@@ -48,14 +51,14 @@ class StatisticsActor() extends Actor {
     var ja = Json.arr()
     counter foreach {
       case (key, value) => {
-        Logger.info(s"stub = $key tweets = $value")
+        //Logger.info(s"stub = $key tweets = $value")
         val jo = Json.obj(
           "stub"     -> JsString(key),
           "tweets"    -> JsNumber(value)
         )
         ja = ja :+ jo
-        Logger.info("ja = " + ja.toString())
-        Logger.info("jo = " + jo.toString())
+        //Logger.info("ja = " + ja.toString())
+        //Logger.info("jo = " + jo.toString())
       }
     }
 

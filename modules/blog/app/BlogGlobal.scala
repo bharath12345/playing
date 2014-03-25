@@ -1,3 +1,5 @@
+package blog
+
 import play.api.Logger
 
 /**
@@ -5,11 +7,11 @@ import play.api.Logger
  */
 object BlogGlobal {
 
-  def onStart() = {
+  def onStart = {
     Logger.info("Blog module has started")
   }
 
-  def onStop() {
+  def onStop = {
     Logger.info("Blog module shutdown...")
   }
 

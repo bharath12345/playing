@@ -18,6 +18,3 @@ GET        /elections/:period        controllers.twitter.TwitterApplication.elec
 GET        /live/:period             controllers.twitter.TwitterApplication.live(period: Int)
 
 GET        /sendmail                 controllers.twitter.TwitterApplication.sendmail
-
-GET        /create                   controllers.twitter.TwitterDataController.create
-

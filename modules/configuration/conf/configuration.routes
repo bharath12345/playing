@@ -4,8 +4,6 @@
 
 GET         /assets/*file                  controllers.configuration.Assets.at(path="/public", file)
 
-GET         /create                        controllers.configuration.ConfigurationApplication.create
-
 GET         /users                         controllers.configuration.ConfigurationApplication.users
 
 # Login page
