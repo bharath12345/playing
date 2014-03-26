@@ -15,6 +15,8 @@ class QueryStringDAO(tag: Tag) extends Table[QueryString](tag, "QueryStrings") {
   def queryString = column[String]("queryString")
 
   def * = (id, queryString) <> (QueryString.tupled, QueryString.unapply _)
+  //def pk = primaryKey("pk_qs", (id, queryString))
+  def idx = index("idx_qs", queryString, unique = true)
 }
 
 object QueryStringDAO {

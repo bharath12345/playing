@@ -82,7 +82,7 @@ class PersistorActor() extends Actor with Configuration {
 
     case f: FlushOneHour => {
 
-      val onehourago: DateTime = (new DateTime()).minusSeconds(f.duration.toSeconds.toInt)
+      val onehourago: DateTime = (new DateTime()).minusSeconds(f.flushDuration)
       db.withSession { implicit session: Session =>
         ThreeSecDAO.deleteLashHour(onehourago)
       }

@@ -41,11 +41,11 @@ object Statistics {
   val actors = scala.collection.mutable.Map[Refresh,ActorRef]()
 
   val persistor = Akka.system.actorOf(Props(new PersistorActor()))
-  Akka.system.scheduler.schedule(0.seconds, FlushOneHour().duration, persistor, FlushOneHour())
-  Akka.system.scheduler.schedule(0.seconds, FlushThreeHours().duration, persistor, FlushThreeHours())
-  Akka.system.scheduler.schedule(0.seconds, FlushOneDay().duration, persistor, FlushOneDay())
-  Akka.system.scheduler.schedule(0.seconds, FlushOneWeek().duration, persistor, FlushOneWeek())
-  Akka.system.scheduler.schedule(0.seconds, FlushOneMonth().duration, persistor, FlushOneMonth())
+  Akka.system.scheduler.schedule(0.seconds, FlushOneHour().checkDuration, persistor, FlushOneHour())
+  Akka.system.scheduler.schedule(0.seconds, FlushThreeHours().checkDuration, persistor, FlushThreeHours())
+  Akka.system.scheduler.schedule(0.seconds, FlushOneDay().checkDuration, persistor, FlushOneDay())
+  Akka.system.scheduler.schedule(0.seconds, FlushOneWeek().checkDuration, persistor, FlushOneWeek())
+  Akka.system.scheduler.schedule(0.seconds, FlushOneMonth().checkDuration, persistor, FlushOneMonth())
 
 
   def actor(refresh: Refresh) = actors.synchronized {

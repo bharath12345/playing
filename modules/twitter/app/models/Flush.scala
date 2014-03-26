@@ -32,25 +32,31 @@ import scala.concurrent.duration.{FiniteDuration, DurationInt}
 
     ------
 
-    So, with these numbers, just about 4 STUBS can be accommodated. But definitely not more.
+    So, with these numbers, just about 4 STUBS can be accommodated. But lazy valinitely not more.
 
  */
 
 sealed trait Flush {
-  def duration: FiniteDuration
+  val checkDuration: FiniteDuration
+  val flushDuration: Int
 }
 case class FlushOneHour() extends Flush {
-  def duration = 3.seconds//1.hour
+  lazy val checkDuration = 5.minutes // keeping check-duration to be 1/12th of flush-duration
+  lazy val flushDuration = 3600
 }
 case class FlushThreeHours() extends Flush {
-  def duration = 3.hours
+  lazy val checkDuration = 15.minutes
+  lazy val flushDuration = 3 * 3600
 }
 case class FlushOneDay() extends Flush {
-  def duration = 24.hours
+  lazy val checkDuration = 2.hours
+  lazy val flushDuration = 24 * 3600
 }
 case class FlushOneWeek() extends Flush {
-  def duration = (24 * 7).hours
+  lazy val checkDuration = 14.hours
+  lazy val flushDuration = 7 * 24 * 3600
 }
 case class FlushOneMonth() extends Flush {
-  def duration = (24 * 30).hours
+  lazy val checkDuration = 60.hours
+  lazy val flushDuration = (30 * 24 * 3600)
 }

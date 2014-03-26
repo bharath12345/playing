@@ -27,9 +27,10 @@ case class ThirtyMin (dateTime: DateTime, queryString: Long, count: Long)
 case class ThreeHour (dateTime: DateTime, queryString: Long, count: Long)
   extends TweetsAggregated(dateTime, queryString, count)
 
+
 class ThreeSecDAO(tag: Tag) extends Table[ThreeSec](tag, "ThreeSec") {
 
-  def dateTime      = column[DateTime]("datetime", O.Nullable)
+  def dateTime      = column[DateTime]("datetime")
   def queryStringId = column[Long]    ("queryStringId")
   def counter       = column[Long]    ("counter")
 

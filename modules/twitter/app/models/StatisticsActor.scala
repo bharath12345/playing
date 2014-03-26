@@ -11,6 +11,9 @@ import play.api.libs.json._
 import play.api.Play.current
 import play.api.libs.concurrent.Akka
 
+import akka.pattern.ask
+import akka.util.Timeout
+
 import _root_.twitter.Cache
 import models._
 import scala.concurrent.duration.{FiniteDuration, DurationInt}
@@ -23,6 +26,7 @@ sealed case class PersistenceMsg(r: Refresh, j: JsValue)
 class StatisticsActor(persistor: ActorRef) extends Actor {
 
   val (enumerator, channel) = Concurrent.broadcast[JsValue]
+  implicit val timeout = Timeout(5 seconds)
 
   def receive = {
     case Connect() => {
@@ -37,7 +41,7 @@ class StatisticsActor(persistor: ActorRef) extends Actor {
         case Some(twCounter) => {
           val j = broadcastCount(twCounter, r)
           Cache.flush(r)
-          persistor ! PersistenceMsg(r, j)
+          persistor ? PersistenceMsg(r, j)
         }
         case None => {
           Logger.info("Not sending the null json... not connected to twitter feed yet")
