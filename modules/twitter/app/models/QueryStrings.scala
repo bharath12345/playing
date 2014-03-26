@@ -30,6 +30,20 @@ object QueryStringDAO {
     if b.id === id
   } yield b).firstOption
 
+  def findOrInsert(qs: QueryString)(implicit session: Session): Long = {
+    val qqs: Option[QueryString] = (for {
+      b <- QueryStrings
+      if b.queryString === qs.queryString
+    } yield b).firstOption
+
+    val id = qqs match {
+      case Some(querys) => querys.id
+      case None => insert(qs).id
+    }
+
+    id
+  }
+
   def findAll(implicit session: Session): List[QueryString] = (for{b <- QueryStrings} yield b).list
 
   def insert(queryString: QueryString)(implicit session: Session): QueryString = queryStringsAutoInc.insert(queryString)

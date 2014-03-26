@@ -6,7 +6,12 @@ import _root_.twitter.Configuration
 import scala.slick.jdbc.JdbcBackend.{Database, Session}
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import models.twitter._
+import org.joda.time.DateTime
+import play.api.libs.json.JsSuccess
 import models.twitter.PersistenceMsg
+import models.twitter.ThreeSec
+import models.twitter.QueryString
 
 /**
  * Created by bharadwaj on 25/03/14.
@@ -46,6 +51,10 @@ class PersistorActor() extends Actor with Configuration {
             val tj: TweetJson = s.get
             for(tc <- tj.tc) {
               Logger.info(s"timestamp = " + tj.timestamp + " stub = " + tc.stub + " value = " + tc.tweets)
+              val qs:QueryString = QueryString(0, tc.stub)
+              val id = QueryStringDAO.findOrInsert(qs)
+              val ts:ThreeSec = ThreeSec(new DateTime(tj.timestamp), id, tc.tweets)
+              ThreeSecDAO.insert(ts)
             }
           }
           case e: JsError => println("Errors: " + JsError.toFlatJson(e).toString())

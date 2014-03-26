@@ -35,7 +35,6 @@ class ThreeSecDAO(tag: Tag) extends Table[ThreeSec](tag, "ThreeSec") {
   def queryString = foreignKey("queryStringId", queryStringId, QueryStringDAO.QueryStrings)(_.id)
 
   def * = (dateTime, queryStringId, counter) <> (ThreeSec.tupled, ThreeSec.unapply _)
-
 }
 
 object ThreeSecDAO {
