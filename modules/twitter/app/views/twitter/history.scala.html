@@ -1,0 +1,26 @@
+@(historyUrl: String)(implicit request: RequestHeader)
+
+<script type=text/javascript>
+    require ([ /*"../../../twitter/assets/javascripts/twitter/history",*/ "dojo/request", "dojo/json", "dojo/domReady!" ],
+        function ( /*history,*/ request, JSON ) {
+
+            var historyUrl = '@historyUrl'
+            console.log ( "querying for history on url = " + historyUrl)
+
+            // Request the JSON data from the server
+            request.get ( historyUrl, {
+                // Parse data from JSON to a JavaScript object
+                handleAs : "json"
+            } ).then (
+
+            function ( data ) {
+                var jsonstring = JSON.stringify ( data )
+                console.log ( "stringified json = " + jsonstring )
+            },
+            function ( error ) {
+                // Display the error returned
+                console.log ( "ajax for history failed with error = " + error ) ;
+            } ) ;
+        }
+)
+</script>

@@ -1,4 +1,4 @@
-@(stubs: Array[String])(wsUrl: String)( implicit request: RequestHeader )
+@(stubs: Array[String])(wsUrl: String)(historyUrl: String)( implicit request: RequestHeader )
 
 <!DOCTYPE html>
 <html>
@@ -6,6 +6,7 @@
     <title>my twitter dashboard</title>
     @twitter.head()
     @twitter.grid(stubs)
+    @twitter.history(historyUrl)
   </head>
 
     <body class="claro">
@@ -18,3 +19,4 @@
 
 @twitter.chart(stubs)
 @twitter.websocket(stubs)(wsUrl)
+

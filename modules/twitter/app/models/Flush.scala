@@ -32,7 +32,9 @@ import scala.concurrent.duration.{FiniteDuration, DurationInt}
 
     ------
 
-    So, with these numbers, just about 4 STUBS can be accommodated. But lazy valinitely not more.
+    So, with these numbers, just about 4 STUBS can be accommodated. But definitely not more.
+    Number of 3-sec rows for 4 Stubs => 4 * 1200 ~= 4800, but the checkDuration is 5 minutes, and in the worst case
+       the number of rows can thus be => 4800 + (20 * 5) => 4900 rows. Never exceeding 5000 rows
 
  */
 

@@ -17,4 +17,6 @@ GET        /elections/:period        controllers.twitter.TwitterApplication.elec
 # 3 seconds
 GET        /live/:period             controllers.twitter.TwitterApplication.live(period: Int)
 
+GET        /history/:period          controllers.twitter.TwitterApplication.history(period: Int)
+
 GET        /sendmail                 controllers.twitter.TwitterApplication.sendmail
