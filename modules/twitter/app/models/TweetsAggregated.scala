@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.slick.driver.{PostgresDriver, JdbcProfile}
 import com.github.tototoshi.slick.PostgresJodaSupport._
 import scala.slick.driver.PostgresDriver.simple._
+import play.api.Logger
 
 /**
  * Created by bharadwaj on 25/03/14.
@@ -48,7 +49,12 @@ object ThreeSecDAO {
   def insert(tsd: ThreeSec)(implicit session: Session) = ThreeSecData.insert(tsd)
 
   def getLastHour() = {}
-  // and more such getters required
-  def delete()(implicit session: Session) = {  }
+  // more such getters required
+
+  def deleteLashHour(timestamp: DateTime)(implicit session: Session) = {
+    val q = ThreeSecData.filter(_.dateTime < timestamp)
+    Logger.info(s"delete row count = " + q.length.run)
+    q.delete
+  }
 
 }

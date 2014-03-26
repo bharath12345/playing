@@ -39,27 +39,29 @@ class PersistorActor() extends Actor with Configuration {
     )(TweetJson.apply _)
 
 
+  def persist(j: JsValue) = {
+    db.withSession { implicit session: Session =>
+      val tweetJson: JsResult[TweetJson] = j.validate[TweetJson]
+      tweetJson match {
+        case s: JsSuccess[TweetJson] => {
+          val tj: TweetJson = s.get
+          for(tc <- tj.tc) {
+            Logger.info(s"timestamp = " + tj.timestamp + " stub = " + tc.stub + " value = " + tc.tweets)
+            val qs:QueryString = QueryString(0, tc.stub)
+            val id = QueryStringDAO.findOrInsert(qs)
+            val ts:ThreeSec = ThreeSec(new DateTime(tj.timestamp), id, tc.tweets)
+            ThreeSecDAO.insert(ts)
+          }
+        }
+        case e: JsError => println("Errors: " + JsError.toFlatJson(e).toString())
+      }
+    }
+  }
 
   override def receive: Actor.Receive = {
     case PersistenceMsg(Refresh3(), j: JsValue) => {
       Logger.info(s"received Refresh 3 seconds message.")
-
-      db.withSession { implicit session: Session =>
-        val tweetJson: JsResult[TweetJson] = j.validate[TweetJson]
-        tweetJson match {
-          case s: JsSuccess[TweetJson] => {
-            val tj: TweetJson = s.get
-            for(tc <- tj.tc) {
-              Logger.info(s"timestamp = " + tj.timestamp + " stub = " + tc.stub + " value = " + tc.tweets)
-              val qs:QueryString = QueryString(0, tc.stub)
-              val id = QueryStringDAO.findOrInsert(qs)
-              val ts:ThreeSec = ThreeSec(new DateTime(tj.timestamp), id, tc.tweets)
-              ThreeSecDAO.insert(ts)
-            }
-          }
-          case e: JsError => println("Errors: " + JsError.toFlatJson(e).toString())
-        }
-      }
+      persist(j)
     }
 
     case PersistenceMsg(Refresh30(), j: JsValue) => {
@@ -76,6 +78,30 @@ class PersistorActor() extends Actor with Configuration {
 
     case PersistenceMsg(Refresh10800(), j: JsValue) => {
       Logger.info(s"received Refresh 10800 seconds message.")
+    }
+
+    case f: FlushOneHour => {
+
+      val onehourago: DateTime = (new DateTime()).minusSeconds(f.duration.toSeconds.toInt)
+      db.withSession { implicit session: Session =>
+        ThreeSecDAO.deleteLashHour(onehourago)
+      }
+    }
+
+    case FlushThreeHours() => {
+
+    }
+
+    case FlushOneDay() => {
+
+    }
+
+    case FlushOneWeek() => {
+
+    }
+
+    case FlushOneMonth() => {
+
     }
   }
 }

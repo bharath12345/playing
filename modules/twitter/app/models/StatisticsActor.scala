@@ -2,26 +2,27 @@ package models.twitter
 
 import java.util.Date
 
-import akka.actor.{Props, Actor}
+import akka.actor.{ActorRef, Props, Actor}
 
 import play.api.libs.iteratee.{Enumerator, Concurrent}
 import play.api._
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json._
 import play.api.Play.current
-import play.api.libs.json.JsNumber
-import play.api.libs.json.JsString
 import play.api.libs.concurrent.Akka
 
 import _root_.twitter.Cache
-import models.{PersistorActor, Refresh}
+import models._
+import scala.concurrent.duration.{FiniteDuration, DurationInt}
+import play.api.libs.json.JsString
+import scala.Some
+import play.api.libs.json.JsNumber
 
 sealed case class PersistenceMsg(r: Refresh, j: JsValue)
 
-class StatisticsActor() extends Actor {
+class StatisticsActor(persistor: ActorRef) extends Actor {
 
   val (enumerator, channel) = Concurrent.broadcast[JsValue]
-  val persistor = Akka.system.actorOf(Props(new PersistorActor()))
 
   def receive = {
     case Connect() => {
