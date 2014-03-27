@@ -14,20 +14,13 @@ import play.api.libs.iteratee.Iteratee
 import play.api.libs.json.JsValue
 import play.api._
 import models._
-import models.twitter.Connected
-import models.twitter.Connect
-import scala.Some
-import models.twitter.Connected
-import models.twitter.Connect
-import scala.Some
 import models.FlushOneHour
 import models.FlushOneDay
 import models.FlushOneMonth
-import models.twitter.Connected
-import models.twitter.Connect
 import scala.Some
 import models.FlushThreeHours
 import models.FlushOneWeek
+import tempo.WriterActor
 
 case class Connect()
 
@@ -40,13 +33,19 @@ object Statistics {
   // There is one statistics actor for each period which broadcasts tweet-counts for all stubs (for that period) on the websocket
   val actors = scala.collection.mutable.Map[Refresh,ActorRef]()
 
-  val persistor = Akka.system.actorOf(Props(new PersistorActor()))
-  Akka.system.scheduler.schedule(0.seconds, FlushOneHour().checkDuration, persistor, FlushOneHour())
-  Akka.system.scheduler.schedule(0.seconds, FlushThreeHours().checkDuration, persistor, FlushThreeHours())
-  Akka.system.scheduler.schedule(0.seconds, FlushOneDay().checkDuration, persistor, FlushOneDay())
-  Akka.system.scheduler.schedule(0.seconds, FlushOneWeek().checkDuration, persistor, FlushOneWeek())
-  Akka.system.scheduler.schedule(0.seconds, FlushOneMonth().checkDuration, persistor, FlushOneMonth())
+  val postgresPersistor: ActorRef = Akka.system.actorOf(Props(new PersistorActor()))
+  val tempoPersistor: ActorRef = Akka.system.actorOf(Props(new WriterActor()))
 
+  createScheduledMsgs(postgresPersistor)
+  createScheduledMsgs(tempoPersistor)
+
+  def createScheduledMsgs(aref: ActorRef) = {
+    Akka.system.scheduler.schedule(0.seconds, FlushOneHour().checkDuration,    aref, FlushOneHour())
+    Akka.system.scheduler.schedule(0.seconds, FlushThreeHours().checkDuration, aref, FlushThreeHours())
+    Akka.system.scheduler.schedule(0.seconds, FlushOneDay().checkDuration,     aref, FlushOneDay())
+    Akka.system.scheduler.schedule(0.seconds, FlushOneWeek().checkDuration,    aref, FlushOneWeek())
+    Akka.system.scheduler.schedule(0.seconds, FlushOneMonth().checkDuration,   aref, FlushOneMonth())
+  }
 
   def actor(refresh: Refresh) = actors.synchronized {
     actors.find(_._1 == refresh).map(_._2) match {
@@ -58,7 +57,7 @@ object Statistics {
       case None => {
         Logger.info(s"creating new actor for $refresh")
         val actorName = "statisticsActorPeriod" + refresh.period
-        val actor = Akka.system.actorOf(Props(new StatisticsActor(persistor.actorRef)), name = actorName)
+        val actor = Akka.system.actorOf(Props(new StatisticsActor(postgresPersistor, tempoPersistor)), name = actorName)
 
         // setup a scheduler according to the actor's period
         Akka.system.scheduler.schedule(0.seconds, refresh.duration, actor, refresh)

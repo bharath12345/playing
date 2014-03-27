@@ -17,43 +17,18 @@ import models.twitter.QueryString
  * Created by bharadwaj on 25/03/14.
  */
 
-case class TweetCounter(stub: String, tweets: Long)
-case class TweetJson(timestamp: Long, period: Int, tc: Seq[TweetCounter])
-
-
-class PersistorActor() extends Actor with Configuration {
+class PersistorActor() extends Actor with Configuration with TweetJson {
 
   /*
     Json Msg: {"timestamp":1395763755674,"period":0,"values":[{"stub":"kejri","tweets":4},{"stub":"rahul","tweets":1},{"stub":"modi","tweets":6},{"stub":"india","tweets":6}]}
    */
 
-  implicit val tcReads: Reads[TweetCounter] = (
-    (JsPath \ "stub").read[String] and
-      (JsPath \ "tweets").read[Long]
-    )(TweetCounter.apply _)
-
-  implicit val tjReads: Reads[TweetJson] = (
-    (JsPath \ "timestamp").read[Long] and
-      (JsPath \ "period").read[Int] and
-      (JsPath \ "values").read[Seq[TweetCounter]]
-    )(TweetJson.apply _)
-
-
   def persist(j: JsValue) = {
     db.withSession { implicit session: Session =>
-      val tweetJson: JsResult[TweetJson] = j.validate[TweetJson]
-      tweetJson match {
-        case s: JsSuccess[TweetJson] => {
-          val tj: TweetJson = s.get
-          for(tc <- tj.tc) {
-            Logger.info(s"timestamp = " + tj.timestamp + " stub = " + tc.stub + " value = " + tc.tweets)
-            val qs:QueryString = QueryString(0, tc.stub)
-            val id = QueryStringDAO.findOrInsert(qs)
-            val ts:ThreeSec = ThreeSec(new DateTime(tj.timestamp), id, tc.tweets)
-            ThreeSecDAO.insert(ts)
-          }
-        }
-        case e: JsError => println("Errors: " + JsError.toFlatJson(e).toString())
+      val tweetJson: JsResult[TweetJson] = validate(j)
+      val tss:Seq[ThreeSec] = retrievePojo(tweetJson)
+      for(ts <- tss) {
+        ThreeSecDAO.insert(ts)
       }
     }
   }

@@ -20,3 +20,5 @@ GET        /live/:period             controllers.twitter.TwitterApplication.live
 GET        /history/:period          controllers.twitter.TwitterApplication.history(period: Int)
 
 GET        /sendmail                 controllers.twitter.TwitterApplication.sendmail
+
+GET        /tempo/readlasthour/:key  controllers.twitter.TwitterDbDataController.lastHourTempoDb(key: String)

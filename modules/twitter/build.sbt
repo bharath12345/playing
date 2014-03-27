@@ -12,6 +12,8 @@ resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositori
 
 resolvers += "Scribe" at "https://raw.github.com/fernandezpablo85/scribe-java/mvn-repo"
 
+resolvers += "TempDB" at "http://maven.tempo-db.com/artifactory/repo"
+
 libraryDependencies ++= Seq(
   "oauth.signpost"            % "signpost-core"           % "1.2",
   "oauth.signpost"            % "signpost-commonshttp4"   % "1.2",
@@ -32,7 +34,8 @@ libraryDependencies ++= Seq(
   "org.postgresql"            %  "postgresql"             % "9.3-1100-jdbc4",
   "joda-time"                 %  "joda-time"              % "2.3",
   "org.joda"                  %  "joda-convert"           % "1.5",
-  "com.github.tototoshi"      %% "slick-joda-mapper"      % "1.0.1"
+  "com.github.tototoshi"      %% "slick-joda-mapper"      % "1.0.1",
+  "com.tempodb"               %  "tempodb-java"           % "0.7.1"
 )
 
 playScalaSettings

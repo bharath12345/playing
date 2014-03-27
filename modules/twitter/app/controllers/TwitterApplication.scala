@@ -20,11 +20,10 @@ import _root_.twitter.Configuration
 /**
  * Created by bharadwaj on 27/01/14.
  */
-
-case class Tweet(time: Long, stub: String, counter: Long)
-case class Tweets(tweets: Seq[Tweet])
-
 object TwitterApplication extends Controller with SecureSocial with Configuration {
+
+  case class Tweet(time: Long, stub: String, counter: Long)
+  case class Tweets(tweets: Seq[Tweet])
 
   implicit val tweetWrites = new Writes[Tweet] {
     def writes(tweet: Tweet) = Json.obj(
