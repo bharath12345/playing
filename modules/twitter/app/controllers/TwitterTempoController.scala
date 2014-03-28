@@ -97,7 +97,7 @@ object TwitterDbDataController extends Controller with Configuration {
     rawDataPoints
   }
 
-  def last2Minutes(key: String) = Action {
+  def last2MinutesForKey(key: String) = Action {
     def getDataSet(): DataSet = DataReader.last2Minutes(key)
     val rawDataPoints = getRawDataPoints(getDataSet)
     val rd: RawData = RawData(key, rawDataPoints)
@@ -126,8 +126,14 @@ object TwitterDbDataController extends Controller with Configuration {
     Ok(jsonMsg)
   }
 
-  def last2MinutesAll = history(DataReader.last2Minutes)
+  def last2Minutes = history(DataReader.last2Minutes)
 
-  def last15MinutesAll = history(DataReader.last15Minutes)
+  def last15Minutes = history(DataReader.last15Minutes)
+
+  def last200Minutes = history(DataReader.last200Minutes)
+
+  def last1200Minutes = history(DataReader.last1200Minutes)
+
+  def last7200Minutes = history(DataReader.last7200Minutes)
 
 }

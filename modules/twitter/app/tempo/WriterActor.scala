@@ -81,7 +81,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one day ago and one hour ago and delete them
-        tempoClient.deleteKey(qs.queryString, (new DateTime()).minusDays(1), (new DateTime()).minusHours(1))
+        tempoClient.deleteKey(getKey(3)(qs.queryString), (new DateTime()).minusDays(1), (new DateTime()).minusHours(1))
       }
     }
 
@@ -89,7 +89,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one day ago and 3 hours ago and delete them
-        tempoClient.deleteKey(qs.queryString, (new DateTime()).minusDays(1), (new DateTime()).minusHours(3))
+        tempoClient.deleteKey(getKey(30)(qs.queryString), (new DateTime()).minusDays(1), (new DateTime()).minusHours(3))
       }
     }
 
@@ -97,7 +97,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one month ago and one day ago and delete them
-        tempoClient.deleteKey(qs.queryString, (new DateTime()).minusMonths(1), (new DateTime()).minusDays(1))
+        tempoClient.deleteKey(getKey(300)(qs.queryString), (new DateTime()).minusMonths(1), (new DateTime()).minusDays(1))
       }
     }
 
@@ -105,7 +105,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one month ago and one week ago and delete them
-        tempoClient.deleteKey(qs.queryString, (new DateTime()).minusMonths(1), (new DateTime()).minusWeeks(1))
+        tempoClient.deleteKey(getKey(1800)(qs.queryString), (new DateTime()).minusMonths(1), (new DateTime()).minusWeeks(1))
       }
     }
 
@@ -113,7 +113,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between 3 months ago and 1 month ago and delete them
-        tempoClient.deleteKey(qs.queryString, (new DateTime()).minusMonths(3), (new DateTime()).minusMonths(1))
+        tempoClient.deleteKey(getKey(10800)(qs.queryString), (new DateTime()).minusMonths(3), (new DateTime()).minusMonths(1))
       }
     }
 
