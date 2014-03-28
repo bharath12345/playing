@@ -12,11 +12,14 @@ import play.api.Logger
  */
 object TwitterDbDataController extends Controller with Configuration {
 
-  def lastHourTempoDb(tag: String) = Action {
+  def lastDayTempoDb() = Action {
     val filter: Filter = new Filter()
-    filter.addKey("modi");
-    filter.addKey("india");
-    val datasets: util.List[DataSet] = tempoClient.read((new DateTime()).minusHours(1), new DateTime(), filter);
+    filter.addKey("modi")
+    filter.addKey("india")
+    filter.addKey("kejri")
+    filter.addKey("rahul")
+
+    val datasets: util.List[DataSet] = tempoClient.read((new DateTime()).minusDays(1), new DateTime(), filter);
     val diterator = datasets.iterator()
     var htmlmsg: String = ""
     while(diterator.hasNext) {

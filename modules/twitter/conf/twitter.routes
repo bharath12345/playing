@@ -21,4 +21,4 @@ GET        /history/:period          controllers.twitter.TwitterApplication.hist
 
 GET        /sendmail                 controllers.twitter.TwitterApplication.sendmail
 
-GET        /tempo/readlasthour/:key  controllers.twitter.TwitterDbDataController.lastHourTempoDb(key: String)
+GET        /tempo/readlastday  controllers.twitter.TwitterDbDataController.lastDayTempoDb

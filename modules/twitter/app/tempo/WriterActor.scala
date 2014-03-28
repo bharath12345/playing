@@ -64,7 +64,13 @@ class WriterActor() extends Actor with Configuration with TweetJson {
     }
 
     case f: FlushOneHour => {
-
+      val qslist: List[QueryString] = db.withSession {
+        implicit session: Session =>
+          QueryStringDAO.findAll
+      }
+      for(qs <- qslist) {
+        tempoClient.deleteKey(qs.queryString, (new DateTime()).minusDays(1), (new DateTime()).minusHours(1))
+      }
     }
 
     case FlushThreeHours() => {
