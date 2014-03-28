@@ -15,7 +15,21 @@
 
             function ( data ) {
                 var jsonstring = JSON.stringify ( data )
-                console.log ( "stringified json = " + jsonstring )
+                console.log("stringified json = " + jsonstring)
+                console.log("data len = " + data.length)
+                for(var i = 0; i < data.length; i++) {
+                  var chart = charts[data[i].name]
+                  console.log("adding history data to chart = " + data[i].name);
+                  for(var j = 0; j < data[i].points.length; j++) {
+                    chart.series[ 0 ].addPoint({
+                      x: data[i].points[j].time,
+                      y: data[i].points[j].value
+                    }, true, chart.series[ 0 ].data.length >= 50);
+                  }
+                }
+
+                // now that history is rendereed, start receiving live data from websockets
+                createWebsocket()
             },
             function ( error ) {
                 // Display the error returned
