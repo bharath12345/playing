@@ -62,7 +62,7 @@ object TwitterApplication extends Controller with SecureSocial with Configuratio
 
       val wsUrl = controllers.twitter.routes.TwitterApplication.live(period).webSocketURL()
       //val historyUrl = controllers.twitter.routes.TwitterApplication.history(period).absoluteURL()
-      val historyUrl = controllers.twitter.routes.TwitterDbDataController.lastHourThreeSecDataAll.absoluteURL()
+      val historyUrl = controllers.twitter.routes.TwitterDbDataController.last2MinutesAll.absoluteURL()
 
       Ok(views.html.dashboard(Query.getStubs)(wsUrl)(historyUrl))
   }

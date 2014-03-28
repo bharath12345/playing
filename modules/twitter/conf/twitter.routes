@@ -21,6 +21,7 @@ GET        /history/:period                    controllers.twitter.TwitterApplic
 
 GET        /sendmail                           controllers.twitter.TwitterApplication.sendmail
 
-GET        /tempo/readlastday                  controllers.twitter.TwitterDbDataController.lastDayTempoDb
-GET        /tempo/lasthourthreesec/:key        controllers.twitter.TwitterDbDataController.lastHourThreeSecData(key: String)
-GET        /temp/rawall                        controllers.twitter.TwitterDbDataController.lastHourThreeSecDataAll
+GET        /tempo/deleteAll                    controllers.twitter.TwitterDbDataController.deleteAll
+GET        /tempo/read3SecLastDaySummary       controllers.twitter.TwitterDbDataController.read3SecLastDaySummary
+GET        /tempo/last2Minutes/:key            controllers.twitter.TwitterDbDataController.last2Minutes(key: String)
+GET        /tempo/last2MinutesAll              controllers.twitter.TwitterDbDataController.last2MinutesAll
