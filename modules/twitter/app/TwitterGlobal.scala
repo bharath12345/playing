@@ -45,14 +45,6 @@ object TwitterGlobal extends Configuration {
     }
   }
 
-  def startKafkaConsumer = {
-    val numThreads: Int = 4
-    val topicName: String = "myTopic"
-    // val groupId: String = "group0" <- for now this is hard-coded in Configuration
-    val example: ConsumerGroupExample = new ConsumerGroupExample("localhost:2181", "group0", topicName)
-    example.run(numThreads)
-  }
-
   def onStart = {
     Logger.info("Twitter module has started")
     createTables

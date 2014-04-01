@@ -61,28 +61,4 @@ trait Configuration {
     .secure(true)
     .build();
 
-  lazy val kafkaProducer: Producer[Integer, String] = {
-    val props: Properties  = new Properties()
-    props.put("metadata.broker.list", "localhost:9092")
-    props.put("serializer.class", "kafka.serializer.StringEncoder")
-
-    // Use random partitioner. Don't need the key type. Just set it to Integer.
-    // The message is of type String.
-    //props.put("partitioner.class", "kafka.SimplePartitioner")
-
-    props.put("request.required.acks", "1")
-    val producer: Producer[Integer, String] = new Producer[Integer, String](new ProducerConfig(props))
-    producer
-  }
-
-  /*lazy val consumerConfig: ConsumerConfig = {
-    val props: Properties = new Properties()
-    props.put("zookeeper.connect", "localhost:2181")
-    props.put("group.id", "group0");
-    props.put("zookeeper.session.timeout.ms", "400");
-    props.put("zookeeper.sync.time.ms", "200");
-    props.put("auto.commit.interval.ms", "1000");
-    new ConsumerConfig(props)
-  }*/
-
 }
