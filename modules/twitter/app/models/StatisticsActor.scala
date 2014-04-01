@@ -23,7 +23,9 @@ import play.api.libs.json.JsNumber
 
 sealed case class PersistenceMsg(r: Refresh, j: JsValue)
 
-class StatisticsActor(postgresPersistor: ActorRef, tempoPersistor: ActorRef) extends Actor {
+class StatisticsActor(postgresPersistor: ActorRef,
+                      tempoPersistor: ActorRef,
+                      kafkaPersistor: ActorRef ) extends Actor {
 
   val (enumerator, channel) = Concurrent.broadcast[JsValue]
   implicit val timeout = Timeout(5 seconds)
@@ -44,6 +46,8 @@ class StatisticsActor(postgresPersistor: ActorRef, tempoPersistor: ActorRef) ext
 
           postgresPersistor ? PersistenceMsg(r, j)
           tempoPersistor    ? PersistenceMsg(r, j)
+          kafkaPersistor    ? PersistenceMsg(r, j)
+
         }
         case None => {
           Logger.info("Not sending the null json... not connected to twitter feed yet")

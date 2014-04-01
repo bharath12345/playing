@@ -21,6 +21,7 @@ import scala.Some
 import models.FlushThreeHours
 import models.FlushOneWeek
 import tempo.WriterActor
+import kafka.KafkaProducerActor
 
 case class Connect()
 
@@ -35,9 +36,11 @@ object Statistics {
 
   val postgresPersistor: ActorRef = Akka.system.actorOf(Props(new PersistorActor()))
   val tempoPersistor: ActorRef = Akka.system.actorOf(Props(new WriterActor()))
+  val kafkaPersistor: ActorRef = Akka.system.actorOf(Props(new KafkaProducerActor()))
 
   createScheduledMsgs(postgresPersistor)
   createScheduledMsgs(tempoPersistor)
+  createScheduledMsgs(kafkaPersistor)
 
   def createScheduledMsgs(aref: ActorRef) = {
     Akka.system.scheduler.schedule(0.seconds, FlushOneHour().checkDuration,    aref, FlushOneHour())
@@ -57,7 +60,8 @@ object Statistics {
       case None => {
         Logger.info(s"creating new actor for $refresh")
         val actorName = "statisticsActorPeriod" + refresh.period
-        val actor = Akka.system.actorOf(Props(new StatisticsActor(postgresPersistor, tempoPersistor)), name = actorName)
+        val actor = Akka.system.actorOf(Props(new StatisticsActor(postgresPersistor,
+          tempoPersistor, kafkaPersistor)), name = actorName)
 
         // setup a scheduler according to the actor's period
         Akka.system.scheduler.schedule(0.seconds, refresh.duration, actor, refresh)

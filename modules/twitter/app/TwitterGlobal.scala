@@ -10,6 +10,7 @@ import models.twitter.{ThreeSecDAO, QueryStringDAO, Query, Statistics}
 import play.api.{Logger}
 import scala.slick.jdbc.JdbcBackend._
 import scala.slick.jdbc.meta.MTable
+import kafka.ConsumerGroupExample
 
 /**
  * Created by bharadwaj on 25/03/14.
@@ -42,6 +43,14 @@ object TwitterGlobal extends Configuration {
       if (!MTable.getTables.list.exists(_.name.name == "ThreeSec"))
         ThreeSecDAO.create
     }
+  }
+
+  def startKafkaConsumer = {
+    val numThreads: Int = 4
+    val topicName: String = "myTopic"
+    // val groupId: String = "group0" <- for now this is hard-coded in Configuration
+    val example: ConsumerGroupExample = new ConsumerGroupExample("localhost:2181", "group0", topicName)
+    example.run(numThreads)
   }
 
   def onStart = {

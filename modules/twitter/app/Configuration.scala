@@ -4,6 +4,10 @@ import com.typesafe.config.ConfigFactory
 import java.net.URI
 import scala.slick.jdbc.JdbcBackend._
 import com.tempodb.client.{Client, ClientBuilder}
+import kafka.javaapi.producer.Producer
+import kafka.producer.ProducerConfig
+import java.util.Properties
+import kafka.consumer.ConsumerConfig
 
 /**
  * Holds service configuration settings.
@@ -56,5 +60,29 @@ trait Configuration {
     .port(tempoDbPort)
     .secure(true)
     .build();
+
+  lazy val kafkaProducer: Producer[Integer, String] = {
+    val props: Properties  = new Properties()
+    props.put("metadata.broker.list", "localhost:9092")
+    props.put("serializer.class", "kafka.serializer.StringEncoder")
+
+    // Use random partitioner. Don't need the key type. Just set it to Integer.
+    // The message is of type String.
+    //props.put("partitioner.class", "kafka.SimplePartitioner")
+
+    props.put("request.required.acks", "1")
+    val producer: Producer[Integer, String] = new Producer[Integer, String](new ProducerConfig(props))
+    producer
+  }
+
+  /*lazy val consumerConfig: ConsumerConfig = {
+    val props: Properties = new Properties()
+    props.put("zookeeper.connect", "localhost:2181")
+    props.put("group.id", "group0");
+    props.put("zookeeper.session.timeout.ms", "400");
+    props.put("zookeeper.sync.time.ms", "200");
+    props.put("auto.commit.interval.ms", "1000");
+    new ConsumerConfig(props)
+  }*/
 
 }

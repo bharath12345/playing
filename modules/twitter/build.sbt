@@ -35,7 +35,13 @@ libraryDependencies ++= Seq(
   "joda-time"                 %  "joda-time"              % "2.3",
   "org.joda"                  %  "joda-convert"           % "1.5",
   "com.github.tototoshi"      %% "slick-joda-mapper"      % "1.0.1",
-  "com.tempodb"               %  "tempodb-java"           % "0.7.1"
+  "com.tempodb"               %  "tempodb-java"           % "0.7.1",
+  "org.apache.kafka"          % "kafka_2.10"              % "0.8.1" excludeAll (
+    ExclusionRule(organization = "com.sun.jdmk"),
+    ExclusionRule(organization = "com.sun.jmx"),
+    ExclusionRule(organization = "javax.jms"),
+    ExclusionRule(organization = "org.slf4j")
+    )
 )
 
 playScalaSettings
