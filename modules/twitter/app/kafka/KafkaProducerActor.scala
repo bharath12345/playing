@@ -1,94 +1,83 @@
 package kafka
 
-import kafka.javaapi.producer.Producer
-import kafka.producer.KeyedMessage
 import akka.actor.Actor
 import _root_.twitter.Configuration
-import models.twitter._
-import models._
-import play.api.libs.json.{Json, JsValue}
+import play.api.libs.json.{Writes, JsResult, Json, JsValue}
 import play.api.Logger
-import org.joda.time.DateTime
-import models.FlushOneHour
+import scala.slick.jdbc.JdbcBackend._
 import models.Refresh30
-import models.FlushOneDay
 import models.Refresh1800
+import models.twitter.ThreeSec
 import models.twitter.PersistenceMsg
 import models.Refresh3
 import models.Refresh10800
 import models.Refresh300
-import models.FlushThreeHours
-import models.FlushOneWeek
-import java.util.concurrent.atomic.AtomicBoolean
+import models.TweetJson
 
 /**
  * Created by bharadwaj on 30/03/14.
  */
-class KafkaProducerActor() extends Actor with Configuration {
 
-  private val producerCreated = new AtomicBoolean(false)
+case class KafkaConnect(topic: String, brokerlist: String)
 
-  var producer: KafkaProducer = null
+class KafkaProducerActor() extends Actor with Configuration with TweetJson {
 
-  def init(topic: String, zklist: String) = {
-    if (producerCreated.getAndSet(true)) {
-      throw new RuntimeException(this.getClass.getSimpleName + " this kafka akka actor has a producer already")
-    }
+  val producerMap = scala.collection.mutable.Map[String, KafkaProducer]()
 
-    producer = new KafkaProducer(topic,zklist)
+  case class Tweet(time: Long, stub: String, counter: Long)
+
+  implicit val tweetWrites = new Writes[Tweet] {
+    def writes(tweet: Tweet) = Json.obj(
+      "time"    -> tweet.time,
+      "stub"    -> tweet.stub,
+      "counter" -> tweet.counter
+    )
   }
 
+  def persist(j: JsValue, producer: KafkaProducer) = {
+    val tss: Seq[ThreeSec] = db.withSession {
+      implicit session: Session =>
+        val tweetJson: JsResult[TweetJson] = validate(j)
+        retrievePojo(tweetJson)
+    }
+
+    for (ts <- tss) {
+      val key = QueryIdCache.get(ts.queryString).get
+      Logger.info(s"using key = " + key)
+      val jtweet = Json.toJson(Tweet(ts.dateTime.getMillis/1000, key, ts.count))
+      val messageStr: String = Json.stringify(jtweet)
+      producer.send(messageStr, key)
+      Logger.info(s"persisted to partition = " + key + " message = " + messageStr)
+    }
+
+  }
 
   override def receive: Actor.Receive = {
-
-    case t: (String, String) ⇒ {
-      init(t._1, t._2)
+    case k: KafkaConnect => {
+      val producer = new KafkaProducer(k.topic, k.brokerlist)
+      producerMap += (k.topic -> producer)
+      Logger.info(s"added kafka topic = " + k.topic)
     }
 
     case PersistenceMsg(Refresh3(), j: JsValue) => {
-      Logger.info(s"received Refresh 3 seconds message.")
-
-      //val topic:String = "mytopic";
-
-      val messageStr: String = Json.stringify(j)
-
-      //val data: KeyedMessage[Integer, String] = new KeyedMessage[Integer, String](topic, messageStr)
-      producer.send(messageStr)
+      persist(j, producerMap.get(Refresh3().key).get)
     }
 
     case PersistenceMsg(Refresh30(), j: JsValue) => {
-      Logger.info(s"received Refresh 30 seconds message.")
+      persist(j, producerMap.get(Refresh30().key).get)
     }
 
     case PersistenceMsg(Refresh300(), j: JsValue) => {
-      Logger.info(s"received Refresh 300 seconds message.")
+      persist(j, producerMap.get(Refresh300().key).get)
     }
 
     case PersistenceMsg(Refresh1800(), j: JsValue) => {
-      Logger.info(s"received Refresh 1800 seconds message.")
+      persist(j, producerMap.get(Refresh1800().key).get)
     }
 
     case PersistenceMsg(Refresh10800(), j: JsValue) => {
-      Logger.info(s"received Refresh 10800 seconds message.")
+      persist(j, producerMap.get(Refresh10800().key).get)
     }
 
-    case f: FlushOneHour => {
-    }
-
-    case FlushThreeHours() => {
-
-    }
-
-    case FlushOneDay() => {
-
-    }
-
-    case FlushOneWeek() => {
-
-    }
-
-    case FlushOneMonth() => {
-
-    }
   }
 }

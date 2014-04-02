@@ -21,7 +21,7 @@ import scala.Some
 import models.FlushThreeHours
 import models.FlushOneWeek
 import tempo.WriterActor
-import kafka.KafkaProducerActor
+import kafka.{KafkaConnect, KafkaProducerActor}
 
 case class Connect()
 
@@ -38,9 +38,15 @@ object Statistics {
   val tempoPersistor: ActorRef = Akka.system.actorOf(Props(new WriterActor()))
   val kafkaPersistor: ActorRef = Akka.system.actorOf(Props(new KafkaProducerActor()))
 
-  createScheduledMsgs(postgresPersistor)
-  createScheduledMsgs(tempoPersistor)
-  createScheduledMsgs(kafkaPersistor)
+  //createScheduledMsgs(postgresPersistor)
+  //createScheduledMsgs(tempoPersistor)
+
+  val brokerlist: String = "localhost:9092"
+  kafkaPersistor ! KafkaConnect(Refresh3().key,     brokerlist)
+  kafkaPersistor ! KafkaConnect(Refresh30().key,    brokerlist)
+  kafkaPersistor ! KafkaConnect(Refresh300().key,   brokerlist)
+  kafkaPersistor ! KafkaConnect(Refresh1800().key,  brokerlist)
+  kafkaPersistor ! KafkaConnect(Refresh10800().key, brokerlist)
 
   def createScheduledMsgs(aref: ActorRef) = {
     Akka.system.scheduler.schedule(0.seconds, FlushOneHour().checkDuration,    aref, FlushOneHour())

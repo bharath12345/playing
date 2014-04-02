@@ -8,29 +8,33 @@ import scala.concurrent.duration.{FiniteDuration, DurationInt}
 sealed trait Refresh {
   def duration: FiniteDuration
   def period: Int
+  def key: String
 }
 case class Refresh3() extends Refresh {
   def duration = 3.seconds
   def period = 0
+  def key = "3"
 }
 case class Refresh30() extends Refresh {
   def duration = 30.seconds
   def period = 1
+  def key = "30"
 }
 case class Refresh300() extends Refresh {
   def duration = 5.minutes
   def period = 2
+  def key = "300"
 }
 case class Refresh1800() extends Refresh {
   def duration = 30.minutes
   def period = 3
+  def key = "1800"
 }
 case class Refresh10800() extends Refresh {
   def duration = 3.hours
   def period = 4
+  def key = "10800"
 }
-
-
 
 object Refresh {
   def apply(i: Int) = {

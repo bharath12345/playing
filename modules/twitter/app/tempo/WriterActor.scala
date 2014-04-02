@@ -54,34 +54,34 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
   override def receive: Actor.Receive = {
     case PersistenceMsg(r: Refresh3, j: JsValue) => {
       Logger.info(s"received Refresh 3 seconds message.")
-      persist(j, getKey(3))
+      persist(j, getKey(Refresh3().key))
     }
 
     case PersistenceMsg(r: Refresh30, j: JsValue) => {
       Logger.info(s"received Refresh 30 seconds message.")
-      persist(j, getKey(30))
+      persist(j, getKey(Refresh30().key))
     }
 
     case PersistenceMsg(r: Refresh300, j: JsValue) => {
       Logger.info(s"received Refresh 300 seconds message.")
-      persist(j, getKey(300))
+      persist(j, getKey(Refresh300().key))
     }
 
     case PersistenceMsg(r: Refresh1800, j: JsValue) => {
       Logger.info(s"received Refresh 1800 seconds message.")
-      persist(j, getKey(1800))
+      persist(j, getKey(Refresh1800().key))
     }
 
     case PersistenceMsg(r: Refresh10800, j: JsValue) => {
       Logger.info(s"received Refresh 10800 seconds message.")
-      persist(j, getKey(10800))
+      persist(j, getKey(Refresh10800().key))
     }
 
     case f: FlushOneHour => {
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one day ago and one hour ago and delete them
-        tempoClient.deleteKey(getKey(3)(qs.queryString), (new DateTime()).minusDays(1), (new DateTime()).minusHours(1))
+        tempoClient.deleteKey(getKey(Refresh3().key)(qs.queryString), (new DateTime()).minusDays(1), (new DateTime()).minusHours(1))
       }
     }
 
@@ -89,7 +89,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one day ago and 3 hours ago and delete them
-        tempoClient.deleteKey(getKey(30)(qs.queryString), (new DateTime()).minusDays(1), (new DateTime()).minusHours(3))
+        tempoClient.deleteKey(getKey(Refresh30().key)(qs.queryString), (new DateTime()).minusDays(1), (new DateTime()).minusHours(3))
       }
     }
 
@@ -97,7 +97,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one month ago and one day ago and delete them
-        tempoClient.deleteKey(getKey(300)(qs.queryString), (new DateTime()).minusMonths(1), (new DateTime()).minusDays(1))
+        tempoClient.deleteKey(getKey(Refresh300().key)(qs.queryString), (new DateTime()).minusMonths(1), (new DateTime()).minusDays(1))
       }
     }
 
@@ -105,7 +105,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between one month ago and one week ago and delete them
-        tempoClient.deleteKey(getKey(1800)(qs.queryString), (new DateTime()).minusMonths(1), (new DateTime()).minusWeeks(1))
+        tempoClient.deleteKey(getKey(Refresh1800().key)(qs.queryString), (new DateTime()).minusMonths(1), (new DateTime()).minusWeeks(1))
       }
     }
 
@@ -113,7 +113,7 @@ class WriterActor() extends Actor with Configuration with TweetJson with TempoKe
       val qslist: List[QueryString] = queryStrings
       for(qs <- qslist) {
         // filter for all data between 3 months ago and 1 month ago and delete them
-        tempoClient.deleteKey(getKey(10800)(qs.queryString), (new DateTime()).minusMonths(3), (new DateTime()).minusMonths(1))
+        tempoClient.deleteKey(getKey(Refresh10800().key)(qs.queryString), (new DateTime()).minusMonths(3), (new DateTime()).minusMonths(1))
       }
     }
 

@@ -24,6 +24,7 @@ import java.util.Properties
 import kafka.utils.Logging
 import scala.collection.JavaConversions._
 import kafka.consumer.{Whitelist, ConsumerConfig, Consumer}
+import play.api.Logger
 
 
 class KafkaConsumer(
@@ -82,17 +83,17 @@ class KafkaConsumer(
 
   val filterSpec = new Whitelist(topic)
 
-  info("setup:start topic=%s for zk=%s and groupId=%s".format(topic,zookeeperConnect,groupId))
+  Logger.info("setup:start topic=%s for zk=%s and groupId=%s".format(topic,zookeeperConnect,groupId))
   val stream = connector.createMessageStreamsByFilter(filterSpec, 1, new DefaultDecoder(), new DefaultDecoder()).get(0)
-  info("setup:complete topic=%s for zk=%s and groupId=%s".format(topic,zookeeperConnect,groupId))
+  Logger.info("setup:complete topic=%s for zk=%s and groupId=%s".format(topic,zookeeperConnect,groupId))
 
-  def read(write: (Array[Byte])=>Unit) = {
-    info("reading on stream now")
+  def read(): String = {
+    Logger.info("reading on stream now")
+    var s: StringBuilder = new StringBuilder
     for(messageAndTopic <- stream) {
       try {
-        info("writing from stream")
-        write(messageAndTopic.message)
-        info("written to stream")
+        val message = new String(messageAndTopic.message)
+        s = s.append(message)
       } catch {
         case e: Throwable =>
           if (true) { //this is objective even how to conditionalize on it
@@ -101,7 +102,8 @@ class KafkaConsumer(
             throw e
           }
       }
-    }      
+    }
+    s.toString()
   }
 
   def close() {

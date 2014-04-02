@@ -5,6 +5,6 @@ package tempo
  */
 trait TempoKeyHelper {
 
-  def getKey(refresh: Int)(qs: String): String = "refresh:" + refresh + "." + qs + ".1"
+  def getKey(refresh: String)(qs: String): String = "refresh:" + refresh + "." + qs + ".1"
 
 }
