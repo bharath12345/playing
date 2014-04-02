@@ -1,8 +1,7 @@
 package controllers.twitter
 
 import play.api.mvc.{Action, Controller}
-import _root_.kafka.KafkaConsumer
-import kafka.KafkaConsumer
+import kafka.{ConsumerGroupExample, KafkaConsumer}
 import java.util.UUID
 import play.api.Logger
 import models.Refresh3
@@ -22,6 +21,19 @@ object TwitterKafkaController extends Controller {
     val data: String = consumer1.read()
 
     Ok(data)
+  }
+
+  def javaReadAsKafkaConsumer = Action {
+    val groupId_1 = UUID.randomUUID().toString
+    val topicName: String = Refresh3().key
+    val example: ConsumerGroupExample = new ConsumerGroupExample("localhost:2181", groupId_1, topicName);
+    example.run(4) // since there are 4 partitions per topic
+    try {
+      Thread.sleep(3000);
+    } catch {
+      case e: Exception =>
+    }
+    Ok("see the sysout for data from topic = " + topicName)
   }
 
 }

@@ -37,3 +37,5 @@ GET        /tempo/last1200Minutes               controllers.twitter.TwitterDbDat
 GET        /tempo/last7200Minutes               controllers.twitter.TwitterDbDataController.last7200Minutes
 
 GET        /readAsKafkaConsumer                 controllers.twitter.TwitterKafkaController.readAsKafkaConsumer
+GET        /javaReadAsKafkaConsumer             controllers.twitter.TwitterKafkaController.javaReadAsKafkaConsumer
+

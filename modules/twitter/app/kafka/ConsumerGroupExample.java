@@ -3,6 +3,7 @@ package kafka;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
+import play.Logger;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ public class ConsumerGroupExample {
         consumer = kafka.consumer.Consumer.createJavaConsumerConnector(
                 createConsumerConfig(a_zookeeper, a_groupId));
         this.topic = a_topic;
+        Logger.info("creating ConsumerGroupExample");
     }
 
     public void shutdown() {
@@ -40,6 +42,7 @@ public class ConsumerGroupExample {
         // now launch all the threads
         //
         executor = Executors.newFixedThreadPool(a_numThreads);
+        Logger.info("created thread pool");
 
         // now create an object to consume the messages
         //
@@ -47,6 +50,7 @@ public class ConsumerGroupExample {
         for (final KafkaStream stream : streams) {
             executor.submit(new ConsumerTest(stream, threadNumber));
             threadNumber++;
+            Logger.info("submitted all streams to threads");
         }
     }
 
