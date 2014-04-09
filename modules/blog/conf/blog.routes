@@ -2,27 +2,29 @@
 # This file defines all application blog routes (Higher priority routes first)
 # ~~~~
 
-GET     /assets/*file                     controllers.blog.Assets.at(path="/public", file)
+GET        /assets/*file            controllers.blog.Assets.at(path="/public", file)
 
 # Home page
-GET     /                                 controllers.blog.BlogApplication.index
+GET        /                        controllers.blog.BlogApplication.index
 
 # Blog Route
-GET     /post/:id                         controllers.blog.BlogApplication.blog(id: String)
-GET     /tag/:id                          controllers.blog.BlogApplication.tag(id: String)
-GET     /category/:id                     controllers.blog.BlogApplication.category(id: String)
+GET        /post/:id                controllers.blog.BlogApplication.blog(id: String)
+GET        /tag/:id                 controllers.blog.BlogApplication.tag(id: String)
+GET        /category/:id            controllers.blog.BlogApplication.category(id: String)
 
 # Sub Pages
-GET     /tags                             controllers.blog.BlogApplication.tags
-GET     /categories                       controllers.blog.BlogApplication.categories
-GET     /toc                              controllers.blog.BlogApplication.toc
-GET     /search                           controllers.blog.BlogApplication.search
+GET        /tags                    controllers.blog.BlogApplication.tags
+GET        /categories              controllers.blog.BlogApplication.categories
+GET        /toc                     controllers.blog.BlogApplication.toc
 
 # About Myself
-GET     /about/books                      controllers.blog.About.books
-GET     /about/current                    controllers.blog.About.current
-GET     /about/education                  controllers.blog.About.education
-GET     /about/movies                     controllers.blog.About.movies
-GET     /about/philosophy                 controllers.blog.About.philosophy
-GET     /about/travel                     controllers.blog.About.travel
-GET     /about/work                       controllers.blog.About.work
+GET        /about/books             controllers.blog.About.books
+GET        /about/current           controllers.blog.About.current
+GET        /about/education         controllers.blog.About.education
+GET        /about/movies            controllers.blog.About.movies
+GET        /about/philosophy        controllers.blog.About.philosophy
+GET        /about/travel            controllers.blog.About.travel
+GET        /about/work              controllers.blog.About.work
+
+GET        /search                  controllers.blog.BlogSearch.search
+GET        /search/:q               controllers.blog.BlogSearch.searchQuery(q: String)
