@@ -16,7 +16,7 @@ object BlogGlobal {
     BlogTag.setupTags
     BlogCategory.setupCategories
 
-    BlogIndexer.setupSearch
+    BlogIndexer.createIndex
   }
 
   def onStop = {
