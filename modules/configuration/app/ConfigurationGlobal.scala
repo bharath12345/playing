@@ -4,6 +4,7 @@ import models.configuration.Tables._
 import play.api.Logger
 import scala.slick.jdbc.JdbcBackend._
 import scala.slick.jdbc.meta.MTable
+import scala.language.reflectiveCalls
 
 /**
  * Created by bharadwaj on 25/03/14.

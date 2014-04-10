@@ -15,6 +15,7 @@ import scala.concurrent.{Await, Future, ExecutionContext}
 import scala.concurrent.duration.{FiniteDuration, DurationInt}
 import scala.concurrent.Future
 import org.elasticsearch.action.index.IndexResponse
+import scala.language.postfixOps
 
 /**
  * Created by bharadwaj on 09/04/14.
@@ -88,28 +89,6 @@ object BlogIndexer extends Posts {
     Searches(searches)
   }
 
-  /*def createIndex = {
-    Logger.info("Creating Elastic Search Index = " + blogIndex)
-    val deleteFuture = client.execute {
-      deleteIndex(blogIndex)
-    }
-
-    deleteFuture.flatMap(d => {
-      val createFuture = client.execute {
-        create.index(blogIndex)
-      }
-
-      createFuture.flatMap(c => {
-        val searches = setupIndex
-        val x = for { s <- searches.s}
-          yield insertBlog(s)
-
-      })
-
-      createFuture
-    })
-  }*/
-
   val dIndex =  {
     Logger.info("Starting Index Delete...")
     client.execute { deleteIndex(blogIndex) }
@@ -129,7 +108,7 @@ object BlogIndexer extends Posts {
     // convert the sequence of futures to => future of a sequence, that is
     // Seq[Future[IndexResponse]] => Future[Seq[IndexResponse]]
     // And finally wait on that single future to complete
-    val f = Future.sequence(insertBlog.toList)
+    val f = Future.sequence(insertBlog)
     Await.ready(f, 1 minute)
     Logger.info("Finished document insertions.")
   }
@@ -163,22 +142,27 @@ object BlogIndexer extends Posts {
   }
 
 
-  def searchText(q: String): String = {
-    val resp = client.sync.execute {
+  def searchText(q: String): Future[String] = {
+    val searchFuture = client.execute {
       search in blogIndex -> postType query q
     }
-    val hits = resp.getHits.getHits
-    var searches = scala.collection.mutable.Seq[Search]()
-    for {h <- hits} {
-      val s = h.getSource
-      val search = Search(s.get(titleField).toString, s.get(subheadingField).toString,
-        s.get(tagsField).toString, s.get(categoryField).toString,
-        s.get(dateField).toString, s.get(descriptionField).toString, s.get(contentField).toString)
-      searches = searches :+ search
-    }
-    val s: Searches = Searches(searches)
-    val json = Json.toJson(s)
-    Json.stringify(json)
-  }
 
+    val s = searchFuture.flatMap(search => {
+      Future {
+        val hits = search.getHits.getHits
+        var searches = scala.collection.mutable.Seq[Search]()
+        for {h <- hits} {
+          val s = h.getSource
+          val search = Search(s.get(titleField).toString, s.get(subheadingField).toString,
+            s.get(tagsField).toString, s.get(categoryField).toString,
+            s.get(dateField).toString, s.get(descriptionField).toString, s.get(contentField).toString)
+          searches = searches :+ search
+        }
+        val s: Searches = Searches(searches)
+        val json = Json.toJson(s)
+        Json.stringify(json)
+      }
+    })
+    s
+  }
 }

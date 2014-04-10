@@ -20,7 +20,7 @@ object BlogIndex extends Posts {
     var titleMap = new HashMap[Long, String]
     for (file <- posts) {
       val lines = fileContent("public/posts/" + file)
-      val header = lines.takeWhile(line => !line.equals("}}}"))
+      val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       val content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
       val excerpt = pegdown.markdownToHtml(content.takeWhile(line => line.length != 0)(0))
       //println(excerpt)

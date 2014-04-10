@@ -17,6 +17,7 @@ import play.api._
 
 import models._
 import models.twitter.{Place, User, Tweet}
+import scala.language.postfixOps
 
 trait TwitterAuthorization {
   def authorize: HttpRequest => HttpRequest

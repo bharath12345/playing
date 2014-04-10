@@ -15,7 +15,7 @@ object BlogCategory extends Posts {
   def setupCategories = {
     for (file <- posts) {
       val lines = fileContent("public/posts/" + file)
-      val header = lines.takeWhile(line => !line.equals("}}}"))
+      val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
       //println("category = " + category)
       categorySet += category

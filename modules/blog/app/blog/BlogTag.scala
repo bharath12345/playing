@@ -15,7 +15,7 @@ object BlogTag extends Posts {
   def setupTags = {
     for (file <- posts) {
       val lines = fileContent("public/posts/" + file)
-      val header = lines.takeWhile(line => !line.equals("}}}"))
+      val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
 
       val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
       tagLineMap += (tagLine -> file)

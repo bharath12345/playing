@@ -20,6 +20,7 @@ import scala.concurrent.duration.{FiniteDuration, DurationInt}
 import play.api.libs.json.JsString
 import scala.Some
 import play.api.libs.json.JsNumber
+import scala.language.postfixOps
 
 sealed case class PersistenceMsg(r: Refresh, j: JsValue)
 

@@ -5,6 +5,7 @@ import securesocial.core.{Identity, IdentityId, UserServicePlugin}
 import securesocial.core.providers.Token
 import models.configuration.Tables._
 import org.joda.time.DateTime
+import scala.language.reflectiveCalls
 
 /**
  * Created by bharadwaj on 18/03/14.

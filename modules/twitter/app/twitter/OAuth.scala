@@ -7,6 +7,7 @@ import spray.http.HttpHeaders.RawHeader
 import org.parboiled.common.Base64
 import scala.collection.immutable.TreeMap
 import java.net.URLEncoder
+import scala.language.existentials
 
 object OAuth {
   case class Consumer(key: String, secret: String)

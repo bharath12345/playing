@@ -22,6 +22,7 @@ import models.FlushThreeHours
 import models.FlushOneWeek
 import tempo.WriterActor
 import kafka.{KafkaConnect, KafkaProducerActor}
+import scala.language.postfixOps
 
 case class Connect()
 

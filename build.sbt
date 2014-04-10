@@ -8,6 +8,8 @@ version := "1.0-SNAPSHOT"
 
 scalaVersion := "2.10.3"
 
+scalacOptions ++= Seq("-feature")
+
 resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 
 libraryDependencies ++= Seq(
@@ -22,6 +24,8 @@ libraryDependencies ++= Seq(
 )
 
 playScalaSettings
+
+routesImport ++= Seq("language.reflectiveCalls")
 
 lazy val playing = project.in( file(".") )
                        .aggregate(mylib)
@@ -42,4 +46,6 @@ lazy val configuration = project.in(file("modules/configuration"))
 lazy val blog = project.in(file("modules/blog"))
 
 lazy val twitter = project.in(file("modules/twitter"))
+
+
 

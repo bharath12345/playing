@@ -18,7 +18,7 @@ object BlogPost extends Posts {
 
       val lines = fileContent("public/posts/" + file)
 
-      val header: Seq[String] = lines.takeWhile(line => !line.equals("}}}"))
+      val header: Seq[String] = lines.takeWhile(line => !line.equals("}}}")).toSeq
 
       content += (file -> pegdown.markdownToHtml(lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString("\n")))
       //println(content)

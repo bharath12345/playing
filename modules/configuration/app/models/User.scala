@@ -12,6 +12,7 @@ import securesocial.core.providers.Token
 
 import org.joda.time.DateTime
 import play.api.db.DB
+import scala.language.implicitConversions
 
 case class User(uid: Option[Long] = None,
                 identityId: IdentityId,
