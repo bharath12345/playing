@@ -36,6 +36,18 @@ trait Posts {
     "why-learn-scala.md"
   )
 
+  val blogIndex: String = "blog"
+  val postType: String = "post"
+
+  val titleField: String = "title"
+  val subheadingField: String = "subheading"
+  val tagsField: String = "tags"
+  val categoryField: String = "category"
+  val dateField: String = "date"
+  val descriptionField: String = "description"
+  val contentField: String = "content"
+
+
   /**
    *
    * @param file
