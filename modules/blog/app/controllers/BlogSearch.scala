@@ -10,7 +10,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object BlogSearch extends Controller {
 
   def search = Action {
-    Ok(views.html.search())
+    implicit request =>
+    val searchUrl = controllers.blog.routes.BlogSearch.search.absoluteURL()
+    Ok(views.html.search(searchUrl))
   }
 
   def searchCount = Action {

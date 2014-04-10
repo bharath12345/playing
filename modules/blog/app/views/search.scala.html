@@ -1,3 +1,4 @@
+@(searchUrl: String)
 
 @content = {
     @* Content goes here *@
@@ -18,20 +19,82 @@
 
 
     <script type="text/javascript">
+        require ([ 'dojo/_base/declare', "dojo/request", "dojo/json", "dojo/domReady!" ],
+            function ( declare, request, JSON ) {
+                declare("BlogSearch", null, {
+
+                    constructor: function(/*Object*/ args){
+                        declare.safeMixin(this, args);
+                    },
+
+                    request: function(searchString) {
+                        var searchUrl = '@searchUrl'
+                        console.log ( "querying for search on url = " + searchUrl + " for string = " + searchString)
+
+                        var fullSearchUrl = searchUrl + "/java/10/0"
+
+                        request.get ( fullSearchUrl, {
+                            // Parse data from JSON to a JavaScript object
+                            handleAs : "json"
+                        } ).then (
+                            function ( data ) {
+                                var jsonstring = JSON.stringify ( data )
+                                console.log("stringified json = " + jsonstring)
+                            },
+                            function ( error ) {
+                                // Display the error returned
+                                console.log ( "ajax for history failed with error = " + error ) ;
+                            }
+                        ) ;
+                    }
+                });
+            }
+        )
+
         function search(e) {
-          if(e.keyCode === 13){
-            process()
-          }
-          return false;
+            if(e.keyCode === 13)
+                process()
+
+            return false;
         }
 
         function process() {
-          var searchString = document.getElementById("sbutton").value
-          console.log("search request for = " + searchString)
+            var searchString = document.getElementById("sbutton").value
+            console.log("search request for = " + searchString)
+            var search = new BlogSearch({ });
+            search.request(searchString);
         }
     </script>
 }
 
-@wrapper{
-  @content
-}
+    <html>
+        <head>
+            @common.meta()
+
+            <title>Bharath's Blog</title>
+            @common.cssjs()
+
+            <script>dojoConfig = {parseOnLoad: true}</script>
+            <script type="text/javascript" src='/webjars/dojo/1.9.2/dojo/dojo.js'></script>
+
+        </head>
+        <body>
+
+            @common.forkongithub()
+            @common.fbsdk()
+            @common.googleanalytics()
+            @common.topMostNav()
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                    @content
+                    </div>
+
+                </div>
+            </div>
+        </body>
+    </html>
+
+
