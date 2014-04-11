@@ -12,8 +12,8 @@ trait BlogElasticSearch extends Posts {
 
   val client = ElasticClient.local
 
-  case class Search(title: String, subheading: String, tags: String, category: String,
-                    date: String, description: String, content: String, score: Float)
+  case class Search(title: String, url: String, subheading: String, tags: String, category: String,
+                    date: String, description: String, content: String, score: Float, fragments: Seq[String])
 
   case class Searches(s: Seq[Search])
 
@@ -26,7 +26,8 @@ trait BlogElasticSearch extends Posts {
       dateField        -> s.date,
       descriptionField -> s.description,
       contentField     -> s.content,
-      scoreField       -> s.score
+      scoreField       -> s.score,
+      "fragments"       -> s.fragments
     )
   }
 

@@ -17,10 +17,10 @@
         </div>
     </nav>
 
-
     <script type="text/javascript">
-        require ([ 'dojo/_base/declare', "dojo/request", "dojo/json", "dojo/domReady!" ],
-            function ( declare, request, JSON ) {
+        require ([ 'dojo/_base/declare', "dojo/request", "dojo/json", "dojo/_base/lang",
+        "dojo/dom-construct", "dojo/dom-attr", "dojo/domReady!" ],
+            function ( declare, request, JSON, lang, domConstruct, domAttr ) {
                 declare("BlogSearch", null, {
 
                     constructor: function(/*Object*/ args){
@@ -37,18 +37,53 @@
                             // Parse data from JSON to a JavaScript object
                             handleAs : "json"
                         } ).then (
+                          lang.hitch(this,
                             function ( data ) {
                                 var jsonstring = JSON.stringify ( data )
-                                //console.log("stringified json = " + jsonstring)
+                                // console.log("stringified json = " + jsonstring)
                                 for(var i = 0; i < data.search.length; i++) {
+                                  try {
                                     console.log("title = " + data.search[i].title + " score = " + data.search[i].score)
+                                    this.addSection(data.search[i].title, data.search[i].date, "url", JSON.stringify ( data.search[i].fragment ))
+                                  } catch(e) {
+                                    console.log("exception = " + e)
+                                  }
                                 }
-                            },
-                            function ( error ) {
-                                // Display the error returned
-                                console.log ( "ajax for history failed with error = " + error ) ;
                             }
-                        ) ;
+                          )
+                        )
+                    },
+
+                    addSection: function(title, date, url, text) {
+                      console.log("staring section add for title = " + title);
+                      try {
+                        var sectionContent = domConstruct.create("section");
+                        domAttr.set(sectionContent, "class", "content");
+                        dojo.place(sectionContent, dojo.byId("results"), "last");
+
+                        var h4 = domConstruct.create("h4");
+                        dojo.place(h4, sectionContent, "first");
+
+                        var a = domConstruct.create("a", { innerHTML: title });
+                        domAttr.set(a, "href", url);
+                        dojo.place(a, h4, "only");
+
+                        var sectionByline = domConstruct.create("section", { innerHTML: date });
+                        domAttr.set(sectionByline, "class", "byline");
+                        dojo.place(sectionByline, sectionContent, "last");
+
+                        var hr = domConstruct.create("hr");
+                        dojo.place(hr, sectionContent, "last")
+
+                        var p = domConstruct.create("p", { innerHTML: text });
+                        dojo.place(p, sectionContent, "last")
+
+                        var hr = domConstruct.create("hr");
+                        dojo.place(hr, sectionContent, "last")
+
+                      } catch(e) {
+                          console.log("exception = " + e)
+                      }
                     }
                 });
             }
@@ -92,7 +127,9 @@
                 <div class="row">
 
                     <div class="col-md-12">
-                    @content
+                        @content
+                        <div id="results">
+                        </div>
                     </div>
 
                 </div>

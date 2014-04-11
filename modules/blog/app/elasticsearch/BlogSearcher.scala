@@ -30,15 +30,18 @@ object BlogSearcher extends BlogElasticSearch {
         var searches = scala.collection.mutable.Seq[Search]()
         for {h <- hits} {
 
-          val fragments = h.highlightFields().get(contentField).fragments()
+          var fragments = h.highlightFields().get(contentField).fragments()
+          var fs = scala.collection.mutable.Seq[String]()
           for(fragment <- fragments) {
             Logger.info("fragment = " + fragment)
+            fs = fs :+ fragment.string()
           }
+          //val f = new Fragment(fs)
 
           val s = h.getSource
-          val search = Search(s.get(titleField).toString, s.get(subheadingField).toString,
+          val search = Search(s.get(titleField).toString, "",s.get(subheadingField).toString,
             s.get(tagsField).toString, s.get(categoryField).toString,
-            s.get(dateField).toString, s.get(descriptionField).toString, s.get(contentField).toString, h.getScore)
+            s.get(dateField).toString, s.get(descriptionField).toString, s.get(contentField).toString, h.getScore, fs)
           searches = searches :+ search
         }
         val s: Searches = Searches(searches)
