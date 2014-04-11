@@ -46,6 +46,7 @@ trait Posts {
   val dateField: String = "date"
   val descriptionField: String = "description"
   val contentField: String = "content"
+  val scoreField: String = "score"
 
 
   /**

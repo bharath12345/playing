@@ -31,7 +31,7 @@
                         var searchUrl = '@searchUrl'
                         console.log ( "querying for search on url = " + searchUrl + " for string = " + searchString)
 
-                        var fullSearchUrl = searchUrl + "/java/10/0"
+                        var fullSearchUrl = searchUrl + "/" + searchString + "/10/0"
 
                         request.get ( fullSearchUrl, {
                             // Parse data from JSON to a JavaScript object
@@ -39,7 +39,10 @@
                         } ).then (
                             function ( data ) {
                                 var jsonstring = JSON.stringify ( data )
-                                console.log("stringified json = " + jsonstring)
+                                //console.log("stringified json = " + jsonstring)
+                                for(var i = 0; i < data.search.length; i++) {
+                                    console.log("title = " + data.search[i].title + " score = " + data.search[i].score)
+                                }
                             },
                             function ( error ) {
                                 // Display the error returned

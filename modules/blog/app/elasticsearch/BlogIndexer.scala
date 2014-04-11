@@ -43,7 +43,7 @@ object BlogIndexer extends BlogElasticSearch {
       }
 
       val content: String = lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString(" ")
-      val search = Search(title, subheading, "t", category, date, description, content)
+      val search = Search(title, subheading, "t", category, date, description, content, 0)
       searches = searches :+ search
     }
     Searches(searches)
