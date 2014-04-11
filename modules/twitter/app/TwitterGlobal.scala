@@ -48,7 +48,7 @@ object TwitterGlobal extends Configuration {
   def onStart = {
     Logger.info("Twitter module has started")
     createTables
-    //startTwitterStreaming
+    startTwitterStreaming
   }
 
   def onStop = {

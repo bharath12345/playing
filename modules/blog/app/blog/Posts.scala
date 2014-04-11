@@ -8,7 +8,7 @@ import org.pegdown.PegDownProcessor
 /**
  * Created by bharadwaj on 09/04/14.
  */
-trait Posts {
+trait Posts extends Configuration {
 
   val pegdown = new PegDownProcessor
 

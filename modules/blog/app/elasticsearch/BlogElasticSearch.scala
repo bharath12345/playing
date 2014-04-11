@@ -4,13 +4,16 @@ import blog.Posts
 import com.sksamuel.elastic4s.ElasticClient
 import play.api.libs.json.{Json, Writes}
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.Logger
 
 /**
  * Created by bharadwaj on 10/04/14.
  */
 trait BlogElasticSearch extends Posts {
 
-  val client = ElasticClient.local
+  Logger.info("going to connect to bonsai host = " + bonsaiHost)
+  //val client = ElasticClient.local
+  val client = ElasticClient.remote(bonsaiHost, 9300)
 
   case class Search(title: String, url: String, tags: String, category: String,
                     date: String, content: String, score: Float, fragments: Seq[String])

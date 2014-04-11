@@ -91,4 +91,6 @@ object BlogIndexer extends BlogElasticSearch {
         contentField  -> getOrNull(s.content)
         )
     }
+
+  def shutdown = client.close()
 }

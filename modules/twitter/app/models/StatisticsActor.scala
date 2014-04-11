@@ -45,9 +45,9 @@ class StatisticsActor(postgresPersistor: ActorRef,
           val j = broadcastCount(twCounter, r)
           Cache.flush(r)
 
-          //postgresPersistor ? PersistenceMsg(r, j)
-          //tempoPersistor    ? PersistenceMsg(r, j)
-          kafkaPersistor    ? PersistenceMsg(r, j)
+          postgresPersistor ? PersistenceMsg(r, j)
+          tempoPersistor    ? PersistenceMsg(r, j)
+          //kafkaPersistor    ? PersistenceMsg(r, j)
 
         }
         case None => {

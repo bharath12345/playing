@@ -17,9 +17,11 @@ object BlogGlobal {
     BlogCategory.setupCategories
 
     BlogIndexer.createIndex
+
   }
 
   def onStop = {
+    BlogIndexer.shutdown
     Logger.info("Blog module shutdown...")
   }
 
