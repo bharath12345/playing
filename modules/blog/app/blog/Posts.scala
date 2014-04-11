@@ -47,6 +47,9 @@ trait Posts {
   val descriptionField: String = "description"
   val contentField: String = "content"
   val scoreField: String = "score"
+  val urlField: String = "url"
+  val fragmentsField: String = "fragments"
+  val searchField: String = "search"
 
 
   /**

@@ -12,28 +12,27 @@ trait BlogElasticSearch extends Posts {
 
   val client = ElasticClient.local
 
-  case class Search(title: String, url: String, subheading: String, tags: String, category: String,
-                    date: String, description: String, content: String, score: Float, fragments: Seq[String])
+  case class Search(title: String, url: String, tags: String, category: String,
+                    date: String, content: String, score: Float, fragments: Seq[String])
 
   case class Searches(s: Seq[Search])
 
   implicit val searchWrites = new Writes[Search] {
     def writes(s: Search) = Json.obj(
       titleField       -> s.title,
-      subheadingField  -> s.subheading,
+      urlField         -> s.url,
       tagsField        -> s.tags,
       categoryField    -> s.category,
       dateField        -> s.date,
-      descriptionField -> s.description,
       contentField     -> s.content,
       scoreField       -> s.score,
-      "fragments"       -> s.fragments
+      fragmentsField   -> s.fragments
     )
   }
 
   implicit val searchesWrites = new Writes[Searches] {
     def writes(searches: Searches) = Json.obj(
-      "search" -> searches.s
+      searchField -> searches.s
     )
   }
 }

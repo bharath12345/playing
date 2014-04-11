@@ -30,9 +30,9 @@ object BlogIndexer extends BlogElasticSearch {
       val title = getLine(header, "\"title\"")
       val date = getLine(header, "\"date\"")
 
-      val subheading = getLine(header, "\"subheading\"")
+      //val subheading = getLine(header, "\"subheading\"")
       val category = getLine(header, "\"category\"")
-      val description = getLine(header, "\"description\"")
+      //val description = getLine(header, "\"description\"")
       val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
 
       val tags = tagLine.split(" ")
@@ -43,7 +43,7 @@ object BlogIndexer extends BlogElasticSearch {
       }
 
       val content: String = lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString(" ")
-      val search = Search(title, "url" ,subheading, "t", category, date, description, content, 0, Seq())
+      val search = Search(title, "post/" + file.replaceAll(".md", ""), tagLine, category, date, content, 0, Seq())
       searches = searches :+ search
     }
     Searches(searches)
@@ -77,17 +77,18 @@ object BlogIndexer extends BlogElasticSearch {
     Logger.info("Finished document insertions.")
   }
 
+  def getOrNull(s: String): String = if(s.length > 0) s else "none"
+
   val insertBlog: Seq[Future[IndexResponse]] =
     for (s <- searches.s)
     yield client.execute {
       index into blogIndex + "/" + postType fields(
-        titleField -> s.title,
-        subheadingField -> "sub",
-        tagsField -> "tags",
-        categoryField -> "cat",
-        dateField -> s.date,
-        descriptionField -> "des",
-        contentField -> s.content
+        titleField    -> getOrNull(s.title),
+        urlField      -> getOrNull(s.url),
+        tagsField     -> getOrNull(s.tags),
+        categoryField -> getOrNull(s.category),
+        dateField     -> getOrNull(s.date),
+        contentField  -> getOrNull(s.content)
         )
     }
 }

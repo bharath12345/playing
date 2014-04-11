@@ -28,6 +28,8 @@
                     },
 
                     request: function(searchString) {
+                        domConstruct.empty("results");
+
                         var searchUrl = '@searchUrl'
                         console.log ( "querying for search on url = " + searchUrl + " for string = " + searchString)
 
@@ -44,7 +46,7 @@
                                 for(var i = 0; i < data.search.length; i++) {
                                   try {
                                     console.log("title = " + data.search[i].title + " score = " + data.search[i].score)
-                                    this.addSection(data.search[i].title, data.search[i].date, "url", JSON.stringify ( data.search[i].fragment ))
+                                    this.addSection(data.search[i].title, data.search[i].date, data.search[i].url, data.search[i].fragments[0] )
                                   } catch(e) {
                                     console.log("exception = " + e)
                                   }
