@@ -1,15 +1,14 @@
 package elasticsearch
 
-import scala.concurrent.Future
 import com.sksamuel.elastic4s.ElasticDsl._
+import scala.concurrent.Future
 import play.api.libs.json.Json
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.Logger
 
 /**
- * Created by bharadwaj on 10/04/14.
+ * Created by bharadwaj on 14/04/14.
  */
-object BlogSearcher extends BlogElasticSearch {
+trait Elastic4sSearcher extends Elastic4sIndexer {
 
   def searchCount: Long = {
     val resp = client.sync.execute {
@@ -51,4 +50,5 @@ object BlogSearcher extends BlogElasticSearch {
     })
     s
   }
+
 }
