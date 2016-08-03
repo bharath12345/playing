@@ -11,7 +11,7 @@ import scala.language.postfixOps
 /**
  * Created by bharadwaj on 09/04/14.
  */
-object BlogIndexer extends Indexer with JestIndexer {
+/*object BlogIndexer extends Indexer with JestIndexer {
 
 
-}
+}*/

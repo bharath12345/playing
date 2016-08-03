@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by bharadwaj on 14/04/14.
  */
-trait Elastic4sSearcher extends Elastic4sIndexer {
+/*trait Elastic4sSearcher extends Elastic4sIndexer {
 
   def searchCount: Long = {
     val resp = client.sync.execute {
@@ -52,3 +52,4 @@ trait Elastic4sSearcher extends Elastic4sIndexer {
   }
 
 }
+*/

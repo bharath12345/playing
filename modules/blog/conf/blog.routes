@@ -27,6 +27,6 @@ GET        /about/travel            controllers.blog.About.travel
 GET        /about/work              controllers.blog.About.work
 
 # Elastic Search
-GET        /search                  controllers.blog.BlogSearch.search
+# GET        /search                  controllers.blog.BlogSearch.search
 # GET        /searchCount             controllers.blog.BlogSearch.searchCount
-GET        /search/:q/:c/:p         controllers.blog.BlogSearch.searchQuery(q: String, c: Int, p: Int)
+# GET        /search/:q/:c/:p         controllers.blog.BlogSearch.searchQuery(q: String, c: Int, p: Int)

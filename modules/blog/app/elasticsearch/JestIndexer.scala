@@ -18,7 +18,7 @@ import scala.language.postfixOps
 /**
  * Created by bharadwaj on 14/04/14.
  */
-trait JestIndexer extends Indexer {
+/*trait JestIndexer extends Indexer {
 
   def createIndex = {
     Logger.info("going to connect to bonsai host = " + bonsaiHost)
@@ -59,3 +59,4 @@ trait JestIndexer extends Indexer {
   }
 
 }
+*/

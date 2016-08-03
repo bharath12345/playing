@@ -1,7 +1,7 @@
 package blog
 
 import play.api.Logger
-import elasticsearch.BlogIndexer
+//import elasticsearch.BlogIndexer
 
 /**
  * Created by bharadwaj on 25/03/14.
@@ -16,12 +16,12 @@ object BlogGlobal {
     BlogTag.setupTags
     BlogCategory.setupCategories
 
-    BlogIndexer.createIndex
+    //BlogIndexer.createIndex
 
   }
 
   def onStop = {
-    BlogIndexer.shutdown
+    //BlogIndexer.shutdown
     Logger.info("Blog module shutdown...")
   }
 

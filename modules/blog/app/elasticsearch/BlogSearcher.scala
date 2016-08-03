@@ -9,6 +9,6 @@ import play.api.Logger
 /**
  * Created by bharadwaj on 10/04/14.
  */
-object BlogSearcher extends Searcher with JestSearcher {
+/*object BlogSearcher extends Searcher with JestSearcher {
 
-}
+}*/

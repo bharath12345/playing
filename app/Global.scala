@@ -1,5 +1,5 @@
-import configuration.ConfigurationGlobal
-import twitter.TwitterGlobal
+//import configuration.ConfigurationGlobal
+//import twitter.TwitterGlobal
 import blog.BlogGlobal
 import play.api._
 
@@ -11,16 +11,15 @@ object Global extends GlobalSettings {
   override def onStart(app: Application) {
     Logger.info("Application has started")
     BlogGlobal.onStart
-    ConfigurationGlobal.onStart
-    TwitterGlobal.onStart
-
+    //ConfigurationGlobal.onStart
+    //TwitterGlobal.onStart
   }
 
   override def onStop(app: Application) {
     Logger.info("Application shutdown...")
     BlogGlobal.onStop
-    ConfigurationGlobal.onStop
-    TwitterGlobal.onStop
+    //ConfigurationGlobal.onStop
+    //TwitterGlobal.onStop
   }
 
   /*

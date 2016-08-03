@@ -6,7 +6,7 @@ organization := "in.bharathwrites"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.8"
 
 scalacOptions ++= Seq("-feature")
 

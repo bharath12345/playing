@@ -16,7 +16,7 @@ import scala.language.postfixOps
 /**
  * Created by bharadwaj on 14/04/14.
  */
-trait Elastic4sIndexer extends Indexer {
+/*trait Elastic4sIndexer extends Indexer {
 
   val client = ElasticClient.local
 
@@ -65,4 +65,4 @@ trait Elastic4sIndexer extends Indexer {
 
   def shutdown = client.close()
 
-}
+} */

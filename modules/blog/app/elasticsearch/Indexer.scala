@@ -12,7 +12,7 @@ import scala.collection.immutable.HashSet
 /**
  * Created by bharadwaj on 10/04/14.
  */
-trait Indexer extends Posts {
+/*trait Indexer extends Posts {
 
   var searches: Searches = setupIndex
 
@@ -73,4 +73,4 @@ trait Indexer extends Posts {
 
   def shutdown
 
-}
+} */

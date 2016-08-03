@@ -6,7 +6,7 @@ organization := "in.bharathwrites"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.8"
 
 scalacOptions ++= Seq("-feature")
 
@@ -28,24 +28,24 @@ playScalaSettings
 routesImport ++= Seq("language.reflectiveCalls")
 
 lazy val playing = project.in( file(".") )
-                       .aggregate(mylib)
-                       .dependsOn(mylib)
-                       .aggregate(configuration)
-                       .dependsOn(configuration)
+                       //.aggregate(mylib)
+                       //.dependsOn(mylib)
+                       //.aggregate(configuration)
+                       //.dependsOn(configuration)
                        .aggregate(blog)
                        .dependsOn(blog)
-                       .aggregate(twitter)
-                       .dependsOn(twitter)
+                       //.aggregate(twitter)
+                       //.dependsOn(twitter)
 
 // Library JARs
-lazy val mylib = project.in(file("libs/mylib"))
+//lazy val mylib = project.in(file("libs/mylib"))
 
 // Play Sub-Modules
-lazy val configuration = project.in(file("modules/configuration"))
+//lazy val configuration = project.in(file("modules/configuration"))
 
 lazy val blog = project.in(file("modules/blog"))
 
-lazy val twitter = project.in(file("modules/twitter"))
+//lazy val twitter = project.in(file("modules/twitter"))
 
 
 

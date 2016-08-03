@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by bharadwaj on 14/04/14.
  */
-trait JestSearcher extends JestIndexer {
+/* trait JestSearcher extends JestIndexer {
 
   def searchCount: Long = 0
 
@@ -17,3 +17,4 @@ trait JestSearcher extends JestIndexer {
   }
 
 }
+*/
