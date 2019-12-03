@@ -1,11 +1,12 @@
 package blog
 
 import org.pegdown.PegDownProcessor
+import play.api.{Application, Environment, Logging, Play}
 
 /**
  * Created by bharadwaj on 09/04/14.
  */
-trait Posts extends Configuration {
+trait Posts extends Configuration with Logging {
 
   val pegdown = new PegDownProcessor
 
@@ -54,12 +55,21 @@ trait Posts extends Configuration {
    * @param file
    * @return
    */
-  def fileContent(file: String): Seq[String] = {
-    scala.io.Source.fromFile(file, "iso-8859-1").getLines().toSeq//.fromInputStream(is, "iso-8859-1").getLines().toSeq
-    /*Play.resourceAsStream(file) match {
-      case Some(is) =>
-      case _ => throw new IOException("file not found: " + file)
-    }*/
+  def fileContent(env: Environment, file: String): Seq[String] = {
+    val relativepath = s"modules/blog/$file"
+    val existingFile = env.getExistingFile(relativepath)
+    logger.info(s"existingFile = $existingFile")
+    existingFile match {
+      case Some(x) =>
+        val source = scala.io.Source.fromFile(x)
+        val lines = source.getLines().toSeq
+        source.close()
+        lines
+
+      case None =>
+        logger.error(s"file not found: $relativepath")
+        Seq()
+    }
   }
 
   /**

@@ -1,28 +1,18 @@
 package blog
 
-import play.api.Logger
-//import elasticsearch.BlogIndexer
+import play.api.{Application, Environment, Logging}
 
 /**
  * Created by bharadwaj on 25/03/14.
  */
-object BlogGlobal {
+object BlogGlobal extends Logging {
 
-  def onStart = {
-    Logger.info("Blog module has started")
-
-    BlogIndex.setupIndexPage
-    BlogPost.setupPosts
-    BlogTag.setupTags
-    BlogCategory.setupCategories
-
+  def init(env: Environment): Unit = {
+    logger.info("Blog module has started")
+    BlogIndex.setupIndexPage(env)
+    BlogPost.setupPosts(env)
+    BlogTag.setupTags(env)
+    BlogCategory.setupCategories(env)
     //BlogIndexer.createIndex
-
   }
-
-  def onStop = {
-    //BlogIndexer.shutdown
-    Logger.info("Blog module shutdown...")
-  }
-
 }

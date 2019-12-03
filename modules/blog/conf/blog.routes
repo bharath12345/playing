@@ -2,7 +2,6 @@
 # This file defines all application blog routes (Higher priority routes first)
 # ~~~~
 
-# GET        /assets/public/*file            controllers.blog.Assets.at(path="/public", file)
 GET        /assets/*file            controllers.blog.Assets.versioned(path="/public", file: Asset)
 
 # Home page

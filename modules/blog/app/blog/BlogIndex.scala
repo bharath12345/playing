@@ -3,6 +3,7 @@ package blog
 import scala.collection.immutable.HashMap
 import org.joda.time.DateTime
 import org.pegdown.PegDownProcessor
+import play.api.{Application, Environment}
 
 /**
  * Created by bharadwaj on 09/04/14.
@@ -15,11 +16,10 @@ object BlogIndex extends Posts {
   var sortedTitleList = List[String]()
   var pathMap = new HashMap[String, String]
 
-
-  def setupIndexPage = {
+  def setupIndexPage(env: Environment) = {
     var titleMap = new HashMap[Long, String]
     for (file <- posts) {
-      val lines = fileContent("public/posts/" + file)
+      val lines = fileContent(env, "conf/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       val content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
       val excerpt = pegdown.markdownToHtml(content.takeWhile(line => line.length != 0)(0))

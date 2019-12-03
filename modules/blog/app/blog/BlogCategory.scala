@@ -1,5 +1,7 @@
 package blog
 
+import play.api.{Application, Environment}
+
 import scala.collection.immutable.{HashMap, HashSet}
 
 /**
@@ -12,9 +14,9 @@ object BlogCategory extends Posts {
   var dateMap = new HashMap[String, String]
   var categoryMap = new HashMap[String, String]
 
-  def setupCategories = {
+  def setupCategories(env: Environment) = {
     for (file <- posts) {
-      val lines = fileContent("public/posts/" + file)
+      val lines = fileContent(env, "conf/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
       //println("category = " + category)

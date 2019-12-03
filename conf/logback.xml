@@ -24,11 +24,18 @@
     <appender-ref ref="STDOUT" />
   </appender>
 
-  <logger name="play" level="INFO" />
-  <logger name="application" level="DEBUG" />
+  <!--logger name="play" level="INFO">
+    <appender-ref ref="ASYNCFILE" />
+    <appender-ref ref="ASYNCSTDOUT" />
+  </logger>
 
-  <root level="WARN">
-    <!--<appender-ref ref="ASYNCFILE" />-->
+  <logger name="blog" level="INFO">
+    <appender-ref ref="ASYNCFILE" />
+    <appender-ref ref="ASYNCSTDOUT" />
+  </logger-->
+
+  <root level="INFO">
+    <appender-ref ref="ASYNCFILE" />
     <appender-ref ref="ASYNCSTDOUT" />
   </root>
 

@@ -1,5 +1,7 @@
 package blog
 
+import play.api.{Application, Environment}
+
 import scala.collection.immutable.HashMap
 
 /**
@@ -13,10 +15,10 @@ object BlogPost extends Posts {
   var subheading = new HashMap[String, String]
   var toc = new HashMap[String, Boolean]
 
-  def setupPosts = {
+  def setupPosts(env: Environment) = {
     for (file <- posts) {
 
-      val lines = fileContent("public/posts/" + file)
+      val lines = fileContent(env, "conf/posts/" + file)
 
       val header: Seq[String] = lines.takeWhile(line => !line.equals("}}}")).toSeq
 
