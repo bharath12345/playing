@@ -78,10 +78,10 @@ trait Posts extends Configuration with Logging {
    * @param search
    * @return
    */
-  def getLine(lines: Seq[String], search: String): String = {
-    val ol: Option[String] = lines.filter(line => line.contains(search)).headOption
+  def getLine(lines: Seq[String], search: String): Option[String] = {
+    val ol: Option[String] = lines.find(line => line.contains(search))
     logger.debug("ol = " + ol)
-    val result = ol.flatMap { l =>
+    ol.flatMap { l =>
       val lrhs: Array[String] = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
       lrhs.headOption.flatMap { x =>
         logger.debug("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
@@ -93,6 +93,5 @@ trait Posts extends Configuration with Logging {
           None
       }
     }
-    result.getOrElse("")
   }
 }

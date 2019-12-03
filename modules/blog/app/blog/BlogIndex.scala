@@ -26,20 +26,20 @@ object BlogIndex extends Posts with Logging {
       content.takeWhile(line => line.length != 0).headOption.foreach { cont: String =>
         val excerpt = pegdown.markdownToHtml(cont)
         logger.debug(excerpt)
+        getLine(header, "\"title\"").foreach { title =>
+          logger.info("title = " + title + " for file = " + file)
+          getLine(header, "\"date\"").foreach { date =>
+            val ymd = date.split("-")
+            val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
+            logger.info("date = " + dt)
 
-        val title = getLine(header, "\"title\"")
-        logger.info("title = " + title + " for file = " + file)
-        val date = getLine(header, "\"date\"")
-
-        val ymd = date.split("-")
-        val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
-        logger.info("date = " + dt)
-
-        dateMap += (title -> date)
-        titleMap += (dt.getMillis -> title)
-        fileMap += (title -> file.replace(".md", ""))
-        contentMap += (title -> excerpt)
-        pathMap += (title -> ("post/" + file.replace(".md", "")))
+            dateMap += (title -> date)
+            titleMap += (dt.getMillis -> title)
+            fileMap += (title -> file.replace(".md", ""))
+            contentMap += (title -> excerpt)
+            pathMap += (title -> ("post/" + file.replace(".md", "")))
+          }
+        }
       }
     }
 

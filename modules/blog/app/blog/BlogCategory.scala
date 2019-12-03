@@ -18,12 +18,14 @@ object BlogCategory extends Posts with Logging {
     for (file <- posts) {
       val lines = fileContent(env, "conf/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
-      val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
-      logger.info("category = " + category)
-      categorySet += category
-      categoryMap += (category -> file)
-      dateMap += (file -> getLine(header, "\"date\""))
-      titleMap += (file -> getLine(header, "\"title\""))
+      getLine(header, "\"category\"").filter(!"\"".contains(_)).foreach { category =>
+        logger.info("category = " + category)
+        categorySet += category
+        categoryMap += (category -> file)
+
+        getLine(header, "\"date\"").foreach(x => dateMap += (file -> x))
+        getLine(header, "\"title\"").foreach(x => titleMap += (file -> x))
+      }
     }
   }
 

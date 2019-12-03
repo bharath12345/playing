@@ -19,19 +19,20 @@ object BlogTag extends Posts with Logging {
       val lines = fileContent(env, "conf/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
 
-      val tagLine = getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
-      tagLineMap += (tagLine -> file)
+      getLine(header, "\"tags\"").filter(!"[]\"".contains(_)).foreach { tagLine =>
+        tagLineMap += (tagLine -> file)
 
-      val tags = tagLine.split(" ")
-      logger.info("tags = " + tags.mkString(","))
+        val tags = tagLine.split(" ")
+        logger.info("tags = " + tags.mkString(","))
 
-      for {tag <- tags; if (tag.length > 0)} {
-        logger.info("tag = " + tag)
-        tagSet += tag.trim
+        for {tag <- tags; if (tag.length > 0)} {
+          logger.info("tag = " + tag)
+          tagSet += tag.trim
+        }
+
+        getLine(header, "\"date\"").foreach(x => dateMap += (file -> x))
+        getLine(header, "\"title\"").foreach(x => titleMap += (file -> x))
       }
-
-      dateMap += (file -> getLine(header, "\"date\""))
-      titleMap += (file -> getLine(header, "\"title\""))
     }
   }
 }

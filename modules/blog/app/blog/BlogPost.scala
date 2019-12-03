@@ -17,16 +17,15 @@ object BlogPost extends Posts with Logging {
 
   def setupPosts(env: Environment) = {
     for (file <- posts) {
-
       val lines = fileContent(env, "conf/posts/" + file)
       val header: Seq[String] = lines.takeWhile(line => !line.equals("}}}")).toSeq
       content += (file -> pegdown.markdownToHtml(lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString("\n")))
       logger.debug(s"$content")
 
-      title += (file -> getLine(header, "\"title\""))
-      date += (file -> getLine(header, "\"date\""))
-      subheading += (file -> getLine(header, "\"subheading\""))
-      toc += (file -> getLine(header, "\"toc\"").toBoolean)
+      getLine(header, "\"title\"").foreach(x => title += (file -> x))
+      getLine(header, "\"date\"").foreach(x => date += (file -> x))
+      getLine(header, "\"subheading\"").foreach(x => subheading += (file -> x))
+      toc += (file -> getLine(header, "\"toc\"").isDefined)
     }
   }
 
