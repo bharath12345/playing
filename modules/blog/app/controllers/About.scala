@@ -1,11 +1,13 @@
 package controllers.blog
 
-import play.api.mvc.{Action, Controller}
+import javax.inject.{Inject, Singleton}
+import play.api.mvc.{AbstractController, ControllerComponents}
 
 /**
  * Created by bharadwaj on 27/01/14.
  */
-object About extends Controller {
+@Singleton
+class About @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def books = Action {
     Ok(views.html.self.books())

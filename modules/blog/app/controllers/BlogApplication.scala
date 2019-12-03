@@ -1,11 +1,13 @@
 package controllers.blog
 
 import play.api.mvc._
-import scala.collection.immutable.{HashSet, HashMap}
-import blog.{BlogCategory, BlogTag, BlogPost, BlogIndex}
 
-object BlogApplication extends Controller {
+import scala.collection.immutable.{HashMap, HashSet}
+import blog.{BlogCategory, BlogIndex, BlogPost, BlogTag}
+import javax.inject.{Inject, Singleton}
 
+@Singleton
+class BlogApplication @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   /**
    *
    * @return

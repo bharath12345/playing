@@ -1,8 +1,5 @@
 package blog
 
-import play.api.Play
-import java.io.IOException
-import play.api.Play.current
 import org.pegdown.PegDownProcessor
 
 /**
@@ -58,10 +55,11 @@ trait Posts extends Configuration {
    * @return
    */
   def fileContent(file: String): Seq[String] = {
-    Play.resourceAsStream(file) match {
-      case Some(is) => scala.io.Source.fromInputStream(is, "iso-8859-1").getLines().toSeq
+    scala.io.Source.fromFile(file, "iso-8859-1").getLines().toSeq//.fromInputStream(is, "iso-8859-1").getLines().toSeq
+    /*Play.resourceAsStream(file) match {
+      case Some(is) =>
       case _ => throw new IOException("file not found: " + file)
-    }
+    }*/
   }
 
   /**
