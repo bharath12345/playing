@@ -1,13 +1,13 @@
 package blog
 
-import play.api.{Application, Environment}
+import play.api.{Environment, Logging}
 
 import scala.collection.immutable.HashMap
 
 /**
  * Created by bharadwaj on 09/04/14.
  */
-object BlogPost extends Posts {
+object BlogPost extends Posts with Logging {
 
   var title = new HashMap[String, String]
   var content = new HashMap[String, String]
@@ -19,11 +19,9 @@ object BlogPost extends Posts {
     for (file <- posts) {
 
       val lines = fileContent(env, "conf/posts/" + file)
-
       val header: Seq[String] = lines.takeWhile(line => !line.equals("}}}")).toSeq
-
       content += (file -> pegdown.markdownToHtml(lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString("\n")))
-      //println(content)
+      logger.debug(s"$content")
 
       title += (file -> getLine(header, "\"title\""))
       date += (file -> getLine(header, "\"date\""))

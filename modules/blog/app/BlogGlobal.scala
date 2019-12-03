@@ -1,6 +1,6 @@
 package blog
 
-import play.api.{Application, Environment, Logging}
+import play.api.{Environment, Logging}
 
 /**
  * Created by bharadwaj on 25/03/14.

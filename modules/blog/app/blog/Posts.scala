@@ -1,7 +1,7 @@
 package blog
 
 import org.pegdown.PegDownProcessor
-import play.api.{Application, Environment, Logging, Play}
+import play.api.{Environment, Logging}
 
 /**
  * Created by bharadwaj on 09/04/14.
@@ -79,16 +79,20 @@ trait Posts extends Configuration with Logging {
    * @return
    */
   def getLine(lines: Seq[String], search: String): String = {
-    val l = lines.filter(line => line.contains(search))(0)
-    //println("l = " + l)
-    val lrhs = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
-    //println("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
-    val lhs = lrhs(0).trim
-    //println("lhs = " + lhs)
-    if (lrhs.length == 2)
-      lrhs(1).trim
-    else
-      ""
+    val ol: Option[String] = lines.filter(line => line.contains(search)).headOption
+    logger.debug("ol = " + ol)
+    val result = ol.flatMap { l =>
+      val lrhs: Array[String] = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
+      lrhs.headOption.flatMap { x =>
+        logger.debug("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
+        val lhs = x.trim
+        logger.debug("lhs = " + lhs)
+        if (lrhs.length == 2)
+          Option(lrhs(1).trim)
+        else
+          None
+      }
+    }
+    result.getOrElse("")
   }
-
 }

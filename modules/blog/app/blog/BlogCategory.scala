@@ -1,13 +1,13 @@
 package blog
 
-import play.api.{Application, Environment}
+import play.api.{Environment, Logging}
 
 import scala.collection.immutable.{HashMap, HashSet}
 
 /**
  * Created by bharadwaj on 09/04/14.
  */
-object BlogCategory extends Posts {
+object BlogCategory extends Posts with Logging {
 
   var categorySet = new HashSet[String]
   var titleMap = new HashMap[String, String]
@@ -19,12 +19,11 @@ object BlogCategory extends Posts {
       val lines = fileContent(env, "conf/posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       val category = getLine(header, "\"category\"").filter(!"\"".contains(_)).trim
-      //println("category = " + category)
+      logger.info("category = " + category)
       categorySet += category
-
       categoryMap += (category -> file)
-      dateMap     += (file -> getLine(header, "\"date\""))
-      titleMap    += (file -> getLine(header, "\"title\""))
+      dateMap += (file -> getLine(header, "\"date\""))
+      titleMap += (file -> getLine(header, "\"title\""))
     }
   }
 
