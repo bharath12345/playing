@@ -17,7 +17,7 @@ object BlogPost extends Posts with Logging {
 
   def setupPosts(env: Environment) = {
     for (file <- posts) {
-      val lines = fileContent(env, "posts/" + file)
+      val lines = fileContent(env, file)
       val header: Seq[String] = lines.takeWhile(line => !line.equals("}}}")).toSeq
       content += (file -> pegdown.markdownToHtml(lines.dropWhile(line => !line.equals("}}}")).drop(1).mkString("\n")))
       logger.debug(s"$content")

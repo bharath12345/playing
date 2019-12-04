@@ -1,5 +1,7 @@
 package blog
 
+import java.io.File
+
 import org.pegdown.PegDownProcessor
 import play.api.{Environment, Logging}
 
@@ -56,19 +58,29 @@ trait Posts extends Configuration with Logging {
    * @return
    */
   def fileContent(env: Environment, file: String): Seq[String] = {
-    val relativepath = s"modules/blog/$file"
-    val existingFile = env.getExistingFile(relativepath)
-    logger.info(s"existingFile = $existingFile")
-    existingFile match {
-      case Some(x) =>
-        val source = scala.io.Source.fromFile(x)
-        val lines = source.getLines().toSeq
-        source.close()
-        lines
 
+    def readFile(f: File): Seq[String] = {
+      val source = scala.io.Source.fromFile(f)
+      val lines = source.getLines().toSeq
+      source.close()
+      lines
+    }
+
+    def getFile(relativepath: String): Option[File] = {
+      val existingFile = env.getExistingFile(relativepath)
+      logger.info(s"existingFile = $existingFile")
+      existingFile
+    }
+
+    getFile(s"modules/blog/posts/$file") match {
+      case Some(x) => readFile(x)
       case None =>
-        logger.error(s"file not found: $relativepath")
-        Seq()
+        getFile(s"posts/$file") match {
+          case Some(y) => readFile(y)
+          case None =>
+            logger.error(s"file not found: $file")
+            Seq()
+        }
     }
   }
 
