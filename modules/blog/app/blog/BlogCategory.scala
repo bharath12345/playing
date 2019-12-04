@@ -16,7 +16,7 @@ object BlogCategory extends Posts with Logging {
 
   def setupCategories(env: Environment) = {
     for (file <- posts) {
-      val lines = fileContent(env, "conf/posts/" + file)
+      val lines = fileContent(env, "posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       getLine(header, "\"category\"").filter(!"\"".contains(_)).foreach { category =>
         logger.info("category = " + category)

@@ -19,7 +19,7 @@ object BlogIndex extends Posts with Logging {
   def setupIndexPage(env: Environment) = {
     var titleMap = new HashMap[Long, String]
     for (file <- posts) {
-      val lines = fileContent(env, "conf/posts/" + file)
+      val lines = fileContent(env, "posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       val content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
 

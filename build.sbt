@@ -1,4 +1,5 @@
 name := """playing"""
+
 organization := "in.bharathwrites"
 
 version := "1.0-SNAPSHOT"
@@ -16,20 +17,12 @@ libraryDependencies ++= Seq(
 )
 
 lazy val playing = (project in file("."))
-  //.aggregate(mylib)
-  //.dependsOn(mylib)
-  //.aggregate(configuration)
-  //.dependsOn(configuration)
   .aggregate(blog)
   .dependsOn(blog)
-  //.aggregate(twitter)
-  //.dependsOn(twitter)
   .enablePlugins(PlayScala)
 
 lazy val blog = (project in file("modules/blog")).enablePlugins(PlayScala)
 
-// Adds additional packages into Twirl
-//TwirlKeys.templateImports += "com.example.controllers._"
+import com.typesafe.sbt.packager.MappingsHelper._
 
-// Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+mappings in Universal ++= directory(baseDirectory.value / "modules" / "blog" / "posts")

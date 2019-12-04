@@ -16,7 +16,7 @@ object BlogTag extends Posts with Logging {
 
   def setupTags(env: Environment) = {
     for (file <- posts) {
-      val lines = fileContent(env, "conf/posts/" + file)
+      val lines = fileContent(env, "posts/" + file)
       val header = lines.takeWhile(line => !line.equals("}}}")).toSeq
 
       getLine(header, "\"tags\"").filter(!"[]\"".contains(_)).foreach { tagLine =>
