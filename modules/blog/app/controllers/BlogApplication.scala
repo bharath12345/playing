@@ -16,7 +16,9 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
    *
    * @return
    */
-  def index = TODO
+  def index = Action {
+    Ok(views.html.index(BlogIndex.sortedTitleList)(BlogIndex.fileMap)(BlogIndex.dateMap)(BlogIndex.contentMap))
+  }
 
   /**
    *

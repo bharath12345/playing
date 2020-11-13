@@ -1,0 +1,24 @@
+@(head: Html)(topMostNav: Html)(content: Html)(footer: Html)
+
+<html>
+    <head>
+        @head
+    </head>
+    <body>
+
+        @topMostNav
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                @content
+                </div>
+
+            </div>
+        </div>
+
+        @footer
+
+    </body>
+</html>
