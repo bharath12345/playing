@@ -1,18 +1,20 @@
-@(titles: List[String])(fileList: Map[String, String])(dateMap: Map[String, String])(contentMap: Map[String, String])
+@import _root_.blog.BlogGlobal._
+@(indexContent: Map[String, BlogIndexContent])
+
 
 @common.wrapper {
     <div class="container">
         <div class="row">
                 <!-- Blog Entries Column -->
             <div class="col-md-12" style="padding-top: 24px;">
-                @titles.map { name =>
+                @indexContent.map { case (file, item) =>
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="blog/post/@fileList(name)">@name</a></h5>
-                            <p class="card-text">@Html(contentMap(name))</p>
+                            <h5 class="card-title"><a href="blog/post/@file">@item.title</a></h5>
+                            <p class="card-text">@Html(item.content)</p>
                         </div>
                         <div class="card-footer text-muted">
-                            Posted on @dateMap(name)
+                            Posted on @item.date
                         </div>
                     </div>
                 }

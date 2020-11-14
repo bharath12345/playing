@@ -1,18 +1,6 @@
 package blog
 
-import play.api.{Environment, Logging}
-
-/**
- * Created by bharadwaj on 25/03/14.
- */
-object BlogGlobal extends Logging {
-
-  def init(env: Environment): Unit = {
-    logger.info("Blog module has started")
-    BlogIndex.setupIndexPage(env)
-    BlogPost.setupPosts(env)
-    BlogTag.setupTags(env)
-    BlogCategory.setupCategories(env)
-    //BlogIndexer.createIndex
-  }
+case object BlogGlobal {
+  case class BlogIndexContent(date: String, content: String, title: String, path: String)
+  case class BlogPostContent(title: String, content: String, date: String, subheading: Option[String], toc: Option[Boolean])
 }
