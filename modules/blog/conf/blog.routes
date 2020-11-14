@@ -9,13 +9,10 @@ GET        /                        controllers.blog.BlogApplication.index
 
 # Blog Route
 GET        /post/:id                controllers.blog.BlogApplication.blog(id: String)
-GET        /tag/:id                 controllers.blog.BlogApplication.tag(id: String)
-GET        /category/:id            controllers.blog.BlogApplication.category(id: String)
 
 # Sub Pages
 GET        /tags                    controllers.blog.BlogApplication.tags
 GET        /categories              controllers.blog.BlogApplication.categories
-GET        /toc                     controllers.blog.BlogApplication.toc
 
 # About Myself
 GET        /about/books             controllers.blog.About.books
@@ -26,7 +23,3 @@ GET        /about/philosophy        controllers.blog.About.philosophy
 GET        /about/travel            controllers.blog.About.travel
 GET        /about/work              controllers.blog.About.work
 
-# Elastic Search
-# GET        /search                  controllers.blog.BlogSearch.search
-# GET        /searchCount             controllers.blog.BlogSearch.searchCount
-# GET        /search/:q/:c/:p         controllers.blog.BlogSearch.searchQuery(q: String, c: Int, p: Int)

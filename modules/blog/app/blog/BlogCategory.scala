@@ -11,7 +11,6 @@ object BlogCategory extends Posts with Logging {
 
   var categorySet = new HashSet[String]
   var titleMap = new HashMap[String, String]
-  var dateMap = new HashMap[String, String]
   var categoryMap = new HashMap[String, String]
 
   def setupCategories(env: Environment) = {
@@ -23,7 +22,6 @@ object BlogCategory extends Posts with Logging {
         categorySet += category
         categoryMap += (category -> file)
 
-        getLine(header, "\"date\"").foreach(x => dateMap += (file -> x))
         getLine(header, "\"title\"").foreach(x => titleMap += (file -> x))
       }
     }

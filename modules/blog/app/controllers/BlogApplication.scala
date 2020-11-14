@@ -35,34 +35,8 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
 
   /**
    *
-   * @param id
-   * @return
-   */
-  def tag(id: String) = TODO
-
-  /**
-   *
    * @return
    */
   def categories = TODO
-
-  /**
-   *
-   * @param id
-   * @return
-   */
-  def category(id: String) = TODO
-
-  /**
-   *
-   * @return
-   */
-  def toc = TODO
-
-  /**
-   *
-   * @return
-   */
-  def search = TODO
 
 }

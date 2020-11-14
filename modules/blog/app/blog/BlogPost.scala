@@ -11,7 +11,6 @@ object BlogPost extends Posts with Logging {
 
   var title = new HashMap[String, String]
   var content = new HashMap[String, String]
-  var date = new HashMap[String, String]
   var subheading = new HashMap[String, String]
   var toc = new HashMap[String, Boolean]
 
@@ -23,7 +22,6 @@ object BlogPost extends Posts with Logging {
       logger.debug(s"$content")
 
       getLine(header, "\"title\"").foreach(x => title += (file -> x))
-      getLine(header, "\"date\"").foreach(x => date += (file -> x))
       getLine(header, "\"subheading\"").foreach(x => subheading += (file -> x))
       toc += (file -> getLine(header, "\"toc\"").isDefined)
     }
