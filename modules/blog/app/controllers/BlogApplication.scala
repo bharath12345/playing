@@ -37,7 +37,7 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
   }
 
   def tag(name: String) = Action {
-    Ok(views.html.tag())
+    Ok(views.html.index(BlogTag.listBlogsForTag(env, name)))
   }
 
 }
