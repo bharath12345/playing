@@ -32,14 +32,6 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
    *
    * @return
    */
-  def tags = Action {
-    Ok(views.html.tags())
-  }
-
-  /**
-   *
-   * @return
-   */
   def categories = Action {
     Ok(views.html.categories())
   }

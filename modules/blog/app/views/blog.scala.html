@@ -1,32 +1,23 @@
 @import _root_.blog.BlogGlobal._
 @(content: BlogPostContent)
 
-@common.wrapper{
-
-    <section class="content">
-        <script type="text/javascript">
-                var pageTitle = "@content.title";
-                var pageType = "post";
-        </script>
-
-        <h2>@content.title</h2>
-
-        @{if(content.subheading.nonEmpty && content.subheading.get.length != 0)
-            <h4>@subheading</h4>
-        }
-
-        <section class="byline">@content.date</section>
-        <hr>
-        <hr>
-
-        @{if(content.toc.nonEmpty && content.toc.get)
-            <div id="entryBlock"></div>
-        }
-
-        @Html(content.content)
-
-        <hr>
-
-    </section>
-
+@common.wrapper {
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="padding-top: 24px;">
+            <h2>@content.title</h2>
+            @{
+                if(content.subheading.nonEmpty && content.subheading.get.length != 0)
+                    <h4>@subheading</h4>
+            }
+            <h6>@content.date</h6>
+            <hr>
+            @{
+                if(content.toc.nonEmpty && content.toc.get)
+                    <div id="entryBlock"></div>
+            }
+            @Html(content.content)
+            </div>
+        </div>
+    </div>
 }

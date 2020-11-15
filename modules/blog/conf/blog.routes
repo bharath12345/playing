@@ -11,7 +11,6 @@ GET        /                        controllers.blog.BlogApplication.index
 GET        /post/:id                controllers.blog.BlogApplication.blog(id: String)
 
 # Sub Pages
-GET        /tags                    controllers.blog.BlogApplication.tags
 GET        /categories              controllers.blog.BlogApplication.categories
 
 # About Myself
