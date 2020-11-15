@@ -9,18 +9,16 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 @Singleton
 class About @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  def books = TODO
+  def myself = Action {
+    Ok(views.html.myself())
+  }
 
-  def current = TODO
+  def books = Action {
+    Ok(views.html.myself())
+  }
 
-  def education = TODO
-
-  def movies = TODO
-
-  def philosophy = TODO
-
-  def travel = TODO
-
-  def work = TODO
+  def movies = Action {
+    Ok(views.html.myself())
+  }
 
 }

@@ -16,11 +16,6 @@ GET        /tags                    controllers.blog.BlogApplication.tags
 GET        /tag/:name               controllers.blog.BlogApplication.tag(name: String)
 
 # About Myself
+GET        /about/myself            controllers.blog.About.myself
 GET        /about/books             controllers.blog.About.books
-GET        /about/current           controllers.blog.About.current
-GET        /about/education         controllers.blog.About.education
 GET        /about/movies            controllers.blog.About.movies
-GET        /about/philosophy        controllers.blog.About.philosophy
-GET        /about/travel            controllers.blog.About.travel
-GET        /about/work              controllers.blog.About.work
-
