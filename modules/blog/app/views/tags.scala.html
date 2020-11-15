@@ -1,0 +1,15 @@
+@(tags: Set[String])
+
+@common.wrapper {
+<div class="container">
+    @for(group <- tags.grouped(6)) {
+        <div class="row">
+            @for(elem <- group) {
+                <div class="col-md-2">
+                    @elem
+                </div>
+            }
+        </div>
+    }
+</div>
+}

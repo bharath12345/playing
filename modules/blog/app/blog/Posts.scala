@@ -42,7 +42,7 @@ trait Posts extends Configuration with Logging {
   val titleField: String = "title"
   val subheadingField: String = "subheading"
   val tagsField: String = "tags"
-  val categoryField: String = "category"
+  val categoryField: String = "tag"
   val dateField: String = "date"
   val descriptionField: String = "description"
   val contentField: String = "content"

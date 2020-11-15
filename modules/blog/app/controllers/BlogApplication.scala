@@ -1,6 +1,6 @@
 package controllers.blog
 
-import blog.{BlogIndex, BlogPost}
+import blog.{BlogTag, BlogIndex, BlogPost}
 import javax.inject.{Inject, Singleton}
 import play.api.mvc._
 import play.api.{Environment, Logging}
@@ -32,8 +32,12 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
    *
    * @return
    */
-  def categories = Action {
-    Ok(views.html.categories())
+  def tags = Action {
+    Ok(views.html.tags(BlogTag.setupTags(env)))
+  }
+
+  def tag(name: String) = Action {
+    Ok(views.html.tag())
   }
 
 }
