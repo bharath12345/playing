@@ -50,10 +50,8 @@ object BlogTag extends Posts with Logging {
       logger.info("date = " + dt)
       file.replace(".md", "") -> BlogIndexContent(date, excerpt, title, "post/" + file.replace(".md", ""))
     }).toMap
-
     logger.info(s"$result")
     result
-
   }
 
 }

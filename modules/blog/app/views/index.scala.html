@@ -1,5 +1,5 @@
 @import _root_.blog.BlogGlobal._
-@(indexContent: Map[String, BlogIndexContent])
+@(indexContent: Map[String, BlogIndexContent], total: Int)
 
 @common.wrapper {
     <div class="container">
@@ -19,12 +19,37 @@
                 }
                     <!-- Pagination -->
                 <ul class="pagination justify-content-center mb-4">
-                    <li class="page-item">
-                        <a class="page-link" href="#">&larr; Older</a>
+                    <li class="page-item" id="lastpage_li">
+                        <a class="page-link" id="lastpage_a">&larr; Older</a>
                     </li>
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Newer &rarr;</a>
+                    <li class="page-item" id="nextpage_li">
+                        <a class="page-link" id="nextpage_a">Newer &rarr;</a>
                     </li>
+                    <script>
+                        let href = window.location.href;
+                        if(href.includes("page")) {
+                            let total = @total;
+                            if(total === -1) {
+                                document.getElementById("lastpage_li").classList.add("disabled")
+                                document.getElementById("nextpage_li").classList.add("disabled")
+                            } else {
+                                let page = parseInt(href.substring(href.indexOf("/page/") + 6))
+                                if((page + 1) * 5 >= total) {
+                                    document.getElementById("nextpage_li").classList.add("disabled")
+                                }
+                                if(page === 1) {
+                                    document.getElementById("nextpage_a").href = "/blog/page/2"
+                                    document.getElementById("lastpage_a").href = "/blog"
+                                } else {
+                                    document.getElementById("nextpage_a").href = "/blog/page/" + (page + 1)
+                                    document.getElementById("lastpage_a").href = "/blog/page/" + (page - 1)
+                                }
+                            }
+                        } else {
+                            document.getElementById("lastpage_li").classList.add("disabled")
+                            document.getElementById("nextpage_a").href = "/blog/page/1"
+                        }
+                    </script>
                 </ul>
             </div>
         </div>

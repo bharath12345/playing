@@ -13,7 +13,8 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
    * @return
    */
   def index = Action {
-    Ok(views.html.index(BlogIndex.setupIndexPage(env)))
+    val (content, size) = BlogIndex.setupIndexPage(env, 0)
+    Ok(views.html.index(content, size))
   }
 
   /**
@@ -37,7 +38,12 @@ class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) exte
   }
 
   def tag(name: String) = Action {
-    Ok(views.html.index(BlogTag.listBlogsForTag(env, name)))
+    Ok(views.html.index(BlogTag.listBlogsForTag(env, name), -1))
+  }
+
+  def page(num: Int) = Action {
+    val (content, size) = BlogIndex.setupIndexPage(env, num)
+    Ok(views.html.index(content, size))
   }
 
 }

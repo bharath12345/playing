@@ -9,6 +9,7 @@ GET        /                        controllers.blog.BlogApplication.index
 
 # Blog Route
 GET        /post/:id                controllers.blog.BlogApplication.blog(id: String)
+GET        /page/:num               controllers.blog.BlogApplication.page(num: Int)
 
 # Sub Pages
 GET        /tags                    controllers.blog.BlogApplication.tags

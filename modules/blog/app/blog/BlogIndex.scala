@@ -9,10 +9,12 @@ import play.api.{Environment, Logging}
  */
 object BlogIndex extends Posts with Logging {
 
-  def setupIndexPage(env: Environment): Map[String, BlogIndexContent] = {
-
+  def setupIndexPage(env: Environment, page: Int): (Map[String, BlogIndexContent], Int) = {
+    val fposts: List[String] =
+      if(page == 0) posts.take(5)
+      else posts.slice(page * 5, page * 5 + 5)
     val result: Map[String, BlogIndexContent] = (for {
-      file <- posts.take(5)
+      file <- fposts
       lines = fileContent(env, file)
       header = lines.takeWhile(line => !line.equals("}}}")).toSeq
       content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
@@ -30,6 +32,6 @@ object BlogIndex extends Posts with Logging {
     }).toMap
 
     logger.info(s"$result")
-    result
+    (result, posts.size)
   }
 }
