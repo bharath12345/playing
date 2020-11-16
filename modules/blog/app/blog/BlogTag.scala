@@ -29,8 +29,8 @@ object BlogTag extends Posts with Logging {
     }).flatten.toSet
   }
 
-  def listBlogsForTag(env: Environment, tag: String): Map[String, BlogIndexContent] = {
-    val result: Map[String, BlogIndexContent] = (for {
+  def listBlogsForTag(env: Environment, tag: String): List[(String, BlogIndexContent)] = {
+    val result: List[(String, BlogIndexContent)] = for {
       file <- posts
       lines = fileContent(env, file)
       header = lines.takeWhile(line => !line.equals("}}}")).toSeq
@@ -49,7 +49,7 @@ object BlogTag extends Posts with Logging {
       val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
       logger.info("date = " + dt)
       file.replace(".md", "") -> BlogIndexContent(date, excerpt, title, "post/" + file.replace(".md", ""))
-    }).toMap
+    }
     logger.info(s"$result")
     result
   }
