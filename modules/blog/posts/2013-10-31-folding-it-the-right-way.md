@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "scala", "java" ],
     "category" : "technology",
-    "date" : "10-31-2013",
+    "date" : "31-10-2013",
     "description" : "",
     "toc": false
 }}}

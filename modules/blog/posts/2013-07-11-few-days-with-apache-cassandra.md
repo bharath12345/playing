@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "cassandra", "java", "database" ],
     "category" : "technology",
-    "date" : "07-11-2013",
+    "date" : "11-07-2013",
     "description" : "",
     "toc": true
 }}}

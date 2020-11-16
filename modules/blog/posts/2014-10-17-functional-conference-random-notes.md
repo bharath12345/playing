@@ -1,9 +1,9 @@
 {{{
-    "title": "Functional Conference: Random Notes...",
+    "title": "Functional Conference - Random Notes",
     "subheading": "",
     "tags" : [  ],
     "category" : "technology",
-    "date" : "10-17-2014",
+    "date" : "17-10-2014",
     "description" : "",
     "toc": true
 }}}

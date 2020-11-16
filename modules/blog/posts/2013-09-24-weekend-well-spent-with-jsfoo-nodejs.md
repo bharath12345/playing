@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "javascript", "NodeJS", "JSFoo", "blog" ],
     "category" : "technology",
-    "date" : "09-24-2013",
+    "date" : "24-09-2013",
     "description" : "",
     "toc": true
 }}}

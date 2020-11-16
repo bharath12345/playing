@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "book", "java" ],
     "category" : "technology",
-    "date" : "08-22-2013",
+    "date" : "22-08-2013",
     "description" : "",
     "toc": true
 }}}

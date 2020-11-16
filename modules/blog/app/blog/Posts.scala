@@ -29,6 +29,7 @@ trait Posts extends Configuration with Logging {
     "2013-11-26-programming-is-hard-to-manage.md",
     "2013-12-11-why-learn-scala.md",
     "2013-12-25-scala-projects-in-the-making.md",
+    "2014-01-16-application-developers-view-postgresql-vs-mysql.md",
     "2014-01-29-streaming-twitter-on-play--spray-scala-app.md",
     "2014-02-23-computing-laws-theorems-and-aphorisms.md",
     "2014-02-27-my-scala-application---twitter-volume-grapher-for-indian-election-personalities.md",
@@ -36,7 +37,6 @@ trait Posts extends Configuration with Logging {
     "2014-04-14-code-retreat.md",
     "2014-05-12-run-machine-learning-assignments-on-a-laptops-spark-cluster.md",
     "2014-06-28-experiments-with-xml-xpath-libraries-on-jvm.md",
-    "2014-01-16-application-developers-view-postgresql-vs-mysql.md",
     "2014-10-17-functional-conference-random-notes.md"
   ).reverse
 
@@ -96,13 +96,13 @@ trait Posts extends Configuration with Logging {
    */
   def getLine(lines: Seq[String], search: String): Option[String] = {
     val ol: Option[String] = lines.find(line => line.contains(search))
-    logger.debug("ol = " + ol)
+    logger.info("ol = " + ol)
     ol.flatMap { l =>
       val lrhs: Array[String] = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
       lrhs.headOption.flatMap { x =>
-        logger.debug("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
+        logger.info("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
         val lhs = x.trim
-        logger.debug("lhs = " + lhs)
+        logger.info("lhs = " + lhs)
         if (lrhs.length == 2)
           Option(lrhs(1).trim)
         else

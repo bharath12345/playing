@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "laws", "aphorisms" ],
     "category" : "technology",
-    "date" : "02-23-2014",
+    "date" : "23-02-2014",
     "description" : "",
     "toc": false
 }}}

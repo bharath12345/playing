@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "java", "algorithms", "data structures", "coursera" ],
     "category" : "technology",
-    "date" : "10-08-2013",
+    "date" : "08-10-2013",
     "description" : "",
     "toc": true
 }}}

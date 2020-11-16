@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "java", "websocket", "jboss", "visualization" ],
     "category" : "technology",
-    "date" : "08-01-2013",
+    "date" : "01-08-2013",
     "description" : "",
     "toc": true
 }}}

@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "scala", "twitter" ],
     "category" : "technology",
-    "date" : "02-27-2014",
+    "date" : "27-02-2014",
     "description" : "",
     "toc": true
 }}}

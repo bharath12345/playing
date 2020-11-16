@@ -46,7 +46,7 @@ object BlogTag extends Posts with Logging {
       date <- getLine(header, "\"date\"")
     } yield {
       val ymd = date.split("-")
-      val dt = new DateTime(ymd(2).toInt, ymd(0).toInt, ymd(1).toInt, 0, 0, 0)
+      val dt = new DateTime(ymd(2).toInt, ymd(1).toInt, ymd(0).toInt, 0, 0, 0)
       logger.info("date = " + dt)
       file.replace(".md", "") -> BlogIndexContent(date, excerpt, title, "post/" + file.replace(".md", ""))
     }

@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "Play Framework", "Wildfly" ],
     "category" : "technology",
-    "date" : "03-13-2014",
+    "date" : "13-03-2014",
     "description" : "",
     "toc": true
 }}}

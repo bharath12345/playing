@@ -3,7 +3,7 @@
     "subheading": "",
     "tags" : [ "java", "jvm" ],
     "category" : "technology",
-    "date" : "07-31-2013",
+    "date" : "31-07-2013",
     "description" : "",
     "toc": true
 }}}
