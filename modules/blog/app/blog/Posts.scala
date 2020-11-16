@@ -13,28 +13,32 @@ trait Posts extends Configuration with Logging {
   val pegdown = new PegDownProcessor
 
   val posts = List(
-    "play2-on-jboss-wildfly.md",
-    "my-scala-application---twitter-volume-grapher-for-indian-election-personalities.md",
-    "computing-laws-theorems-and-aphorisms.md",
-    "streaming-twitter-on-play--spray-scala-app.md",
-    "application-developers-view-postgresql-vs-mysql.md",
-    "algorithms-course-i-with-prof-sidgewick-on-coursera.md",
-    "build-dojo-1819-with-maven.md",
-    "concurrency-on-the-jvm.md",
-    "effective-java.md",
-    "few-days-with-apache-cassandra.md",
-    "folding-it-the-right-way.md",
-    "is-there-a-collection-challenge-at-the-data-center.md",
-    "java-and-jvm-7-slides-from-a-quick-talk.md",
-    "programming-is-hard-to-manage.md",
-    "real-time-dashboard-with-camel-activemq-dojo-on-jboss-using-jms--websocket.md",
-    "scala-projects-in-the-making.md",
-    "the-bleeding-edge-of-an-application.md",
-    "the-visual-display-of-quantitative-information.md",
-    "topology-graphs-with-d3-and-jsplumb.md",
-    "weekend-well-spent-with-jsfoo-nodejs.md",
-    "why-learn-scala.md"
-  )
+    "2013-07-10-the-visual-display-of-quantitative-information.md",
+    "2013-07-11-few-days-with-apache-cassandra.md",
+    "2013-07-18-build-dojo-1819-with-maven.md",
+    "2013-07-31-java-and-jvm-7-slides-from-a-quick-talk.md",
+    "2013-08-01-real-time-dashboard-with-camel-activemq-dojo-on-jboss-using-jms--websocket.md",
+    "2013-08-06-is-there-a-collection-challenge-at-the-data-center.md",
+    "2013-08-22-effective-java.md",
+    "2013-09-01-topology-graphs-with-d3-and-jsplumb.md",
+    "2013-09-11-the-bleeding-edge-of-an-application.md",
+    "2013-09-24-weekend-well-spent-with-jsfoo-nodejs.md",
+    "2013-10-08-algorithms-course-i-with-prof-sidgewick-on-coursera.md",
+    "2013-10-31-folding-it-the-right-way.md",
+    "2013-11-14-concurrency-on-the-jvm.md",
+    "2013-11-26-programming-is-hard-to-manage.md",
+    "2013-12-11-why-learn-scala.md",
+    "2013-12-25-scala-projects-in-the-making.md",
+    "2014-01-29-streaming-twitter-on-play--spray-scala-app.md",
+    "2014-02-23-computing-laws-theorems-and-aphorisms.md",
+    "2014-02-27-my-scala-application---twitter-volume-grapher-for-indian-election-personalities.md",
+    "2014-03-13-play2-on-jboss-wildfly.md",
+    "2014-04-14-code-retreat.md",
+    "2014-05-12-run-machine-learning-assignments-on-a-laptops-spark-cluster.md",
+    "2014-06-28-experiments-with-xml-xpath-libraries-on-jvm.md",
+    "2014-01-16-application-developers-view-postgresql-vs-mysql.md",
+    "2014-10-17-functional-conference-random-notes.md"
+  ).reverse
 
   val blogIndex: String = "blog"
   val postType: String = "post"
