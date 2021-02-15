@@ -27,7 +27,7 @@ And here is a short list of titles that I would highly recommend in these two ca
 2. **Adrenaline Junkies and Template Zombies** *by Tom DeMarco, Tim Lister et al*
 3. **The Inmates Are Running The Asylum** *by Alan Cooper* 
 
-<img src="http://bharathwrites.in/images/programmingIsHard/team.jpg" alt="Drawing" style="width: 500px;"/>
+<img src="http://bharathwrites.in/assets/images/programmingIsHard/team.jpg" alt="Drawing" style="width: 500px;"/>
 
 #### Individual level
 1. **Hackers and Painters** *by Paul Graham*
@@ -35,7 +35,7 @@ And here is a short list of titles that I would highly recommend in these two ca
 3. **Beautiful Code** *articles by Brian Kerninghan, Charles Petzold, Douglas Crockford, Jeffrey Dean, Sanjay Ghemawat and many more super programmers*
 4. **The Productive Programmer** *by Neal Ford*
 
-<img src="http://bharathwrites.in/images/programmingIsHard/individual.jpg" alt="Drawing" style="width: 500px;"/>
+<img src="http://bharathwrites.in/assets/images/programmingIsHard/individual.jpg" alt="Drawing" style="width: 500px;"/>
 
 <hr>
 

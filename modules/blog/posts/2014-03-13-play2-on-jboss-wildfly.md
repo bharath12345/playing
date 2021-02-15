@@ -20,7 +20,7 @@ The JavaEE stack is broadly split into 3 tiers - web, business and persistence. 
 ### Web Tier In JavaEE - *The Loose Brick?*
 This was a recent tweet by Peter Thomas -
 
-<a style="float: left; padding-right: 2em" href="https://twitter.com/ptrthomas/statuses/428460021265887232">![image](http://bharathwrites.in/images/peter%20thomas%20tweet.png)</a>
+<a style="float: left; padding-right: 2em" href="https://twitter.com/ptrthomas/statuses/428460021265887232">![image](http://bharathwrites.in/assets/images/peter%20thomas%20tweet.png)</a>
 
 <br/>
 <br/>

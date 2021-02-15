@@ -16,7 +16,7 @@ The application has 5 different dashboards with a URL for each. Each of these 5 
 * ##### 3 Seconds Tweet Aggregate Grapher  
   * URL: [http://bharathplays.herokuapp.com/twitter/elections/0](http://bharathplays.herokuapp.com/twitter/elections/0)
   * Dashboard Sample Image:   
-       <a href="http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-05-58.png">![image](http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-05-58.png =430x238)</a>
+       <a href="http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-05-58.png">![image](http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-05-58.png =430x238)</a>
   * Details: 
     * In this graph, a new data-point get created every 3-seconds. It appears as a dot on the chart. A mouse over of the dot shows the exact time and value of the data-point
     * The title of the four grid's shows the string the graph is for. For example, the title of the graph showing the line chart for string *rahul* has the title **Twitter Trends Graph for rahul**
@@ -25,7 +25,7 @@ The application has 5 different dashboards with a URL for each. Each of these 5 
 * ##### 30 Seconds Tweet Aggregate Grapher
   * URL: [http://bharathplays.herokuapp.com/twitter/elections/1](http://bharathplays.herokuapp.com/twitter/elections/1)
   * Dashboard Sample Image:   
-       <a href="http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-06-30.png">![image](http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-06-30.png =430x238)</a>
+       <a href="http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-06-30.png">![image](http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-06-30.png =430x238)</a>
   * Details: 
     * In this graph a new data-point gets created on the chart every 30 seconds
     * Refer to the details of 3-seconds chart (above) for other info
@@ -33,7 +33,7 @@ The application has 5 different dashboards with a URL for each. Each of these 5 
 * ##### 5 Minutes Tweet Aggregate Grapher
   * URL: [http://bharathplays.herokuapp.com/twitter/elections/2](http://bharathplays.herokuapp.com/twitter/elections/2)
   * Dashboard Sample Image:
-       <a href="http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-27-42.png">![image](http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-27-42.png =430x238)</a>
+       <a href="http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-27-42.png">![image](http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2019-27-42.png =430x238)</a>
   * Details: 
     * In this graph a new data-point gets created on the chart every 5 minutes (300 seconds)
     * Refer to the details of 3-seconds chart (first one above) for other info
@@ -41,7 +41,7 @@ The application has 5 different dashboards with a URL for each. Each of these 5 
 * ##### 30 Minutes Tweet Aggregate Grapher
   * URL: [http://bharathplays.herokuapp.com/twitter/elections/3](http://bharathplays.herokuapp.com/twitter/elections/3)
   * Dashboard Sample Image:
-       <a href="http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2023-20-24.png">![image](http://bharathwrites.in/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2023-20-24.png =430x238)</a>
+       <a href="http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2023-20-24.png">![image](http://bharathwrites.in/assets/images/twitterdashboard/my%20twitter%20dashboard%202014-02-27%2023-20-24.png =430x238)</a>
   * Details: 
     * In this graph a new data-point gets created on the chart every 30 minutes (1800 seconds)
     * Refer to the details of 3-seconds chart (first one above) for other info
@@ -69,13 +69,13 @@ The application has 5 different dashboards with a URL for each. Each of these 5 
 * The whole application is hosted on Heroku. Heroku allows hosting of Play 2.0 applications and also provides WebSocket support. So the cost of running this application to me is free! :-)
 * The design flow essence is captured in this image - 
 
-    <a href="http://bharathwrites.in/images/twitterdashboard/algo.png">![image](http://bharathwrites.in/images/twitterdashboard/algo.png =1000x200)</a>
+    <a href="http://bharathwrites.in/assets/images/twitterdashboard/algo.png">![image](http://bharathwrites.in/assets/images/twitterdashboard/algo.png =1000x200)</a>
 
 
 ### WebSocket Addendum
 The graph may not appear if you are a behind a proxy which does not tunnel WebSockets (like behind some of the office networks). Also if a firewall blocks WebSockets. But in case you run into any of these issues, then you could use your **mobile device** to see the dashboard. Here is the screenshot from my Android Samsung S2 on my home Wifi. I also checked that the graphing works on my Airtel 2G network fairly well too (the dots in the image below are some mess-up by the mobile screenshot tool)
 
-   <a href="http://bharathwrites.in/images/twitterdashboard/2014_02_27_19.51.35.png">![image](http://bharathwrites.in/images/twitterdashboard/2014_02_27_19.51.35.png =220x200)</a>
+   <a href="http://bharathwrites.in/assets/images/twitterdashboard/2014_02_27_19.51.35.png">![image](http://bharathwrites.in/assets/images/twitterdashboard/2014_02_27_19.51.35.png =220x200)</a>
 
 ### Final Note
 These graphs are just volumetric. I plan do some simple sentiment analysis next. However, by looking at the graphs and tweets behind them, it is heartening to see the order of popularity of each string. *India* is most popular among the four but next comes *Modi* and it is generally not far behind. *Rahul* seems to appear more than *Kejri* but both these strings trail a long way behind *Modi*. With me being a diehard Sri Narendra Modi supporter, these graphs and numbers certainly make me happy and hopefully bode well for the good times to come for my country :-) 

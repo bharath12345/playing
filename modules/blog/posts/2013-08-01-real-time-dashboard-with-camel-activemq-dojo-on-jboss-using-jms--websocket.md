@@ -79,7 +79,7 @@ The image below shows the 5 components of the implementation of my usecase. The 
 
 **6. JavaScript UI**: A JavaScript WebSocket() connects and waits for JSON messages to appear. Received messages are shown in a grid (Dojo's GridX actually)
 
-![image](http://bharathwrites.in/images/camel-websocket/camel%20jms%20websocket.png)
+![image](http://bharathwrites.in/assets/images/camel-websocket/camel%20jms%20websocket.png)
 
 ### The Why's? 
 #### 1. Why Apache Camel?
@@ -111,11 +111,11 @@ In the world of open source Java, JBoss is simply the best application container
 1. A "mvn clean install" would build the EAR which should be deployed in JBoss 7+
 2. From the JBoss JMX Console, use the firePostRequests() operation to send HTTP client side requests (com.bharath.http.client)
 
-![image](http://bharathwrites.in/images/camel-websocket/jmx.png)
+![image](http://bharathwrites.in/assets/images/camel-websocket/jmx.png)
 
 The snapshot of the dashboard UI -
 
-![image](http://bharathwrites.in/images/camel-websocket/dashboard.png)
+![image](http://bharathwrites.in/assets/images/camel-websocket/dashboard.png)
 
 ### My Conclusion!!
 Asynchronous processing by pushing to multiple JMS topic's when combined with Apache Camel's routing and WebSocket capabilities can provide for building a truely fast and efficient events/alerts pipeline for a realtime alerts dashboard
