@@ -99,15 +99,17 @@ trait Posts extends Configuration with Logging {
     logger.info("ol = " + ol)
     ol.flatMap { l =>
       val lrhs: Array[String] = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
-      lrhs.headOption.flatMap { x =>
+      logger.info(s"lrhs = ${lrhs.toList}")
+      if (lrhs.length == 2)
+        Option(lrhs(1).trim)
+      else
+        None
+      /*lrhs.headOption.flatMap { x =>
         logger.info("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
         val lhs = x.trim
         logger.info("lhs = " + lhs)
-        if (lrhs.length == 2)
-          Option(lrhs(1).trim)
-        else
-          None
-      }
+
+      }*/
     }
   }
 }
