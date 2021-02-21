@@ -9,6 +9,7 @@
 }}}
 
 Recently I had an opportunity to dwell into an interesting UI problem - with the proliferation of Single Page Application (SPA) as a design pattern for UI development, you sometimes end up with many screens that are not significantly different from each other. In this case the screens were web-forms. Most web-forms have a standard bunch of UI components - textbox's, textarea's, radio-button's, combo-box's et al. Instead of building each of these web-form's as a separate UI project the idea was to roll a DSL with 4 requirements -
+
 1. The impl of this DSL is persisted in a repository/database on the backend to be transported to frontend as-is and get translated in the browser
 2. Conditional rendering of components: say user check's a box to find a textbox on the web-form get disabled
 3. Fetch data from the backend to populate components: say values in combo-box is dynamic per user
@@ -40,11 +41,13 @@ Having built large DSL's in my prior engineering career I wanted to checkout the
 4. [Chevrotain](https://github.com/SAP/chevrotain)
 
 Thinking about **parser-generators**, the following thoughts bothered me -
+
 1. Understanding the flavor of BNF/EBNF supported by these frameworks was a complex, time-taking endeavor. The time and effort it would need would be significantly higher than parser-combinator approach
 2. Ad-hoc functions (non-expressions) for fetching data are *not* supported by most parser-generators. Such a capability was needed for requirement #3 - to be able to make both REST and GQL calls from the UI to the backend
 
 ### My Approach using ScalaJS & Scala Parser Combinators
 Personally, my most favored languages in current times are **Scala** and **Haskell**. My ability to write code is fastest in Scala. And I had heard that [ScalaJS](https://www.scala-js.org/) packs a punch. I also wanted to add the following non-technical requirements -
+
 1. Structurally small 
 2. Fluent language: keyword richness, restrictive on structure
 3. Grammar interpretation based on proper modeling: Lexer → Parser → AST → Render. Make it easy to extend and validate due to ‘formal’ structure
