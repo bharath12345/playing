@@ -47,8 +47,25 @@ Thinking about parser-generators, the following thoughts bothered me -
 
 # My Approach using ScalaJS & Scala Parser Combinators
 Personally, my most favored languages in current times are Scala and Haskell. My ability to write code is fastest in Scala. And ScalaJS packs a punch. I also wanted to add the following non-technical requirements -
-
 1. Structurally small 
 2. Fluent language: Keyword richness, Restrictive on structure
 3. Grammar interpretation based on proper modeling: Lexer → Parser → AST → Render. Make it easy to extend and validate due to ‘formal’ structure
+
+My interest in the [ScalaJS](https://www.scala-js.org/) way got a filip when I found that Scala [parser-combinators](https://github.com/scala/scala-parser-combinators#scalajs-and-scala-native), which is a standalone lib, is available and works for ScalaJS. So here what I built on a bright Saturday 3 months ago -
+
+1. Here is what the [grammar of my DSL](https://github.com/bharath12345/ui-parser-combinator/blob/main/src/main/scala/tutorial/webapp/ParserApp.scala#L7) looks like. The ideas behind it are simple -
+   * A single grammar file is for an instance of the SPA. And the SPA can have multiple visual 'sections' 
+   * Within each section is a bunch of web-form components like TextInput and Select as is obvious
+   * DSL supports conditional constructs like IF/THEN/ELSE which can be used to build the dependency among components
+2. My [Lexer](https://github.com/bharath12345/ui-parser-combinator/blob/main/src/main/scala/tutorial/webapp/Lexer.scala) uses the powerful `RegexParsers` data type of Scala parser-combinator. The statements in the DSL are tokenized into a bunch of neat instances of `case class/object` - Scala's wonderful support to build ADT helps in giving structure to the token's
+3. Next the [Parser](https://github.com/bharath12345/ui-parser-combinator/blob/main/src/main/scala/tutorial/webapp/SchemaParser.scala) strings the tokens to build an AST (abstract syntax tree). We need the AST so that it can be traversed for (a) global validation (b) used for rendering
+4. The [Renderer](https://github.com/bharath12345/ui-parser-combinator/blob/main/src/main/scala/tutorial/webapp/Render.scala) is where ScalaJS really shines. It makes it so simple to play with HTML DOM for OO/functional programmers. My renderer traverses the AST and renders the UI with TextBox's/ComboBox's in the UI. I use this simple [HTML page](https://github.com/bharath12345/ui-parser-combinator/blob/main/index-dev.html) (served from any web server of choice, say python or node) to render the UI finally. And it looks like this -
+![image](http://bharathwrites.in/assets/images/scalajs.png)
+
+It has some very simple functionality encoded in the DSL. When `textInput3` has value of "kumar" entered, it adds a new TextBox etc
+
+# Final Thoughts
+The DSL I built is not complete by any stretch. I wanted to attempt requirement #4 but could not due to paucity of time. But it should be pretty straightforward to add some new keywords for REST/GQL calls connecting these components, or POSTing their values on form submission. What the project did was open my eyes to the possibilities - both within the Scala ecosystem and how the walls between backend/frontend are now being shattered in amazing ways. Finally, it also allowed me to code in Scala after a bit of a hiatus :)
+ 
+ 
 
