@@ -37,7 +37,8 @@ trait Posts extends Configuration with Logging {
     "2014-04-14-code-retreat.md",
     "2014-05-12-run-machine-learning-assignments-on-a-laptops-spark-cluster.md",
     "2014-06-28-experiments-with-xml-xpath-libraries-on-jvm.md",
-    "2014-10-17-functional-conference-random-notes.md"
+    "2014-10-17-functional-conference-random-notes.md",
+    "2021-02-15-scalajs-dsl-parsercombinator.md"
   ).reverse
 
   val blogIndex: String = "blog"
