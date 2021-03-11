@@ -14,7 +14,7 @@ libraryDependencies ++= Seq(
   "org.elasticsearch"         %  "elasticsearch"           % "1.1.0",
   "com.sksamuel.elastic4s"    %  "elastic4s_2.10"          % "1.0.1.1",
   "com.netflix.rxjava"        %  "rxjava-core"             % "0.17.5",
-  "io.searchbox"              %  "jest"                    % "0.1.0"
+  "io.searchbox"              %  "jest"                    % "0.1.7"
 )
 
 exportJars := true
