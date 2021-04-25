@@ -19,8 +19,6 @@ dist
 /.settings
 /data
 /modules/react/react/node_modules
-/public/react
-/public/react/static
 
 # Project Specific
 
