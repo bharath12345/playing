@@ -18,6 +18,9 @@ dist
 /RUNNING_PID
 /.settings
 /data
+/modules/react/react/node_modules
+/public/react
+/public/react/static
 
 # Project Specific
 
@@ -73,3 +76,5 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+modules/react/react/yarn.lock
+modules/react/react/package-lock.json

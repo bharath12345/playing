@@ -17,11 +17,13 @@ libraryDependencies ++= Seq(
 )
 
 lazy val playing = (project in file("."))
-  .aggregate(blog)
-  .dependsOn(blog)
+  .aggregate(blog, react)
+  .dependsOn(blog, react)
   .enablePlugins(PlayScala)
 
 lazy val blog = (project in file("modules/blog")).enablePlugins(PlayScala)
+
+lazy val react = (project in file("modules/react")).enablePlugins(PlayScala)
 
 import com.typesafe.sbt.packager.MappingsHelper._
 

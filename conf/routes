@@ -6,7 +6,11 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 ->      /blog                       blog.Routes
+->      /react                      react.Routes
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-# GET     /webjars/*file                  controllers.WebJarAssets.at(file)
+GET  /assets/*file        controllers.Assets.at(path="/public", file)
+GET  /static/*file        controllers.Assets.at(path="/static", file)
+
+#GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+#GET     /static/*file               controllers.Assets.versioned(path="/static", file: Asset)
