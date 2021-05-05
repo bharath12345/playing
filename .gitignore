@@ -18,7 +18,7 @@ dist
 /RUNNING_PID
 /.settings
 /data
-/modules/react/react/node_modules
+/modules/react/javascript/node_modules
 
 # Project Specific
 
@@ -74,5 +74,5 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-modules/react/react/yarn.lock
-modules/react/react/package-lock.json
+modules/react/javascript/yarn.lock
+modules/react/javascript/package-lock.json
