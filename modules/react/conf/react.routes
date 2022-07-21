@@ -1,8 +1,0 @@
-# Routes
-# This file defines all application blog routes (Higher priority routes first)
-# ~~~~
-
-GET        /assets/*file            controllers.react.Assets.versioned(path="/public", file: Asset)
-
-# Home page
-#GET        /                        controllers.react.BlogApplication.index

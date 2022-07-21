@@ -1,7 +1,0 @@
-{
-  "integrationFolder": "src",
-  "testFiles": "**/*.spec.*",
-  "viewportWidth": 1000,
-  "viewportHeight": 660,
-  "baseUrl": "http://localhost:3000"
-}
