@@ -1,36 +1,12 @@
-import React, { Component } from "react";
-import {Grid, View, defaultTheme, Provider} from '@adobe/react-spectrum';
-import Client from "./Client";
+import React from "react";
+import {Grid, View} from '@adobe/react-spectrum';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { title: "" };
-  }
-
-  async componentDidMount() {
-    Client.getSummary((summary) => {
-      this.setState({
-        title: summary.content,
-      });
-    });
-  }
-
-  render() {
-    return (
-      <Provider theme={defaultTheme}>
-        <Grid
-          areas={['header','content','footer']}
-          rows={['size-500', 'auto', 'size-500']}
-          height="800px"
-          gap="size-100">
-          <View backgroundColor="purple-600" gridArea="header">Bharadwaj</View>
-          <View gridArea="content" />
-          <View backgroundColor="gray-500" gridArea="footer">Powered by GitHub, Heroku, Scala, Play and React!</View>
-        </Grid>
-      </Provider>
-    );
-  }
-}
+const App = () => {
+  return React.createElement(Grid, {areas:['header','content','footer'], rows: ['size-500', 'auto', 'size-500'], height: "800px", gap:"size-100"}, [
+           React.createElement(View, {backgroundColor:"purple-600", gridArea:"header"}, "Bharadwaj"),
+           React.createElement(View, {}),
+           React.createElement(View, {backgroundColor:"gray-500", gridArea:"footer"}, "Powered by GitHub, Heroku, Scala, Play and React!")
+         ])
+};
 
 export default App;
