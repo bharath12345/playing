@@ -8,33 +8,29 @@ import play.api.{Environment, Logging}
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class BlogApplication @Inject()(cc: ControllerComponents, env: Environment) extends AbstractController(cc) with Logging {
+class BlogApplication @Inject() (cc: ControllerComponents, env: Environment)
+    extends AbstractController(cc)
+    with Logging {
 
-  /**
-   *
-   * @return
-   */
+  /** @return
+    */
   def homepage = Action {
     val (content, size) = BlogIndex.setupIndexPage(env, 0)
     Ok(Json.obj("homepage" -> content))
   }
 
-  /**
-   *
-   * @param id
-   * @return
-   */
+  /** @param id
+    * @return
+    */
   def blog(id: String) = Action {
     BlogPost.setupPosts(env, id) match {
       case Some(x) => Ok(Json.obj("blog" -> x))
-      case None => NotFound(s"$id not found")
+      case None    => NotFound(s"$id not found")
     }
   }
 
-  /**
-   *
-   * @return
-   */
+  /** @return
+    */
   def tags = Action {
     Ok(Json.obj("blog" -> BlogTag.setupTags(env)))
   }
