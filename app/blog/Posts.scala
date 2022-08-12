@@ -5,9 +5,8 @@ import org.pegdown.PegDownProcessor
 
 import java.io.File
 
-/**
- * Created by bharadwaj on 09/04/14.
- */
+/** Created by bharadwaj on 09/04/14.
+  */
 trait Posts extends Logging {
 
   val pegdown = new PegDownProcessor
@@ -56,12 +55,9 @@ trait Posts extends Logging {
   val fragmentsField: String = "fragments"
   val searchField: String = "search"
 
-
-  /**
-   *
-   * @param file
-   * @return
-   */
+  /** @param file
+    * @return
+    */
   def fileContent(env: Environment, file: String): Seq[String] = {
 
     def readFile(f: File): Seq[String] = {
@@ -89,23 +85,22 @@ trait Posts extends Logging {
     }
   }
 
-  /**
-   *
-   * @param lines
-   * @param search
-   * @return
-   */
+  /** @param lines
+    * @param search
+    * @return
+    */
   def getLine(lines: Seq[String], search: String): Option[String] = {
     val ol: Option[String] = lines.find(line => line.contains(search))
     logger.info("ol = " + ol)
     ol.flatMap { l =>
-      val lrhs: Array[String] = l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
+      val lrhs: Array[String] =
+        l.replaceAll("\"", "").replaceAll(",", "").trim.split(":")
       logger.info(s"lrhs = ${lrhs.toList}")
       if (lrhs.length == 2)
         Option(lrhs(1).trim)
       else
         None
-      /*lrhs.headOption.flatMap { x =>
+    /*lrhs.headOption.flatMap { x =>
         logger.info("lrhs 0 = " + lrhs(0) + " 1 = " + lrhs(1))
         val lhs = x.trim
         logger.info("lhs = " + lhs)

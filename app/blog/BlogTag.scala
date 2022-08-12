@@ -4,9 +4,8 @@ import blog.BlogGlobal.BlogIndexContent
 import org.joda.time.DateTime
 import play.api.{Environment, Logging}
 
-/**
- * Created by bharadwaj on 09/04/14.
- */
+/** Created by bharadwaj on 09/04/14.
+  */
 object BlogTag extends Posts with Logging {
 
   private def convertTagLine(t: String): Array[String] =
@@ -27,7 +26,10 @@ object BlogTag extends Posts with Logging {
     }).flatten.toSet
   }
 
-  def listBlogsForTag(env: Environment, tag: String): List[(String, BlogIndexContent)] = {
+  def listBlogsForTag(
+      env: Environment,
+      tag: String
+  ): List[(String, BlogIndexContent)] = {
     val result: List[(String, BlogIndexContent)] = for {
       file <- posts
       lines = fileContent(env, file)
@@ -35,7 +37,10 @@ object BlogTag extends Posts with Logging {
       tagLine <- getLine(header, "\"tags\"").filter(!"[]\"".contains(_))
       tags = convertTagLine(tagLine)
       if tags.contains(tag)
-      content = lines.dropWhile(line => !line.equals("}}}")).drop(1).dropWhile(line => line.length == 0)
+      content = lines
+        .dropWhile(line => !line.equals("}}}"))
+        .drop(1)
+        .dropWhile(line => line.length == 0)
       cont <- content.takeWhile(line => line.length != 0).headOption
       excerpt = pegdown.markdownToHtml(cont)
       _ = logger.debug(excerpt)
@@ -46,7 +51,12 @@ object BlogTag extends Posts with Logging {
       val ymd = date.split("-")
       val dt = new DateTime(ymd(2).toInt, ymd(1).toInt, ymd(0).toInt, 0, 0, 0)
       logger.info("date = " + dt)
-      file.replace(".md", "") -> BlogIndexContent(date, excerpt, title, "post/" + file.replace(".md", ""))
+      file.replace(".md", "") -> BlogIndexContent(
+        date,
+        excerpt,
+        title,
+        "post/" + file.replace(".md", "")
+      )
     }
     logger.info(s"$result")
     result
