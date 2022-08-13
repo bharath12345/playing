@@ -4,8 +4,8 @@
  - `FrontendController` is rendering the React part's index.html
  - Play framework part of the application is the backend, runs on port 9000; it responds via JSON responses
  - React framework part of the application is the frontend, runs on port 3000; it queries the backend via `localhost` fetch queries (in Client.js)
- - Running `uiProdBuild` (see `ui-build.sbt`) will build the React distro and copy it to the top level `public` folder. Now going to `http://localhost:9000/` or `http://localhost:9000/index.html` will render the React application right from Play!
- - ToDo: decouple the `run` from running the React app. Add a `runDev` that will run both Play and React app together. Just doing `run` should internally do `uiProdBuild` first and just serve from port 9000 instead of running 2 web-servers
+ - Running `uiProdBuild` (see `ui-build.sbt`) will build the React distro and copy it to the top level `public` folder. Now going to `http://localhost:9000/` or `http://localhost:9000/index.html` (after doing `run` from sbt prompt) will render the React application right from Play!
+ - To build and run just the UI app: go to ui folder on command prompt and run `npm run dev` - this will run the React app via parcel
 
 ## Api Responses
 

@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { Grid, View } from "@adobe/react-spectrum";
 
 const App = () => {
@@ -26,4 +27,4 @@ const App = () => {
   );
 };
 
-export default App;
+ReactDOM.render(React.createElement(App), document.getElementById("root"));

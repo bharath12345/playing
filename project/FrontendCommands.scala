@@ -8,6 +8,6 @@ object FrontendCommands {
   val eslint = "npx eslint --max-warnings 0 --fix ."
   val eslintCheck = "npx eslint --max-warnings 0 ."
   val test: String = "npm run test"
-  val serve: String = "npm run start"
+  val dev: String = "npm run dev"
   val build: String = "npm run build"
 }

@@ -16,13 +16,6 @@ object FrontendRunHook {
         * Yarn.
         */
       var install: String = FrontendCommands.dependencyInstall
-      var run: String = FrontendCommands.serve
-
-      // Windows requires npm commands prefixed with cmd /c
-      if (System.getProperty("os.name").toLowerCase().contains("win")) {
-        install = "cmd /c" + install
-        run = "cmd /c" + run
-      }
 
       /** Executed before play run start. Run npm install if node modules are
         * not installed.
@@ -30,14 +23,6 @@ object FrontendRunHook {
       override def beforeStarted(): Unit = {
         if (!(base / "ui" / "node_modules").exists())
           Process(install, base / "ui").!
-      }
-
-      /** Executed after play run start. Run npm start
-        */
-      override def afterStarted(): Unit = {
-        process = Some(
-          Process(run, base / "ui", "CI" -> "true").run
-        )
       }
 
       /** Executed after play run stop. Cleanup frontend execution processes.
