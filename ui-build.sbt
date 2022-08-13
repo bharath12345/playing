@@ -11,7 +11,7 @@ val Success = 0
 val Error = 1
 
 // Run serve task when Play runs in dev mode, that is, when using 'sbt run'
-// https://www.playframework.com/documentation/2.8.x/SBTCookbook
+// https://www.playframework.com/documentation/2.8.x/sbtCookbook
 PlayKeys.playRunHooks += baseDirectory.map(FrontendRunHook.apply).value
 
 // True if build running operating system is windows.
@@ -23,7 +23,7 @@ def runOnCommandline(firstScript: String, otherScripts: String*)(implicit
 ): Int = {
   def command(script: String) = {
     if (isWindows) { Process("cmd /c set CI=true&&" + script, dir) }
-    else { Process("env CI=true " + script, dir) }
+    else { Process("env CI=false " + script, dir) }
   }
   otherScripts
     .foldLeft(command(firstScript)) { (acc, other) =>

@@ -1,22 +1,11 @@
-My Play & React based blog 
-
-## Useful Heroku Commands
-```
-% heroku stack:set cedar-14 -a bharathplays
-% git push heroku master
-% heroku config:set SBT_CLEAN=true
-% heroku config:unset SBT_OPTS
-% heroku open
-% heroku logs --tail
-% heroku ps
-% heroku ps:scale web=1
-```
+# My Play & React based blog
 
 ## Main part
  - `FrontendController` is rendering the React part's index.html
  - Play framework part of the application is the backend, runs on port 9000; it responds via JSON responses
  - React framework part of the application is the frontend, runs on port 3000; it queries the backend via `localhost` fetch queries (in Client.js)
- - 
+ - Running `uiProdBuild` (see `ui-build.sbt`) will build the React distro and copy it to the top level `public` folder. Now going to `http://localhost:9000/` or `http://localhost:9000/index.html` will render the React application right from Play!
+ - ToDo: decouple the `run` from running the React app. Add a `runDev` that will run both Play and React app together. Just doing `run` should internally do `uiProdBuild` first and just serve from port 9000 instead of running 2 web-servers
 
 ## Api Responses
 
